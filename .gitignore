@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
@@ -30,6 +31,7 @@ venv/
 ENV/
 env/
 .venv/
+.vscode/
 
 # PyInstaller
 *.manifest
@@ -87,3 +89,6 @@ dmypy.json
 
 # Python wheels
 *.whl
+spex/__pycache__/*.pyc
+tests/__pycache__/*.pyc
+spex/__pycache__/*.pyc

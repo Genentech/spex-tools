@@ -1,31 +1,9 @@
-# Hello Worker
+pip install --upgrade pip setuptools wheel packaging
+pip install pytest
 
-Isolated Python library with a simple worker system.
+## System Requirements
 
-## Installation
-
-```bash
-pip install .
-```
-
-## Usage
-
-```python
-from hello_worker import say_hello, Worker, EventQueue
-
-# Simple function
-print(say_hello("World"))
-
-# Event system
-event_queue = EventQueue()
-event_queue.publish("Hello Event 1")
-event_queue.publish("Hello Event 2")
-
-# Start worker
-worker = Worker(event_queue, name="MyWorker")
-worker.start()
-
-# Wait a bit to process events
-import time
-time.sleep(3)
-```
+- libgl1 (for OpenCV):
+  ```bash
+  sudo apt install libgl1
+  sudo apt install -y libgl1-mesa-glx
