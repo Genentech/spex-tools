@@ -7,3 +7,5 @@ pip install pytest
   ```bash
   sudo apt install libgl1
   sudo apt install -y libgl1-mesa-glx
+
+pip install -e . --force-reinstall

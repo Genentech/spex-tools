@@ -26,14 +26,15 @@ setup(
         "scikit-image>=0.19.3,<0.20.0",
         "dask==2021.11.1",
         "tensorflow>=2.10.0,<2.11.0",
-        "stardist==0.8.5",        
+        "stardist==0.8.5",
         "keras>=2.10.0,<2.11.0",
         "opencv-python==4.5.5.64",
         "opencv-python-headless==4.5.5.64",
         "csbdeep==0.7.4",
         "protobuf>=3.9.2,<3.20.0",
         "numexpr==2.8.4",
-        "packaging"
+        "packaging",
+        "cellpose==0.6.5"
     ],
     python_requires='>=3.10',
     classifiers=[

@@ -2,36 +2,7 @@ import numpy as np
 from skimage.filters import median
 from skimage.morphology import disk
 from skimage.util import apply_parallel
-
-
-# def convert_mibitiff2zarr(inputpath, outputpath):
-#     """convert mibi tiff to zarr
-
-#     Parameters
-#     ----------
-#     inputpath : Path of tiff file
-#     outputpath : Path of ometiff or omezarr file. Note: for omezarr, the path must end in *.zarr/0
-
-#     """
-#     img = AICSImage(inputpath)
-#     im_array = img.get_image_data("ZYX", T=0, C=0)
-
-#     Channel_list = []
-#     with TiffFile(inputpath) as tif:
-#         for page in tif.pages:
-#             # get tags as json
-#             description = json.loads(page.tags['ImageDescription'].value)
-#             Channel_list.append(description['channel.target'])
-
-#     writer = OmeZarrWriter(outputpath)
-#     writer.write_image(im_array, image_name="Image:0", dimension_order="CYX", channel_names=Channel_list,
-#                        scale_num_levels=4, physical_pixel_sizes=None, channel_colors=None)
-
-#     print('conversion complete')
-
-
-
-
+from skimage.restoration import denoise_nl_means, estimate_sigma
 
 
 def median_denoise(image: np.ndarray, kernel: int, ch: list[int]) -> np.ndarray:
@@ -72,3 +43,45 @@ def median_denoise(image: np.ndarray, kernel: int, ch: list[int]) -> np.ndarray:
         filtered.append(temp)
 
     return np.concatenate(filtered, axis=0)
+
+
+def nlm_denoise(image, patch:int = 5, dist:int = 6) -> np.ndarray:
+
+    """Non local means denoising
+
+    Parameters
+    ----------
+    image : Multichannel numpy array (C,X,Y)
+    patch: int, Patch size (5 is typical)
+    dist: int, ignore pixels above this threshold (6 is typical)
+
+    Returns
+    -------
+    Image Stack : Denoised image stack as numpy array (C,X,Y)
+
+    """
+
+    def nlm_denoise_wrap(array):
+        correct = array[0]
+        sigma_est = np.mean(estimate_sigma(correct, channel_axis=None))
+        correct = denoise_nl_means(
+            correct,
+            h=0.6 * sigma_est,
+            sigma=sigma_est,
+            fast_mode=True,
+            patch_size=patch,
+            patch_distance=dist,
+            channel_axis=None,
+            preserve_range=True,
+        )
+        return correct[np.newaxis, ...]
+
+    denoise = apply_parallel(
+        nlm_denoise_wrap,
+        image,
+        chunks=(1, image.shape[1], image.shape[2]),
+        dtype="float",
+        compute=True,
+    )
+
+    return denoise
