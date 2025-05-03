@@ -5,7 +5,13 @@ from .core.segmentation.stardist import stardist_cellseg
 from .core.segmentation.background_subtract import background_subtract
 from .core.segmentation.watershed import watershed_classic
 from .core.segmentation.cellpose_cellseg import cellpose_cellseg
-from .core.segmentation.postprocessing import rescue_cells
+from .core.segmentation.postprocessing import (
+    rescue_cells,
+    simulate_cell,
+    remove_large_objects,
+    remove_small_objects,
+    feature_extraction_adata
+)
 from .worker import Worker
 from .events import EventQueue
 
@@ -20,5 +26,9 @@ __all__ = [
     "watershed_classic",
     "background_subtract",
     "cellpose_cellseg",
-    "rescue_cells"
+    "rescue_cells",
+    "simulate_cell",
+    "remove_large_objects",
+    "remove_small_objects",
+    "feature_extraction_adata"
 ]

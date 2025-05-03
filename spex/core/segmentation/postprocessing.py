@@ -1,10 +1,31 @@
 import numpy as np
-from skimage.measure import label, regionprops_table, regionprops
+from skimage.measure import label, regionprops_table, regionprops, find_contours
 from skimage.filters import median
 from skimage.feature import peak_local_max
-from skimage.segmentation import watershed
+from skimage.segmentation import watershed, expand_labels
 from skimage.morphology import dilation, erosion, disk, binary_dilation
 import math
+import pandas as pd
+from anndata import AnnData
+from spex.core.utils import to_uint8
+
+
+def simulate_cell(labels, dist):
+
+    """Dilate labels by fixed amount to simulate cells
+
+    Parameters
+    ----------
+    labels: numpy array of segmentation labels
+    dist: number of pixels to dilate
+
+    Returns
+    -------
+    out : 2D label numpy array with simulated cells
+
+    """
+
+    return expand_labels(labels, dist)
 
 
 def rescue_cells(image, seg_channels, label_ling):
@@ -92,3 +113,110 @@ def rescue_cells(image, seg_channels, label_ling):
     combine_label = label(combine_label)
 
     return combine_label
+
+
+def remove_large_objects(segments, maxsize):
+
+    """Remove large segmented objects
+
+    Parameters
+    ----------
+    segments: numpy array of segmentation labels
+    maxsize: max pixel size
+
+    Returns
+    -------
+    out : 2D label numpy array
+
+    """
+
+    out = np.copy(segments)
+    component_sizes = np.bincount(segments.ravel())
+
+    too_large = component_sizes > maxsize
+    too_large_mask = too_large[segments]
+    out[too_large_mask] = 0
+
+    return out
+
+
+def remove_small_objects(segments, minsize):
+
+    """Remove small segmented objects
+
+    Parameters
+    ----------
+    segments: numpy array of segmentation labels
+    minsize: minimum pixel size
+
+    Returns
+    -------
+    out : 2D label numpy array
+
+    """
+
+    out = np.copy(segments)
+    component_sizes = np.bincount(segments.ravel())
+
+    too_small = component_sizes < minsize
+    too_small_mask = too_small[segments]
+    out[too_small_mask] = 0
+
+    return out
+
+
+def feature_extraction_adata(img, labels, all_channels):
+    """Extract per cell expression for all channels
+
+    Returns
+    -------
+    perCellanndata: anndata single-cell object with all data
+    :param labels:
+    :param img: Multichannel image as numpy array
+    :param all_channels:
+
+    """
+
+    label_array = labels
+
+    props = regionprops_table(label_array, intensity_image=np.transpose(img, (1, 2, 0)),
+                                      properties=['label', 'area', 'centroid', 'mean_intensity'])
+    perCellData = pd.DataFrame(props)
+
+    perCellData.columns = ['cell_id', 'area_pixels', 'Y', 'X'] + all_channels  # rename columns
+
+    coordinates = np.array([k for k in perCellData[['X', 'Y']].values.tolist()])
+
+    props = regionprops(label_array)
+    ordered_contours = []
+    for region in props:
+        # Find contours of the region
+        contours = find_contours(label_array == region.label, 0.5)
+
+        if len(contours) > 0:
+            # Select the contour with the largest area
+            contour = max(contours, key=lambda contour: contour.shape[0])
+        else:
+            contour = contours[0]
+
+        centroid = np.mean(contour, axis=0)
+
+        # Calculate angles of the points with respect to the centroid
+        angles = np.arctan2(contour[:, 0] - centroid[0], contour[:, 1] - centroid[1])
+
+        # Sort points based on angles
+        sorted_indices = np.argsort(angles)
+        sorted_contour = contour[sorted_indices]
+
+        ordered_contours.append(sorted_contour)
+
+    adata = AnnData(perCellData[all_channels], obsm={"spatial": coordinates}, dtype="float32")
+    adata.obsm['cell_polygon'] = np.array(ordered_contours, dtype=object)
+
+    adata.obs['Cell_ID'] = perCellData[['cell_id']].values
+    adata.obs['Nucleus_area'] = perCellData[['area_pixels']].values
+    adata.obs['x_coordinate'] = perCellData[['X']].values
+    adata.obs['y_coordinate'] = perCellData[['Y']].values
+
+    adata.layers['X_uint8'] = to_uint8(adata.X, norm_along="global")  # vitessce only supports 8bit expression
+    return adata
