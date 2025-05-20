@@ -5,7 +5,6 @@ pip install pytest
 
 - libgl1 (for OpenCV):
   ```bash
-  sudo apt install libgl1
-  sudo apt install -y libgl1-mesa-glx
+  sudo apt install -y libgl1-mesa-glx libjpeg-dev zlib1g-dev libpng-dev libgl1
 
 pip install .
