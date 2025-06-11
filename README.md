@@ -34,6 +34,7 @@ Use the methods directly in your own analysis pipelines. Example notebooks are a
 
 - 🖥️ **JupyterLab Server**
   [View on Server](http://65.108.226.226:2266/lab/workspaces/auto-j/tree/notebook/Segmentation.ipynb)
+  password "spexspex"
 
 Notebooks include:
 - Model downloading (in case Cellpose server access fails)
@@ -44,10 +45,4 @@ Notebooks include:
 
 - ✅ Tested with **Python 3.10** and **3.11**
 - ⚠️ Compatibility with other Python versions is not guaranteed
-- ⚙️ Includes integrated **Cellpose** support, with fallback model handling
-
-## 📖 Reference
-
-Li X., Pechuan-Jorge X., Risom T., et al.
-**SPEX: A modular end-to-end platform for high-plex tissue spatial omics analysis**
-[bioRxiv 2022.08.22.504841v2](https://www.biorxiv.org/content/10.1101/2022.08.22.504841v2)
+- ⚙️ Includes integrated **Cellpose** support, with fallback model handling (in notebooks)
