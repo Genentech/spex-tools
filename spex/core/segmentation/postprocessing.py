@@ -8,6 +8,7 @@ import math
 import pandas as pd
 from anndata import AnnData
 from spex.core.utils import to_uint8
+import re
 
 
 def simulate_cell(labels, dist):
@@ -219,4 +220,11 @@ def feature_extraction_adata(img, labels, all_channels):
     adata.obs['y_coordinate'] = perCellData[['Y']].values
 
     adata.layers['X_uint8'] = to_uint8(adata.X, norm_along="global")  # vitessce only supports 8bit expression
+    channel_index_map = {
+        re.sub("[^0-9a-zA-Z]", "", ch).lower().replace("target", ""): idx
+        for idx, ch in enumerate(all_channels)
+    }
+    adata.uns['channel_index_map'] = channel_index_map
+
     return adata
+

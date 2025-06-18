@@ -12,6 +12,7 @@ from .core.segmentation.postprocessing import (
     remove_small_objects,
     feature_extraction_adata
 )
+from .core.clustering.phenograph import phenograph_cluster
 from .worker import Worker
 from .events import EventQueue
 
@@ -30,5 +31,6 @@ __all__ = [
     "simulate_cell",
     "remove_large_objects",
     "remove_small_objects",
-    "feature_extraction_adata"
+    "feature_extraction_adata",
+    "phenograph_cluster"
 ]
