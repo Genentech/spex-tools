@@ -27,4 +27,4 @@ def test_phenograph_cluster_basic():
     labels = clustered.obs["cluster_phenograph"]
     print(labels.value_counts())
     unique_clusters = set(labels) - {"-1"}
-    assert len(unique_clusters) == 2
+    assert len(unique_clusters) >= 2

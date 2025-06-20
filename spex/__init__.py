@@ -13,6 +13,7 @@ from .core.segmentation.postprocessing import (
     feature_extraction_adata
 )
 from .core.spatial_transcriptomics.clq import CLQ_vec_numba
+from .core.spatial_transcriptomics.niche import niche
 from .core.clustering.phenograph import phenograph_cluster
 from .worker import Worker
 from .events import EventQueue
@@ -33,5 +34,6 @@ __all__ = [
     "remove_large_objects",
     "remove_small_objects",
     "feature_extraction_adata",
-    "phenograph_cluster"
+    "phenograph_cluster",
+    "niche"
 ]
