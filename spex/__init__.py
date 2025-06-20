@@ -12,6 +12,7 @@ from .core.segmentation.postprocessing import (
     remove_small_objects,
     feature_extraction_adata
 )
+from .core.spatial_transcriptomics.clq import CLQ_vec_numba
 from .core.clustering.phenograph import phenograph_cluster
 from .worker import Worker
 from .events import EventQueue
