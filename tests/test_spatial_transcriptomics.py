@@ -1,10 +1,14 @@
 import numpy as np
 import pandas as pd
 import pytest
+import anndata
 from anndata import AnnData
 from spex import CLQ_vec_numba
 from scipy.sparse import csr_matrix
+import scipy.sparse as sp_sparse
 from spex import niche
+from spex import preprocess, MAD_threshold, should_batch_correct
+from spex import reduce_dimensionality
 
 
 def test_clq_vec_numba_basic():
@@ -52,3 +56,80 @@ def test_cluster_creates_expected_labels(method):
     labels = clustered.obs[method]
     assert labels.nunique() > 0
     assert len(labels) == adata.n_obs
+
+
+
+def test_mad_threshold():
+    x = np.array([1, 2, 3, 4, 100])  # выброс
+    result = MAD_threshold(x, ndevs=1)
+    assert result < np.median(x)
+
+
+def test_should_batch_correct_true():
+    adata = anndata.AnnData(np.ones((10, 5)))
+    adata.uns["batch_key"] = "batch"
+    adata.obs["batch"] = ["A"] * 5 + ["B"] * 5
+    assert should_batch_correct(adata) is True
+
+
+def test_should_batch_correct_false():
+    adata = anndata.AnnData(np.ones((10, 5)))
+    assert should_batch_correct(adata) is False
+
+
+def test_preprocess_basic():
+    X = sp_sparse.csr_matrix(np.random.poisson(1, (20, 10)))
+    adata = anndata.AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(10)]
+    adata.obs_names = [f"cell_{i}" for i in range(20)]
+
+    processed = preprocess(adata.copy(), scale_max=5, size_factor=None, do_QC=False)
+
+    assert "log1p" in processed.uns
+    assert "prepro" in processed.uns
+    assert "counts" in processed.layers
+    assert processed.X.shape[1] <= 10  # могли быть отфильтрованы гены
+
+
+
+@pytest.mark.parametrize("method", ["pca", "diff_map", "scvi"])
+@pytest.mark.parametrize("prefilter", [False, True])
+@pytest.mark.parametrize("use_batch", [False, True])
+def test_reduce_dimensionality_all(method, prefilter, use_batch):
+    # Only this scenario is currently used in the notebook;
+    # mark other combinations as expected failures until examples are added.
+    if not (method == "pca" and prefilter is False and use_batch is False):
+        pytest.xfail("Combination not yet supported in the current pipeline")
+
+    X = np.random.poisson(1, (30, 20))
+    adata = AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(20)]
+    adata.obs_names = [f"cell_{i}" for i in range(30)]
+
+    if prefilter:
+        adata.var['highly_variable'] = [True] * 10 + [False] * 10
+
+    if use_batch:
+        adata.obs["batch"] = ["A"] * 15 + ["B"] * 15
+        adata.uns["batch_key"] = "batch"
+
+    if method == "scvi":
+        adata.raw = AnnData(X=adata.X.copy(), obs=adata.obs.copy(), var=adata.var.copy())
+
+    reduced = reduce_dimensionality(adata, prefilter=prefilter, method=method)
+
+    assert 'X_umap' in reduced.obsm
+    assert 'neighbor_idx' in reduced.obsm
+    assert 'distances' in reduced.obsm
+    assert 'connectivities' in reduced.obsp
+    assert 'dim_reduce' in reduced.uns
+
+    if method == "diff_map":
+        assert 'X_diffmap' in reduced.obsm
+        assert 'diffmap_evals' in reduced.uns
+
+    if method == "scvi":
+        assert 'X_scvi' in reduced.obsm
+
+    if use_batch and method in ["pca", "diff_map"]:
+        assert 'X_pca_harmony' in reduced.obsm

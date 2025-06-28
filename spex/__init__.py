@@ -15,6 +15,14 @@ from .core.segmentation.postprocessing import (
 from .core.spatial_transcriptomics.clq import CLQ_vec_numba
 from .core.spatial_transcriptomics.niche import niche
 from .core.clustering.phenograph import phenograph_cluster
+from .core.spatial_transcriptomics.preprocessing import (
+    preprocess,
+    MAD_threshold,
+    should_batch_correct
+)
+from .core.spatial_transcriptomics.reduce_dimensionality import (
+    reduce_dimensionality
+)
 from .worker import Worker
 from .events import EventQueue
 
@@ -35,5 +43,9 @@ __all__ = [
     "remove_small_objects",
     "feature_extraction_adata",
     "phenograph_cluster",
-    "niche"
+    "niche",
+    "preprocess",
+    "MAD_threshold",
+    "should_batch_correct",
+    "reduce_dimensionality"
 ]
