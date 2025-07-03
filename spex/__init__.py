@@ -23,6 +23,7 @@ from .core.spatial_transcriptomics.preprocessing import (
 from .core.spatial_transcriptomics.reduce_dimensionality import (
     reduce_dimensionality
 )
+from .core.spatial_transcriptomics.clustering import cluster
 from .worker import Worker
 from .events import EventQueue
 
@@ -47,5 +48,6 @@ __all__ = [
     "preprocess",
     "MAD_threshold",
     "should_batch_correct",
-    "reduce_dimensionality"
+    "reduce_dimensionality",
+    "cluster"
 ]

@@ -9,6 +9,7 @@ import scipy.sparse as sp_sparse
 from spex import niche
 from spex import preprocess, MAD_threshold, should_batch_correct
 from spex import reduce_dimensionality
+from spex import cluster
 
 
 def test_clq_vec_numba_basic():
@@ -133,3 +134,20 @@ def test_reduce_dimensionality_all(method, prefilter, use_batch):
 
     if use_batch and method in ["pca", "diff_map"]:
         assert 'X_pca_harmony' in reduced.obsm
+
+
+def test_cluster_function_direct_call():
+    X = np.random.rand(5, 3)
+    adata = AnnData(X)
+    conn = np.ones((5, 5)) - np.eye(5)
+    adata.obsp["connectivities"] = csr_matrix(conn)
+
+    # optional: spatial connectivity
+    adata.obsp["spatial_connectivities"] = csr_matrix(np.eye(5))
+
+    clustered = cluster(adata.copy(), spatial_weight=0.5, resolution=0.5, method='leiden')
+
+    assert "leiden" in clustered.obs.columns
+    labels = clustered.obs["leiden"]
+    assert labels.nunique() > 0
+    assert len(labels) == adata.n_obs
