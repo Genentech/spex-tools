@@ -51,3 +51,5 @@ __all__ = [
     "reduce_dimensionality",
     "cluster"
 ]
+
+__version__ = "0.1.0"

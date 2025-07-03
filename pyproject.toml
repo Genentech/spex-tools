@@ -5,3 +5,19 @@ requires = [
     "packaging>=24.0"
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "spex"
+version = "0.1.0"
+description = "Spatial transcriptomics library"
+readme = { file = "README.md", content-type = "text/markdown" }
+license = { text = "Apache-2.0" }
+requires-python = "==3.11.*"
+
+[project.urls]
+Homepage = "https://github.com/Genentech/spex-tools"
+Documentation = "https://github.com/Genentech/spex-tools#readme"
+Source = "https://github.com/Genentech/spex-tools"
+
+[tool.setuptools]
+include-package-data = true
