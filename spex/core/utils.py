@@ -69,7 +69,7 @@ def download_cellpose_models():
         return
 
     files = re.findall(r'href="([^"/][^"]+)"', html)
-    print(f"📦 {len(files)} models found")
+    #print(f"📦 {len(files)} models found")
 
     for name in files:
         dest = os.path.join(MODEL_DIR, name)

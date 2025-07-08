@@ -1,10 +1,12 @@
 import numpy as np
 import cv2
-from cellpose import models
 import re
 
 
 def cellpose_cellseg(img, seg_channels, diameter, scaling):
+    from spex.core.utils import download_cellpose_models
+    download_cellpose_models()
+    from cellpose import models
 
     """Segment image by cellpose deeplearning method
 

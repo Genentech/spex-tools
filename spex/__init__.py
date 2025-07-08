@@ -1,15 +1,8 @@
-from .core.utils import download_cellpose_models
-try:
-    download_cellpose_models()
-except Exception as e:
-    print(f"[spex] ⚠️ Model download skipped: {e}")
-
 from .core.segmentation.io import load_image
 from .core.segmentation.filters import median_denoise, nlm_denoise
 from .core.segmentation.stardist import stardist_cellseg
 from .core.segmentation.background_subtract import background_subtract
 from .core.segmentation.watershed import watershed_classic
-from .core.segmentation.cellpose_cellseg import cellpose_cellseg
 from .core.segmentation.postprocessing import (
     rescue_cells,
     simulate_cell,
@@ -29,15 +22,13 @@ from .core.spatial_transcriptomics.reduce_dimensionality import (
     reduce_dimensionality
 )
 from .core.spatial_transcriptomics.clustering import cluster
-from .worker import Worker
-from .events import EventQueue
 from importlib.metadata import version
 
 __version__ = version("spex")
 
+from .core.segmentation.cellpose_cellseg import cellpose_cellseg
+
 __all__ = [
-    "Worker",
-    "EventQueue",
     "load_image",
     "median_denoise",
     "nlm_denoise",
@@ -58,3 +49,9 @@ __all__ = [
     "reduce_dimensionality",
     "cluster"
 ]
+
+try:
+    from spex.core.utils import download_cellpose_models
+    download_cellpose_models()
+except Exception as e:
+    print(f"[spex] ⚠️ Model download skipped: {e}")

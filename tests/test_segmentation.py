@@ -1,7 +1,6 @@
 import numpy as np
 import pytest
 from spex import (
-    say_hello,
     load_image,
     median_denoise,
     stardist_cellseg,
