@@ -1,3 +1,9 @@
+from .core.utils import download_cellpose_models
+try:
+    download_cellpose_models()
+except Exception as e:
+    print(f"[spex] ⚠️ Model download skipped: {e}")
+
 from .core.segmentation.io import load_image
 from .core.segmentation.filters import median_denoise, nlm_denoise
 from .core.segmentation.stardist import stardist_cellseg
@@ -52,9 +58,3 @@ __all__ = [
     "reduce_dimensionality",
     "cluster"
 ]
-
-try:
-    from .core.utils import download_cellpose_models
-    download_cellpose_models()
-except Exception as e:
-    print(f"[spex] ⚠️ Model download skipped: {e}")
