@@ -1,4 +1,3 @@
-from .core.utils import say_hello
 from .core.segmentation.io import load_image
 from .core.segmentation.filters import median_denoise, nlm_denoise
 from .core.segmentation.stardist import stardist_cellseg
@@ -26,9 +25,11 @@ from .core.spatial_transcriptomics.reduce_dimensionality import (
 from .core.spatial_transcriptomics.clustering import cluster
 from .worker import Worker
 from .events import EventQueue
+from importlib.metadata import version
+
+__version__ = version("spex")
 
 __all__ = [
-    "say_hello",
     "Worker",
     "EventQueue",
     "load_image",
@@ -52,4 +53,8 @@ __all__ = [
     "cluster"
 ]
 
-__version__ = "0.1.0"
+try:
+    from .core.utils import download_cellpose_models
+    download_cellpose_models()
+except Exception as e:
+    print(f"[spex] ⚠️ Model download skipped: {e}")

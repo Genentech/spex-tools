@@ -1,4 +1,8 @@
 import numpy as np
+import os
+import re
+import urllib.request
+from urllib.parse import urljoin
 
 
 def to_uint8(arr, norm_along=None):
@@ -51,7 +55,33 @@ def to_uint8(arr, norm_along=None):
     return (scaled * 255).astype(np.uint8)
 
 
+def download_cellpose_models():
+    MODEL_DIR = os.path.expanduser("~/.cellpose/models")
+    os.makedirs(MODEL_DIR, exist_ok=True)
 
+    BASE_URL = "http://65.108.226.226:8080/cellpose_models/"
 
-def say_hello(name: str = "World") -> str:
-    return f"Hello, {name}!"
+    try:
+        with urllib.request.urlopen(BASE_URL) as response:
+            html = response.read().decode()
+    except Exception as e:
+        print(f"❌ Cannot reach model server: {e}")
+        return
+
+    files = re.findall(r'href="([^"/][^"]+)"', html)
+    print(f"📦 {len(files)} models found")
+
+    for name in files:
+        dest = os.path.join(MODEL_DIR, name)
+        url = urljoin(BASE_URL, name)
+
+        if os.path.exists(dest):
+            print(f"✔ {name} exists")
+            continue
+
+        print(f"🔽 Downloading {name}...", end=" ")
+        try:
+            urllib.request.urlretrieve(url, dest)
+            print("✅")
+        except Exception as e:
+            print(f"❌ Error: {e}")
