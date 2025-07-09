@@ -1,4 +1,4 @@
-# SPEX-Compatible Image Segmentation Library
+# SPEX - Spatial Omics Analysis Library
 
 This library implements methods developed for the [SPEX](https://www.biorxiv.org/content/10.1101/2022.08.22.504841v2) software platform, enabling users to apply state-of-the-art tissue segmentation techniques on their own image data.
 

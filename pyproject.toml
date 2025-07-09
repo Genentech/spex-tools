@@ -50,8 +50,8 @@ dependencies = [
     "louvain==0.8.2",
     "squidpy==1.2.2",
     "scvi-tools[scanpy]==1.1.6.post2",
-    "jax==0.4.23",
-    "jaxlib==0.4.23",
+    "jax==0.4.12",
+    "jaxlib==0.4.12",
     "scipy>=1.11.1,<1.13",
     "pegasuspy==1.10.2",
     "treescope>=0.1.9"
