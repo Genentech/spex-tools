@@ -33,7 +33,7 @@ Use the methods directly in your own analysis pipelines. Example notebooks are a
   [Run on Colab](https://colab.research.google.com/drive/1Qlc3pgN9SlZPUa8kUBu0ePrLG5dj2rd8?usp=sharing)
 
 - 🖥️ **JupyterLab Server**
-  [View on Server](http://65.108.226.226:2266/lab/workspaces/auto-j/tree/notebook/Segmentation.ipynb)
+  [View on Server](http://65.108.226.226:2266/lab/workspaces/auto-j/tree/work/notebook/Segmentation.ipynb)
   password "spexspex"
 
 Notebooks include:
@@ -43,6 +43,6 @@ Notebooks include:
 
 ## ⚙️ Compatibility
 
-- ✅ Tested with **Python 3.10** and **3.11**
+- ✅ Tested with **Python 3.11**
 - ⚠️ Compatibility with other Python versions is not guaranteed
 - ⚙️ Includes integrated **Cellpose** support, with fallback model handling (in notebooks)

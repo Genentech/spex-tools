@@ -68,15 +68,13 @@ def download_cellpose_models():
         print(f"❌ Cannot reach model server: {e}")
         return
 
-    files = re.findall(r'href="([^"/][^"]+)"', html)
-    #print(f"📦 {len(files)} models found")
+    files = re.findall(r'href="([^"/][^"]+)"', html)    
 
     for name in files:
         dest = os.path.join(MODEL_DIR, name)
         url = urljoin(BASE_URL, name)
 
         if os.path.exists(dest):
-            print(f"✔ {name} exists")
             continue
 
         print(f"🔽 Downloading {name}...", end=" ")

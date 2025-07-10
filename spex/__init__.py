@@ -1,3 +1,16 @@
+import numpy as np
+np.bool8 = np.bool_
+import os
+os.environ["JAX_PLATFORMS"] = "cpu"
+import jax.numpy as jnp
+import jax
+
+if not hasattr(jax, 'interpreters'):
+    jax.interpreters = type('fake', (), {})()
+if not hasattr(jax.interpreters, 'xla'):
+    jax.interpreters.xla = type('fake', (), {})()
+jax.interpreters.xla.DeviceArray = type(jnp.array(0))
+
 from .core.segmentation.io import load_image
 from .core.segmentation.filters import median_denoise, nlm_denoise
 from .core.segmentation.stardist import stardist_cellseg
