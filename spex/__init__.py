@@ -1,7 +1,24 @@
+import os
+import importlib.util
+import sys
+
+#vendored chex
+vendored_chex_path = os.path.join(os.path.dirname(__file__), "chex")
+
+spec = importlib.util.spec_from_file_location("chex", os.path.join(vendored_chex_path, "__init__.py"))
+chex_module = importlib.util.module_from_spec(spec)
+sys.modules["chex"] = chex_module
+spec.loader.exec_module(chex_module)
+#vendored chex
+
+#fix np.bool8
 import numpy as np
 np.bool8 = np.bool_
-import os
+#fix np.bool8
+
+# === FIX: JAX CPU ONLY ===
 os.environ["JAX_PLATFORMS"] = "cpu"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import jax.numpy as jnp
 import jax
 
@@ -10,6 +27,7 @@ if not hasattr(jax, 'interpreters'):
 if not hasattr(jax.interpreters, 'xla'):
     jax.interpreters.xla = type('fake', (), {})()
 jax.interpreters.xla.DeviceArray = type(jnp.array(0))
+# === FIX: JAX CPU ONLY ===
 
 from .core.segmentation.io import load_image
 from .core.segmentation.filters import median_denoise, nlm_denoise
