@@ -53,6 +53,7 @@ from .core.spatial_transcriptomics.reduce_dimensionality import (
     reduce_dimensionality
 )
 from .core.spatial_transcriptomics.clustering import cluster
+from .core.spatial_transcriptomics.differential_expression import differential_expression
 from importlib.metadata import version
 
 __version__ = version("spex")
@@ -78,7 +79,8 @@ __all__ = [
     "MAD_threshold",
     "should_batch_correct",
     "reduce_dimensionality",
-    "cluster"
+    "cluster",
+    "differential_expression"
 ]
 
 try:

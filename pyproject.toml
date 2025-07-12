@@ -55,7 +55,9 @@ dependencies = [
     "scipy>=1.11.1,<1.13",
     "pegasuspy==1.10.2",
     "treescope>=0.1.9",
-    "fastapi==0.115.14"
+    "fastapi==0.115.14",
+    "pegasusio",
+    "pandas==2.2.0",
 ]
 [tool.setuptools]
 packages = { find = {} }

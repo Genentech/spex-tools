@@ -35,10 +35,6 @@ def test_ome_path(tmp_path_factory):
 
     return str(path)
 
-
-def test_say_hello():
-    assert say_hello("Test") == "Hello, Test!"
-
 def test_load_file(test_ome_path):
     array, channels = load_image(test_ome_path)
     assert array.shape[0] == len(channels)

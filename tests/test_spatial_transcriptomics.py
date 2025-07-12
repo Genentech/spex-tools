@@ -10,6 +10,9 @@ from spex import niche
 from spex import preprocess, MAD_threshold, should_batch_correct
 from spex import reduce_dimensionality
 from spex import cluster
+from spex import differential_expression
+import scvi
+import pegasus as pg
 
 
 def test_clq_vec_numba_basic():
@@ -151,3 +154,41 @@ def test_cluster_function_direct_call():
     labels = clustered.obs["leiden"]
     assert labels.nunique() > 0
     assert len(labels) == adata.n_obs
+
+def test_differential_expression_scvi_real():
+    X = np.random.poisson(1, (30, 10))
+    adata = AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(10)]
+    adata.obs["leiden"] = ["A"] * 15 + ["B"] * 15
+
+    # Подготовка adata для scvi
+    scvi.model.SCVI.setup_anndata(adata, batch_key=None, labels_key="leiden")
+
+    # Обучение модели
+    model = scvi.model.SCVI(adata)
+    model.train(max_epochs=10)
+
+    # Обязательное поле для вызова метода
+    adata.obsm["X_scvi"] = model.get_latent_representation()
+
+    adata_out, mdl_out = differential_expression(adata, cluster_key="leiden", method="scvi", mdl=model)
+
+    assert "de_res" in adata_out.uns
+    assert isinstance(mdl_out, scvi.model.SCVI)
+
+
+def test_differential_expression_pegasus():
+    X = np.random.poisson(1, (20, 5))
+    adata = AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(5)]
+    adata.obs["leiden"] = ["A"] * 10 + ["B"] * 10
+
+    adata.uns["log1p"] = {"base": np.e}
+
+    adata_out = differential_expression(adata, cluster_key="leiden", method="pegasus")
+
+    assert "de_res" in adata_out.uns
+    assert "de_res" in adata_out.varm
+
+    for key in ["names", "pvals", "pvals_adj", "logfoldchanges", "scores"]:
+        assert key in adata_out.uns["de_res"]
