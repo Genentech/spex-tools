@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spex"
-version = "0.1.1020"
+version = "0.1.1022"
 description = "Spatial transcriptomics library"
 authors = [{name = "Aleksandr Prilipko"}]
 license = "Apache-2.0"
@@ -58,6 +58,16 @@ dependencies = [
     "fastapi==0.115.14",
     "pegasusio",
     "pandas==2.2.0",
+    "decoupler @ git+https://github.com/saezlab/decoupler.git@main",
+    "jaxtyping==0.3.2",
+    "flax==0.7.4",
+    "zarr==2.18.2",
+    "cython==3.1.2",
+    "requests==2.32.4",
+    "cmake==4.0.3",
+    "pyarrow==20.0.0" 
 ]
 [tool.setuptools]
 packages = { find = {} }
+[tool.setuptools.package-data]
+"spex.resources" = ["*.parquet"]

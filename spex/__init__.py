@@ -54,6 +54,10 @@ from .core.spatial_transcriptomics.reduce_dimensionality import (
 )
 from .core.spatial_transcriptomics.clustering import cluster
 from .core.spatial_transcriptomics.differential_expression import differential_expression
+from .core.spatial_transcriptomics.analyze_pathways import (
+    annotate_clusters,
+    analyze_pathways
+)
 from importlib.metadata import version
 
 __version__ = version("spex")
@@ -80,7 +84,10 @@ __all__ = [
     "should_batch_correct",
     "reduce_dimensionality",
     "cluster",
-    "differential_expression"
+    "differential_expression",
+    "annotate_clusters",
+    "analyze_pathways",    
+    "CLQ_vec_numba",
 ]
 
 try:

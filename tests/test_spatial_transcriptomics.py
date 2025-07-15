@@ -11,8 +11,10 @@ from spex import preprocess, MAD_threshold, should_batch_correct
 from spex import reduce_dimensionality
 from spex import cluster
 from spex import differential_expression
+from spex import annotate_clusters, analyze_pathways
 import scvi
 import pegasus as pg
+from pegasusio import UnimodalData
 
 
 def test_clq_vec_numba_basic():
@@ -192,3 +194,81 @@ def test_differential_expression_pegasus():
 
     for key in ["names", "pvals", "pvals_adj", "logfoldchanges", "scores"]:
         assert key in adata_out.uns["de_res"]
+
+
+def test_analyze_pathways_basic(tmp_path):
+    
+    X = np.random.poisson(1, (10, 5))
+    adata = AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(5)]
+    adata.obs["cell_type"] = ["A", "A", "B", "B", "A", "B", "B", "A", "A", "B"]
+
+    marker_df = pd.DataFrame({
+        "pathway": ["Pathway1", "Pathway1", "Pathway1", "Pathway2"],
+        "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4"],
+        "weight": [1.0, 1.0, 1.0, 1.0]
+    })
+    
+    parquet_path = tmp_path / "progeny.parquet"
+    marker_df.to_parquet(parquet_path, index=False)
+
+    out = analyze_pathways(adata, pathway_file=str(parquet_path))
+
+    assert "pathway_scores" in out.obsm
+    df = out.obsm["pathway_scores"]
+    assert df.shape[0] == adata.n_obs
+    assert isinstance(df, pd.DataFrame)
+    assert "Pathway1" in df.columns or "Pathway2" in df.columns
+
+
+def test_annotate_clusters_pegasus():
+  
+    X = np.random.poisson(1, (10, 5))
+    adata = AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(5)]
+    adata.obs["leiden"] = ["0"] * 5 + ["1"] * 5
+
+    marker_dict = {
+        "title": "test_markers",
+        "cell_types": [
+            {
+                "name": "Tcell",
+                "markers": [
+                    {
+                        "genes": ["gene_0", "gene_2"],
+                        "type": "positive",
+                        "weight": 1.0
+                    }
+                ]
+            },
+            {
+                "name": "Bcell",
+                "markers": [
+                    {
+                        "genes": ["gene_1"],
+                        "type": "positive",
+                        "weight": 1.0
+                    }
+                ]
+            }
+        ]
+    }
+
+
+    if isinstance(adata, UnimodalData):
+        pdat = adata
+    else:
+        pdat = UnimodalData(adata)
+
+    pg.de_analysis(pdat, cluster="leiden")
+
+
+    adata.varm['de_res'] = pdat.varm['de_res']
+
+
+    pg.de_analysis(pdat, cluster='leiden')
+
+    adata_out = annotate_clusters(pdat, marker_db=marker_dict, method='pegasus', cluster_key="leiden")
+
+    assert "cell_type" in adata_out.obs.columns
+    assert set(adata_out.obs["cell_type"]).issubset({"Unknown", "Tcell", "Bcell"})
