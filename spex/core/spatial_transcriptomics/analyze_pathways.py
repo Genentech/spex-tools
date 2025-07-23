@@ -7,12 +7,17 @@ import importlib.resources as pkg_resources
 from spex import resources
 
 
-def annotate_clusters(adata, marker_db, cluster_key='leiden', method='pegasus'):
+def annotate_clusters(adata, marker_db=None, cluster_key='leiden', method='pegasus'):
     #Args:
     #adata: the data
     #cluster_key: which key in adata.obs tells you the cluster a cell belongs to
     #marker_db: Either a string for pegasus, or a DataFrame that labels source ('gene') to target ('cell-type').
     #method: Pegasus will use DEGs; scanpy data will use decouplr
+
+    if marker_db is None:
+        with pkg_resources.path(resources, "progeny.parquet") as p:
+            markers = pd.read_parquet(p)
+            markers = markers.rename(columns={"pathway": "source", "genesymbol": "target"})
 
     if method == 'pegasus':
         if isinstance(adata, UnimodalData):
@@ -42,8 +47,6 @@ def annotate_clusters(adata, marker_db, cluster_key='leiden', method='pegasus'):
             verbose=False,
             methods=[method]
         )
-
-        acts = dc.get_acts(adata,obsm_key=f'{method}_estimate')
 
     return adata
 

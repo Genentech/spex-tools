@@ -58,6 +58,7 @@ from .core.spatial_transcriptomics.analyze_pathways import (
     annotate_clusters,
     analyze_pathways
 )
+from .core.spatial_transcriptomics.load_anndata import load_anndata
 from importlib.metadata import version
 
 __version__ = version("spex")
@@ -88,6 +89,7 @@ __all__ = [
     "annotate_clusters",
     "analyze_pathways",    
     "CLQ_vec_numba",
+    "load_anndata"
 ]
 
 try:

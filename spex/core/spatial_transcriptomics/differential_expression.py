@@ -95,7 +95,10 @@ def differential_expression(adata, cluster_key='leiden', method='wilcoxon', mdl=
     # adata: the data
     # cluster_key: adata.obs[key] determines cell cluster membership
     # method: Significance test - currently support basic DEG from scanpy, pegasus and built-in scVI method.
-    print(adata.obs)
+
+    if 'log1p' not in adata.uns:
+        adata.uns['log1p'] = {}
+    adata.uns['log1p']['base'] = np.e
 
     if method == 'scvi':
         if 'X_scvi' not in adata.obsm:

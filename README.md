@@ -16,7 +16,7 @@ pip install pytest
 Before using OpenCV-related features, install the required system libraries:
 
 ```bash
-sudo apt install -y libgl1-mesa-glx libjpeg-dev zlib1g-dev libpng-dev libgl1 libfftw3-dev r-base
+sudo apt install -y libgl1-mesa-glx libjpeg-dev zlib1g-dev libpng-dev libgl1 libfftw3-dev build-essential python3-dev
  
 ```
 

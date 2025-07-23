@@ -11,7 +11,7 @@ from spex import preprocess, MAD_threshold, should_batch_correct
 from spex import reduce_dimensionality
 from spex import cluster
 from spex import differential_expression
-from spex import annotate_clusters, analyze_pathways
+from spex import annotate_clusters, analyze_pathways, load_anndata
 import scvi
 import pegasus as pg
 from pegasusio import UnimodalData
@@ -197,7 +197,7 @@ def test_differential_expression_pegasus():
 
 
 def test_analyze_pathways_basic(tmp_path):
-    
+
     X = np.random.poisson(1, (10, 5))
     adata = AnnData(X)
     adata.var_names = [f"gene_{i}" for i in range(5)]
@@ -208,7 +208,7 @@ def test_analyze_pathways_basic(tmp_path):
         "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4"],
         "weight": [1.0, 1.0, 1.0, 1.0]
     })
-    
+
     parquet_path = tmp_path / "progeny.parquet"
     marker_df.to_parquet(parquet_path, index=False)
 
@@ -222,7 +222,7 @@ def test_analyze_pathways_basic(tmp_path):
 
 
 def test_annotate_clusters_pegasus():
-  
+
     X = np.random.poisson(1, (10, 5))
     adata = AnnData(X)
     adata.var_names = [f"gene_{i}" for i in range(5)]
@@ -272,3 +272,51 @@ def test_annotate_clusters_pegasus():
 
     assert "cell_type" in adata_out.obs.columns
     assert set(adata_out.obs["cell_type"]).issubset({"Unknown", "Tcell", "Bcell"})
+
+
+# def test_annotate_clusters_decoupler_mlm():
+#     X = np.random.poisson(1, (10, 5))
+#     adata = AnnData(X)
+#     adata.var_names = [f"gene_{i}" for i in range(5)]
+#     adata.obs["leiden"] = ["0"] * 5 + ["1"] * 5
+
+#     marker_df = pd.DataFrame({
+#         "src": ["Tcell", "Tcell", "Bcell"],
+#         "genesymbol": ["gene_0", "gene_2", "gene_1"],
+#         "wgt": [1.0, 1.0, 1.0]
+#     })
+
+#     out = annotate_clusters(adata, marker_db=marker_df, cluster_key="leiden", method="mlm")
+
+#     assert "mlm_estimate" in out.obsm
+#     acts = out.obsm["mlm_estimate"]
+#     assert acts.shape[0] == adata.n_obs
+
+
+def test_load_anndata(tmp_path):
+    import scanpy as sc
+
+    # create two fake AnnData objects and save them as files
+    file_paths = []
+    for i in range(2):
+        X = np.random.rand(5, 3)
+        adata = AnnData(X)
+        adata.var_names = [f"gene_{j}" for j in range(3)]
+        adata.obs_names = [f"cell_{j}" for j in range(5)]
+        path = tmp_path / f"sample_{i}.h5ad"
+        adata.write_h5ad(path)
+        file_paths.append(str(path))
+
+    # test loading multiple files using the `files` argument
+    result_multi = load_anndata(files=file_paths)
+    adata_multi = result_multi['adata']
+    assert isinstance(adata_multi, AnnData)
+    assert adata_multi.n_obs == 10
+    assert 'filename' in adata_multi.obs
+
+    # test loading a single file using the `path` argument
+    result_single = load_anndata(path=file_paths[0])
+    adata_single = result_single['adata']
+    assert isinstance(adata_single, AnnData)
+    assert adata_single.n_obs == 5
+    assert 'filename' not in adata_single.obs
