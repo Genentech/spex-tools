@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spex"
-version = "0.1.1025"
+version = "0.1.1034"
 description = "Spatial transcriptomics library"
 authors = [{name = "Aleksandr Prilipko"}]
 license = "Apache-2.0"
@@ -19,13 +19,15 @@ dependencies = [
     "fsspec>=2022.8.0",
     "nd2>=0.2.0",
     "mrc>=0.2.0",
-    "bfio>=2.3.0",
+    "bfio==2.3.5",
     "imageio-ffmpeg>=0.4",
     "Pillow!=8.3.0,<9,>=8.2.0",
-    "ome-types<0.4.0",
+    "ome-types==0.6.1",
     "tifffile>=2022.8.12,<2023.3.15",
     "numpy>=1.25.2,<1.26",
-    "pydantic<2.11.0",
+    "pydantic==2.11.7",
+    "pydantic-core==2.33.2",
+    "pydantic-extra-types==2.10.5",
     "typing_extensions>=4.7.1",
     "bioformats-jar",
     "jpype1",
@@ -65,7 +67,8 @@ dependencies = [
     "cython==3.1.2",
     "requests==2.32.4",
     "cmake==4.0.3",
-    "pyarrow==20.0.0"
+    "pyarrow==20.0.0",
+    "numcodecs==0.12.1"
 ]
 [tool.setuptools]
 packages = { find = {} }

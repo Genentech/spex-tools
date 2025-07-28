@@ -91,11 +91,7 @@ class DEResult:
 
 
 def differential_expression(adata, cluster_key='leiden', method='wilcoxon', mdl=None):
-    # Args:
-    # adata: the data
-    # cluster_key: adata.obs[key] determines cell cluster membership
-    # method: Significance test - currently support basic DEG from scanpy, pegasus and built-in scVI method.
-
+    # гарантируем meta для log1p
     if 'log1p' not in adata.uns:
         adata.uns['log1p'] = {}
     adata.uns['log1p']['base'] = np.e
@@ -112,10 +108,11 @@ def differential_expression(adata, cluster_key='leiden', method='wilcoxon', mdl=
         return adata, mdl
 
     elif method == 'pegasus':
+        # ВАЖНО: запускаем DE в одном потоке
         pdat = UnimodalData(adata)
-        pg.de_analysis(pdat, cluster=cluster_key)
+        pg.de_analysis(pdat, cluster=cluster_key, n_jobs=1)
 
-        # Convert from pegasus format to scanpy format and store.
+        # Конвертация формата результатов в scanpy-совместимый
         de_res = DEResult(
             adata,
             pdat.varm['de_res'],
@@ -125,16 +122,13 @@ def differential_expression(adata, cluster_key='leiden', method='wilcoxon', mdl=
         adata.varm['de_res'] = de_res.convert_to_pegasus()
         adata.uns['de_res'] = de_res.convert_to_scanpy()
 
-    # ADD layer here for logarithmized, but not scaled counts.
     else:
+        # базовые методы scanpy (wilcoxon/logreg/t-test/т.п.)
         sc.tl.rank_genes_groups(adata, use_raw=False, groupby=cluster_key, method=method, key_added='de_res')
         de_res = DEResult(adata, adata.uns['de_res'], mode='scanpy', clust_col=cluster_key)
         adata.varm['de_res'] = de_res.convert_to_pegasus()
 
-    if method == 'scvi':
-        return adata, mdl
-    else:
-        return adata
+    return adata
 
 
 # def run(**kwargs):

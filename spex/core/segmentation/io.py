@@ -1,5 +1,6 @@
 from aicsimageio import AICSImage
 from aicsimageio.writers import OmeTiffWriter, OmeZarrWriter
+from aicsimageio.readers import BioformatsReader
 from tifffile import imread, imsave, TiffWriter, imwrite, TiffFile
 import json
 
@@ -17,7 +18,7 @@ def load_image(imgpath: str = '') -> str:
 
     """
 
-    img = AICSImage(imgpath)
+    img = AICSImage(imgpath,  reader=BioformatsReader)
 
     dims = ['T', 'C', 'Z']
     shape = list(img.shape)

@@ -1,3 +1,5 @@
+import tempfile
+import os
 import numpy as np
 import pandas as pd
 import pytest
@@ -12,9 +14,14 @@ from spex import reduce_dimensionality
 from spex import cluster
 from spex import differential_expression
 from spex import annotate_clusters, analyze_pathways, load_anndata
+from spex import resources
+
 import scvi
 import pegasus as pg
 from pegasusio import UnimodalData
+from spex.core.spatial_transcriptomics.analyze_pathways import convert_progeny_to_pegasus_marker_dict
+import importlib.resources as pkg_resources
+
 
 
 def test_clq_vec_numba_basic():
@@ -221,76 +228,80 @@ def test_analyze_pathways_basic(tmp_path):
     assert "Pathway1" in df.columns or "Pathway2" in df.columns
 
 
+def test_convert_progeny_to_pegasus_marker_dict():
+    import tempfile
+    import os
+    import pandas as pd
+
+    df = pd.DataFrame({
+        "pathway": ["Tcell", "Tcell", "Bcell", "Bcell"],
+        "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4"],
+        "weight": [1.5, 0.2, -2.1, -0.4],
+    })
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        path = os.path.join(tmpdir, "mock_markers.parquet")
+        df.to_parquet(path)
+
+        marker_dict = convert_progeny_to_pegasus_marker_dict(path)
+
+        assert isinstance(marker_dict, dict)
+        assert "cell_types" in marker_dict
+        assert len(marker_dict["cell_types"]) == 2
+
+        for ct in marker_dict["cell_types"]:
+            assert "name" in ct
+            assert ct["name"] in {"Tcell", "Bcell"}
+            assert "markers" in ct
+            assert isinstance(ct["markers"], list)
+
+            for marker_set in ct["markers"]:
+                assert "genes" in marker_set
+                assert isinstance(marker_set["genes"], list)
+                assert all(isinstance(g, str) for g in marker_set["genes"])
+                assert marker_set["type"] in {"+", "-"}
+                assert isinstance(marker_set["weight"], float)
+
+                # Проверка округления и нормализации
+                if marker_set["type"] == "+":
+                    assert marker_set["weight"] >= 1.0
+                else:
+                    assert marker_set["weight"] <= -1.0
+
+
 def test_annotate_clusters_pegasus():
-
-    X = np.random.poisson(1, (10, 5))
+    X = np.random.poisson(1, (20, 100))
     adata = AnnData(X)
-    adata.var_names = [f"gene_{i}" for i in range(5)]
-    adata.obs["leiden"] = ["0"] * 5 + ["1"] * 5
+    adata.var_names = [f"gene_{i}" for i in range(100)]
+    adata.obs["leiden"] = ["0"] * 10 + ["1"] * 10
 
-    marker_dict = {
-        "title": "test_markers",
-        "cell_types": [
-            {
-                "name": "Tcell",
-                "markers": [
-                    {
-                        "genes": ["gene_0", "gene_2"],
-                        "type": "positive",
-                        "weight": 1.0
-                    }
-                ]
-            },
-            {
-                "name": "Bcell",
-                "markers": [
-                    {
-                        "genes": ["gene_1"],
-                        "type": "positive",
-                        "weight": 1.0
-                    }
-                ]
-            }
-        ]
-    }
+    # Загрузим реальные маркеры
+    with pkg_resources.path(resources, "progeny.parquet") as p:
+        marker_dict = convert_progeny_to_pegasus_marker_dict(p)
 
-
-    if isinstance(adata, UnimodalData):
-        pdat = adata
-    else:
-        pdat = UnimodalData(adata)
-
+    # Подготовим UnimodalData
+    pdat = UnimodalData(adata)
     pg.de_analysis(pdat, cluster="leiden")
-
-
     adata.varm['de_res'] = pdat.varm['de_res']
 
+    out = annotate_clusters(pdat, marker_db=marker_dict, method="pegasus", cluster_key="leiden")
 
-    pg.de_analysis(pdat, cluster='leiden')
-
-    adata_out = annotate_clusters(pdat, marker_db=marker_dict, method='pegasus', cluster_key="leiden")
-
-    assert "cell_type" in adata_out.obs.columns
-    assert set(adata_out.obs["cell_type"]).issubset({"Unknown", "Tcell", "Bcell"})
+    assert "cell_type" in out.obs.columns
+    assert out.obs["cell_type"].notnull().all()
 
 
-# def test_annotate_clusters_decoupler_mlm():
-#     X = np.random.poisson(1, (10, 5))
-#     adata = AnnData(X)
-#     adata.var_names = [f"gene_{i}" for i in range(5)]
-#     adata.obs["leiden"] = ["0"] * 5 + ["1"] * 5
+def test_annotate_clusters_decoupler_mlm():
+    X = np.random.poisson(1, (1000, 50))
+    adata = AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(50)]
+    adata.obs["leiden"] = ["0"] * 500 + ["1"] * 500
 
-#     marker_df = pd.DataFrame({
-#         "src": ["Tcell", "Tcell", "Bcell"],
-#         "genesymbol": ["gene_0", "gene_2", "gene_1"],
-#         "wgt": [1.0, 1.0, 1.0]
-#     })
+    out = annotate_clusters(adata)
 
-#     out = annotate_clusters(adata, marker_db=marker_df, cluster_key="leiden", method="mlm")
-
-#     assert "mlm_estimate" in out.obsm
-#     acts = out.obsm["mlm_estimate"]
-#     assert acts.shape[0] == adata.n_obs
+    assert "score_mlm" in out.obsm
+    acts = out.obsm["score_mlm"]
+    assert acts.shape[0] == adata.n_obs
+    assert isinstance(acts, pd.DataFrame)
 
 
 def test_load_anndata(tmp_path):
@@ -320,3 +331,35 @@ def test_load_anndata(tmp_path):
     assert isinstance(adata_single, AnnData)
     assert adata_single.n_obs == 5
     assert 'filename' not in adata_single.obs
+
+
+def test_differential_expression_pegasus_singlethread(monkeypatch):
+    X = np.random.poisson(1, (12, 4))
+    adata = AnnData(X)
+    adata.var_names = [f"g{i}" for i in range(4)]
+    adata.obs["leiden"] = ["A"] * 6 + ["B"] * 6
+
+    calls = {"n_jobs": None}
+
+    def fake_de_analysis(pdat, cluster="leiden", n_jobs=None, **kwargs):
+        calls["n_jobs"] = n_jobs
+        clusters = ["A", "B"]
+        n_genes = pdat.shape[1] if hasattr(pdat, "shape") else len(adata.var_names)
+        dtype = []
+        for cl in clusters:
+            dtype += [(f"{cl}:log2Mean", "<f4"), (f"{cl}:mwu_pval", "<f4"),
+                      (f"{cl}:mwu_qval", "<f4"), (f"{cl}:log2FC", "<f4")]
+        rec = np.zeros(n_genes, dtype=dtype).view(np.recarray)
+        for cl in clusters:
+            rec[f"{cl}:log2Mean"] = 0.0
+            rec[f"{cl}:mwu_pval"] = 1.0
+            rec[f"{cl}:mwu_qval"] = 1.0
+            rec[f"{cl}:log2FC"] = 0.0
+        pdat.varm["de_res"] = rec
+        return pdat
+
+    monkeypatch.setattr(pg, "de_analysis", fake_de_analysis)
+
+    out = differential_expression(adata, cluster_key="leiden", method="pegasus")
+    assert "de_res" in out.uns and "de_res" in out.varm
+    assert calls["n_jobs"] == 1

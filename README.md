@@ -38,6 +38,7 @@ Use the methods directly in your own analysis pipelines. Example notebooks are a
   password "spexspex"
 
 Notebooks include:
+
 - Model downloading (in case Cellpose server access fails)
 - Visualization examples
 - End-to-end segmentation pipelines
