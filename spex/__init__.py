@@ -1,6 +1,14 @@
 import os
 import importlib.util
 import sys
+import warnings
+
+warnings.filterwarnings(
+    "ignore",
+    message=r"pkg_resources is deprecated as an API",
+    category=UserWarning,
+)
+import pkg_resources  # needed for Pegasus, deprecated but still in use
 
 #vendored chex
 vendored_chex_path = os.path.join(os.path.dirname(__file__), "chex")
@@ -87,7 +95,7 @@ __all__ = [
     "cluster",
     "differential_expression",
     "annotate_clusters",
-    "analyze_pathways",    
+    "analyze_pathways",
     "CLQ_vec_numba",
     "load_anndata"
 ]

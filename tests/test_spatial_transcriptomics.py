@@ -284,24 +284,69 @@ def test_annotate_clusters_pegasus():
     pg.de_analysis(pdat, cluster="leiden")
     adata.varm['de_res'] = pdat.varm['de_res']
 
-    out = annotate_clusters(pdat, marker_db=marker_dict, method="pegasus", cluster_key="leiden")
+    out = annotate_clusters(adata, marker_db=marker_dict, method="pegasus", cluster_key="leiden")
 
     assert "cell_type" in out.obs.columns
     assert out.obs["cell_type"].notnull().all()
 
 
 def test_annotate_clusters_decoupler_mlm():
+    # Generate toy data
     X = np.random.poisson(1, (1000, 50))
     adata = AnnData(X)
     adata.var_names = [f"gene_{i}" for i in range(50)]
     adata.obs["leiden"] = ["0"] * 500 + ["1"] * 500
 
-    out = annotate_clusters(adata)
+    # Provide a small marker set that matches adata.var_names to guarantee non-empty output
+    marker_df = pd.DataFrame({
+        "pathway": ["Pathway1"] * 3 + ["Pathway2"] * 3,
+        "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4", "gene_5", "gene_6"],
+        "weight": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+    })
 
+    # Run with decoupler (MLM) and a low tmin to avoid pruning this tiny network
+    out = annotate_clusters(adata.copy(), marker_db=marker_df, method="mlm", tmin=1)
+
+    # Basic presence checks
     assert "score_mlm" in out.obsm
     acts = out.obsm["score_mlm"]
-    assert acts.shape[0] == adata.n_obs
     assert isinstance(acts, pd.DataFrame)
+    assert acts.shape[0] == adata.n_obs
+
+    # Stricter checks: non-empty columns, expected pathways present, aligned index, finite values
+    assert acts.shape[1] >= 2
+    assert {"Pathway1", "Pathway2"}.issubset(set(acts.columns))
+    assert acts.index.equals(adata.obs_names)
+    assert np.isfinite(acts.values).all()
+
+
+def test_annotate_clusters_string_markerdb_pegasus_passthrough(monkeypatch):
+    # Ensure string marker_db is passed through unchanged to Pegasus
+    from types import SimpleNamespace
+
+    X = np.random.poisson(1, (20, 10))
+    adata = AnnData(X)
+    adata.var_names = [f"gene_{i}" for i in range(10)]
+    adata.obs["leiden"] = ["0"] * 10 + ["1"] * 10
+
+    marker_str = "human_lung,human_immune"
+    captured = {"markers": None}
+
+    def fake_infer_cell_types(pdat, markers=None, **kwargs):
+        captured["markers"] = markers
+        # Minimal structure expected by annotate_clusters_pg
+        return {
+            "0": [SimpleNamespace(name="TypeA")],
+            "1": [SimpleNamespace(name="TypeB")],
+        }
+
+    monkeypatch.setattr(pg, "infer_cell_types", fake_infer_cell_types)
+
+    out = annotate_clusters(adata.copy(), marker_db=marker_str, method="pegasus", cluster_key="leiden")
+
+    assert "cell_type" in out.obs.columns
+    assert out.obs["cell_type"].notnull().all()
+    assert captured["markers"] == marker_str  # string was passed through unchanged
 
 
 def test_load_anndata(tmp_path):
@@ -363,3 +408,39 @@ def test_differential_expression_pegasus_singlethread(monkeypatch):
     out = differential_expression(adata, cluster_key="leiden", method="pegasus")
     assert "de_res" in out.uns and "de_res" in out.varm
     assert calls["n_jobs"] == 1
+
+def test_annotate_clusters_with_converted_marker_dict():
+
+    df = pd.DataFrame({
+        "pathway": ["Hypoxia"] * 5 + ["TNFa"] * 5,
+        "genesymbol": [f"gene_{i}" for i in range(10)],
+        "weight": [1.0, 0.8, 1.2, 0.9, 1.1, -0.7, -1.3, -0.5, -1.1, -0.8],
+    })
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        path = os.path.join(tmpdir, "mock_progeny.parquet")
+        df.to_parquet(path)
+
+        marker_dict = convert_progeny_to_pegasus_marker_dict(path)
+        all_genes = {
+            g for ct in marker_dict["cell_types"]
+            for marker in ct["markers"] for g in marker["genes"]
+        }
+
+        X = np.random.poisson(2.0, (20, len(all_genes)))
+        adata = AnnData(X)
+        adata.var_names = list(all_genes)
+        adata.obs["leiden"] = ["0"] * 10 + ["1"] * 10
+
+        out = annotate_clusters(
+            adata.copy(),
+            marker_db=marker_dict,
+            method="mlm",
+            tmin=1
+        )
+
+        assert "score_mlm" in out.obsm
+        scores = out.obsm["score_mlm"]
+        assert isinstance(scores, pd.DataFrame)
+        assert scores.shape[0] == adata.n_obs
+        assert scores.shape[1] >= 2
