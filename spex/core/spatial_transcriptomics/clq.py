@@ -42,7 +42,9 @@ def _calculate_global_clq(local_clq, cell_types, n_clust):
 
 def CLQ_vec_numba(adata, clust_col='leiden', clust_uniq=None, radius=50, n_perms=1000):
     start_time = time.time()
-    adata.obsm['spatial'] = adata.obs[['x_coordinate', 'y_coordinate']].to_numpy()
+    if 'spatial' not in adata.obsm:
+        # Create spatial coordinates from x_coordinate and y_coordinate
+        adata.obsm['spatial'] = adata.obs[['x_coordinate', 'y_coordinate']].to_numpy()
 
     # Preprocess spatial neighbors
     radius = float(radius)
@@ -90,15 +92,31 @@ def CLQ_vec_numba(adata, clust_col='leiden', clust_uniq=None, radius=50, n_perms
             for cell_type in range(n_clust):
                 permute_counts[cell_type] += (perm_global_clq[cell_type] < global_clq[cell_type]).astype(np.int32)
 
-    # Normalize permutation counts
-    clq_perm = permute_counts / n_perms
+    idx = list(label_dict.keys())
+
+    # Normalize permutation counts and convert to labels
+    clq_perm_avoid = permute_counts / n_perms
+    clq_perm_attr = 1 - clq_perm_avoid
+
+    clq_perm_attr = pd.DataFrame(clq_perm_attr, index=idx, columns=idx)
+    clq_perm_avoid = pd.DataFrame(clq_perm_avoid, index=idx, columns=idx)
+
+    perm_test = pd.DataFrame('n.s.', index=idx, columns=idx)
+    perm_test[clq_perm_attr < 0.05] = 'attractive'
+    perm_test[clq_perm_avoid < 0.05] = 'avoidant'
 
     # Prepare results
-    idx = list(label_dict.keys())
     lclq = pd.DataFrame(local_clq, columns=idx, index=adata.obs_names)
     gclq_df = pd.DataFrame(global_clq, index=idx, columns=idx)
     ncv_df = pd.DataFrame(observed_ncv, index=adata.obs_names, columns=idx)
-    clq_perm_df = pd.DataFrame(clq_perm, index=idx, columns=idx)
+    clq_perm_df = perm_test
+
+    # Optional reindex to custom order
+    if clust_uniq is not None:
+        ncv_df = ncv_df.reindex(columns=clust_uniq)
+        lclq = lclq.reindex(columns=clust_uniq)
+        gclq_df = gclq_df.reindex(index=clust_uniq, columns=clust_uniq)
+        clq_perm_df = clq_perm_df.reindex(index=clust_uniq, columns=clust_uniq)
 
     # Store results
     adata.obsm['NCV'] = ncv_df
@@ -115,36 +133,3 @@ def CLQ_vec_numba(adata, clust_col='leiden', clust_uniq=None, radius=50, n_perms
     bdata.layers['permute_test'] = clq_perm_df
 
     return bdata, adata
-
-
-# def run(**kwargs):
-#     print("Running CLQ vectorization...v2")
-#     # after_phenograph_clusters on full data per image
-#     adata = kwargs.get('adata')
-#     tasks_list = kwargs.get('tasks_list')
-
-#     adatas_list = []
-#     radius = kwargs.get('radius')
-#     n_perms = kwargs.get('n_perms')
-#     for task in tasks_list:
-#         omero_id = task['omeroId']
-#         filtered_adata = adata[adata.obs['image_id'] == omero_id].copy()
-
-#         clust_col = filtered_adata.obs.columns[-1:][0]
-#         clust_uniq = filtered_adata.obs['cluster_phenograph'].unique()
-
-#         processed_adata, _ = CLQ_vec_numba(filtered_adata, clust_col, clust_uniq, radius, n_perms)
-#         adatas_list.append({
-#             f"{task.get('_key')}-clq": processed_adata}
-#         )
-
-#     clust_col = adata.obs.columns[-1:][0]
-#     obs_df=adata.obs[clust_col]
-#     cluster_uniq=list(set(obs_df))
-#     bdata, adata = CLQ_vec_numba(adata, clust_col, cluster_uniq, radius, n_perms)
-
-#     return {
-#         'adatas_list': adatas_list,
-#         'clq_adata': adata,
-#         'adata': bdata
-#     }

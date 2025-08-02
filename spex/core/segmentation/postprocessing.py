@@ -179,6 +179,7 @@ def feature_extraction_adata(img, labels, all_channels):
     """
 
     label_array = labels
+    import re
 
     props = regionprops_table(label_array, intensity_image=np.transpose(img, (1, 2, 0)),
                                       properties=['label', 'area', 'centroid', 'mean_intensity'])

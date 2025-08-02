@@ -8,7 +8,6 @@ from scipy.stats.mstats import winsorize
 import numpy as np
 import pandas as pd
 
-
 def phenograph_cluster(
     adata: ad.AnnData,
     channel_names: List[str],
@@ -46,18 +45,26 @@ def phenograph_cluster(
         - adata.obs['cluster_phenograph']: cluster labels (as strings)
         - adata.obsm['X_umap']: 2D UMAP coordinates
     """
-    if 'channel_index_map' not in adata.uns:
-        raise ValueError("Missing 'channel_index_map' in adata.uns.")
 
     def normalize(name: str) -> str:
         return re.sub(r"[^0-9a-zA-Z]", "", name).lower().replace("target", "")
 
+    if 'channel_index_map' not in adata.uns:
+        adata.uns['channel_index_map'] = {
+            normalize(ch): i for i, ch in enumerate(adata.var_names)
+        }
+
     channel_map = adata.uns['channel_index_map']
-    normalized_input = [normalize(ch) for ch in channel_names]
-    marker_indices = [channel_map[ch] for ch in normalized_input if ch in channel_map]
+
+    marker_indices = []
+    for target in channel_names:
+        target_norm = normalize(target)
+        found = [idx for name, idx in channel_map.items() if target_norm in name]
+        if found:
+            marker_indices.extend(found)
 
     if not marker_indices:
-        raise ValueError("No valid channel names found in channel_index_map.")
+        raise ValueError(f"No valid channel names found for {channel_names}")
 
     df = adata.to_df()
     data_for_calc = df.iloc[:, marker_indices]
@@ -65,12 +72,16 @@ def phenograph_cluster(
     if transformation == 'arcsin':
         data_for_calc = np.arcsinh(data_for_calc / cofactor)
     elif transformation == 'log':
-        data_for_calc = data_for_calc.apply(lambda x: np.log10(x) if np.issubdtype(x.dtype, np.number) else x)
+        data_for_calc = data_for_calc.apply(
+            lambda x: np.log10(x) if np.issubdtype(x.dtype, np.number) else x
+        )
 
     if scaling == 'z-score':
         data_for_calc = data_for_calc.apply(zscore)
     elif scaling == 'winsorize':
-        arr_data_frame_winsorized = winsorize(data_for_calc.to_numpy(), limits=(0, 0.01)).data
+        arr_data_frame_winsorized = winsorize(
+            data_for_calc.to_numpy(), limits=(0, 0.01)
+        ).data
         data_for_calc.iloc[:, :] = arr_data_frame_winsorized
 
     communities, graph, Q = phenograph.cluster(
@@ -79,6 +90,7 @@ def phenograph_cluster(
         clustering_algo='leiden'
     )
 
+    # UMAP
     bdata = ad.AnnData(data_for_calc)
     sc.pp.neighbors(bdata, n_neighbors=knn)
     sc.tl.umap(bdata, min_dist=umap_min_dist)

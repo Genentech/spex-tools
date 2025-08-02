@@ -35,5 +35,6 @@ def load_image(imgpath: str = '') -> str:
                 # get tags as json
                 description = json.loads(page.tags['ImageDescription'].value)
                 channel_list.append(description['channel.target'])
+    channel_list = [ch.replace("Target:", "") if ch else ch for ch in channel_list]
 
     return array, channel_list
