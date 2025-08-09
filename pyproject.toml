@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spex"
-version = "0.1.1053"
+version = "0.3.1054"
 description = "Spatial transcriptomics library"
 authors = [{name = "Aleksandr Prilipko"}]
 license = "Apache-2.0"

@@ -100,8 +100,8 @@ __all__ = [
     "load_anndata"
 ]
 
-# try:
-#     from spex.core.utils import download_cellpose_models
-#     download_cellpose_models()
-# except Exception as e:
-#     print(f"[spex] ⚠️ Model download skipped: {e}")
+try:
+    from spex.core.utils import download_cellpose_models
+    download_cellpose_models()
+except Exception as e:
+    print(f"[spex] ⚠️ Model download skipped: {e}")
