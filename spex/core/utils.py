@@ -329,20 +329,26 @@ def download_cellpose_models():
     try:
         with urllib.request.urlopen(BASE_URL, timeout=TIMEOUT) as response:
             html = response.read().decode()
-    except Exception as e:
-        _log_error(f"❌ Cannot reach model server")
+    except Exception:
+        _log_error("❌ Cannot reach model server")
         return
 
-    files = re.findall(r'href=[\"\\\']([^\"\\\'<>?#/][^\"\\\'<>?#]*)[\"\\\']', html)
+    files = re.findall(r'href=["\\\']([^"\\\'<>?#/][^"\\\'<>?#]*)["\\\']', html)
     if not files:
         _log_error("Index has no parsable files")
         return
 
-    for name in files:
+    missing = [name for name in files if not os.path.exists(os.path.join(MODEL_DIR, name))]
+    if not missing:
+        return
+
+    answer = input(f"{len(missing)} models are missing. Download now? [y/N] (for cellpose): ").strip().lower()
+    if answer != "y":
+        return
+
+    for name in missing:
         dest = os.path.join(MODEL_DIR, name)
         url = urljoin(BASE_URL, name)
-        if os.path.exists(dest):
-            continue
         success = _download_file(url, dest)
         if not success:
             continue
