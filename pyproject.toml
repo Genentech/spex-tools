@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spex"
-version = "0.3.1054"
+version = "0.3.1055"
 description = "Spatial transcriptomics library"
 authors = [{name = "Aleksandr Prilipko"}]
 license = "Apache-2.0"
@@ -70,7 +70,22 @@ dependencies = [
     "pyarrow==20.0.0",
     "numcodecs==0.12.1"
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "black",
+    "pre-commit"
+]
+docs = [
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "mkdocs-jupyter"
+]
+
 [tool.setuptools]
 packages = { find = {} }
+
 [tool.setuptools.package-data]
 "spex.resources" = ["*.parquet"]
