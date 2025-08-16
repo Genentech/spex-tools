@@ -6,9 +6,12 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
+          paths: ["."]
           options:
+            docstring_style: numpy
             show_source: false
-            show_root_heading: true
+  - mkdocs-jupyter:
+      execute: false
 
 nav:
   - Home: index.md
