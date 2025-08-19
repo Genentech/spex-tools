@@ -1,6 +1,36 @@
 site_name: spex-tools
 site_url: https://genentech.github.io/spex-tools/
 
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  font:
+    text: Roboto
+    code: Roboto Mono
+
 plugins:
   - search
   - mkdocstrings:
@@ -10,9 +40,74 @@ plugins:
           options:
             docstring_style: numpy
             show_source: false
+            show_root_heading: true
+            show_category_heading: true
+            heading_level: 2
+            members_order: source
+            merge_init_into_class: true
+            show_signature_annotations: true
+            show_bases: true
+            show_submodules: true
+            show_signature: true
+            signature_crossrefs: true
+            preload_modules: []
+            filters: ["!^_"]
+            docstring_options:
+              ignore_init_summary: true
+              ignore_init_description: true
   - mkdocs-jupyter:
       execute: false
 
 nav:
   - Home: index.md
+  - Image Segmentation: segmentation.md
+  - Practical Examples: examples.md
   - API Reference: api.md
+  - Changelog: CHANGELOG.md
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      use_pygments: false
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_css:
+  - stylesheets/extra.css

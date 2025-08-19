@@ -1,0 +1,2531 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/segmentation/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../examples/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>Image Segmentation - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#image-segmentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Image Segmentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Image Segmentation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../examples/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Practical Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../CHANGELOG/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Image Segmentation
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Image Segmentation
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Loading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Loading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.io.load_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtering and Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Filtering and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#median_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      median_denoise
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.filters.median_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      median_denoise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="median_denoise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nlm_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      nlm_denoise
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.filters.nlm_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      nlm_denoise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="nlm_denoise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background_subtract" class="md-nav__link">
+    <span class="md-ellipsis">
+      background_subtract
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.background_subtract.background_subtract" class="md-nav__link">
+    <span class="md-ellipsis">
+      background_subtract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cellpose_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      cellpose_cellseg
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.cellpose_cellseg.cellpose_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      cellpose_cellseg
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cellpose_cellseg">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stardist_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      stardist_cellseg
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.stardist.stardist_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      stardist_cellseg
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="stardist_cellseg">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#watershed_classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      watershed_classic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.watershed.watershed_classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      watershed_classic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Postprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rescue_cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      rescue_cells
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.rescue_cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      rescue_cells
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rescue_cells">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simulate_cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      simulate_cell
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.simulate_cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      simulate_cell
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="simulate_cell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove_small_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_small_objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.remove_small_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_small_objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="remove_small_objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove_large_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_large_objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.remove_large_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_large_objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="remove_large_objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature_extraction_adata" class="md-nav__link">
+    <span class="md-ellipsis">
+      feature_extraction_adata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.feature_extraction_adata" class="md-nav__link">
+    <span class="md-ellipsis">
+      feature_extraction_adata
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-segmentation-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Typical Segmentation Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Formats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendations
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Practical Examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Loading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Loading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.io.load_image" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtering and Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Filtering and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#median_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      median_denoise
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.filters.median_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      median_denoise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="median_denoise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nlm_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      nlm_denoise
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.filters.nlm_denoise" class="md-nav__link">
+    <span class="md-ellipsis">
+      nlm_denoise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="nlm_denoise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background_subtract" class="md-nav__link">
+    <span class="md-ellipsis">
+      background_subtract
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.background_subtract.background_subtract" class="md-nav__link">
+    <span class="md-ellipsis">
+      background_subtract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cellpose_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      cellpose_cellseg
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.cellpose_cellseg.cellpose_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      cellpose_cellseg
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cellpose_cellseg">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stardist_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      stardist_cellseg
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.stardist.stardist_cellseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      stardist_cellseg
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="stardist_cellseg">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#watershed_classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      watershed_classic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.watershed.watershed_classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      watershed_classic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Postprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rescue_cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      rescue_cells
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.rescue_cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      rescue_cells
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rescue_cells">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simulate_cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      simulate_cell
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.simulate_cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      simulate_cell
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="simulate_cell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove_small_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_small_objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.remove_small_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_small_objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="remove_small_objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove_large_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_large_objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.remove_large_objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove_large_objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="remove_large_objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature_extraction_adata" class="md-nav__link">
+    <span class="md-ellipsis">
+      feature_extraction_adata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spex.core.segmentation.postprocessing.feature_extraction_adata" class="md-nav__link">
+    <span class="md-ellipsis">
+      feature_extraction_adata
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-segmentation-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Typical Segmentation Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Formats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendations
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="image-segmentation">Image Segmentation<a class="headerlink" href="#image-segmentation" title="Permanent link">&para;</a></h1>
+<p>The SPEX segmentation module provides a comprehensive set of tools for analyzing and segmenting multi-channel microscopy images. All functions are optimized for spatial transcriptomics data.</p>
+<h2 id="image-loading">Image Loading<a class="headerlink" href="#image-loading" title="Permanent link">&para;</a></h2>
+<h3 id="load_image">load_image<a class="headerlink" href="#load_image" title="Permanent link">&para;</a></h3>
+<p>Main function for loading images in various formats.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.io.load_image" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">imgpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span></code>
+
+<a href="#spex.core.segmentation.io.load_image" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Load image and check/correct for dimension ordering.</p>
+<p>This function loads multi-channel microscopy images in OME-TIFF or OME-ZARR format
+and automatically handles dimension ordering to ensure proper channel separation.
+It supports various image formats through BioformatsReader and extracts channel
+information from image metadata.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>imgpath</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Path to the image file. Supports OME-TIFF (.ome.tiff, .ome.tif) and
+OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
+<code>*.zarr/0</code> to specify the correct subdirectory.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="tuple">tuple</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A tuple containing:
+- array : numpy.ndarray
+    Multi-channel image data with shape (C, Y, X) where C is the number
+    of channels, Y and X are spatial dimensions
+- channel_list : list
+    List of channel names extracted from image metadata. If metadata
+    is not available, generic channel names may be used.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Load an OME-TIFF file:</p>
+    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image shape: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Channels: </span><span class="si">{</span><span class="n">channels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+    <p>Load an OME-ZARR file:</p>
+    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.zarr/0&quot;</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of channels: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <ul>
+<li>The function automatically detects the channel dimension and reorders
+  the data to ensure channels are in the first dimension</li>
+<li>Channel names are extracted from OME metadata when available</li>
+<li>For TIFF files without proper metadata, channel names may be empty
+  or generic</li>
+<li>The function uses BioformatsReader for maximum format compatibility</li>
+</ul>
+</details>
+
+    </div>
+
+</div><p><strong>Usage Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Load OME-TIFF file</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image shape: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Channels: </span><span class="si">{</span><span class="n">channels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Load OME-ZARR file</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.zarr/0&quot;</span><span class="p">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of channels: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="filtering-and-preprocessing">Filtering and Preprocessing<a class="headerlink" href="#filtering-and-preprocessing" title="Permanent link">&para;</a></h2>
+<h3 id="median_denoise">median_denoise<a class="headerlink" href="#median_denoise" title="Permanent link">&para;</a></h3>
+<p>Median filtering for noise removal.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.filters.median_denoise" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">median_denoise</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">kernel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ch</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></code>
+
+<a href="#spex.core.segmentation.filters.median_denoise" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Median denoising for selected channels of a multichannel image.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>image</code>
+            </td>
+            <td>
+                  <code><span title="numpy.ndarray">ndarray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multichannel image array with shape (C, X, Y).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>kernel</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Kernel size for the median filter (typical range: 5–7).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>ch</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of channel indices to denoise.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="numpy.ndarray">ndarray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Denoised image stack with shape (C, X, Y).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h3 id="nlm_denoise">nlm_denoise<a class="headerlink" href="#nlm_denoise" title="Permanent link">&para;</a></h3>
+<p>Non-local means for advanced noise filtering.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.filters.nlm_denoise" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">nlm_denoise</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">patch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dist</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></code>
+
+<a href="#spex.core.segmentation.filters.nlm_denoise" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Non local means denoising</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>image</code>
+            </td>
+            <td>
+                  <code>Multichannel numpy array (C,X,Y)</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>patch</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                  <code>5</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dist</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                  <code>6</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>Image Stack : Denoised image stack as numpy array (C,X,Y)</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h3 id="background_subtract">background_subtract<a class="headerlink" href="#background_subtract" title="Permanent link">&para;</a></h3>
+<p>Background subtraction for improved contrast.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.background_subtract.background_subtract" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">background_subtract</span><span class="o">.</span><span class="n">background_subtract</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">subtraction</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.background_subtract.background_subtract" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Subtract background signal from other channels</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>image</code>
+            </td>
+            <td>
+                  <code>Multichannel numpy array (C,X,Y)</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>channel</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>threshold</code>
+            </td>
+            <td>
+                  <code>int, ignore pixels above this threshold</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>subtraction</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>Image Stack : Background corrected Image Stack</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h2 id="segmentation-algorithms">Segmentation Algorithms<a class="headerlink" href="#segmentation-algorithms" title="Permanent link">&para;</a></h2>
+<h3 id="cellpose_cellseg">cellpose_cellseg<a class="headerlink" href="#cellpose_cellseg" title="Permanent link">&para;</a></h3>
+<p>Cell segmentation using deep learning with Cellpose.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.cellpose_cellseg.cellpose_cellseg" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">cellpose_cellseg</span><span class="o">.</span><span class="n">cellpose_cellseg</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">diameter</span><span class="p">,</span> <span class="n">scaling</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.cellpose_cellseg.cellpose_cellseg" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+
+    </div>
+
+</div><p><strong>Usage Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span><span class="p">,</span> <span class="n">cellpose_cellseg</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Load an image</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Perform segmentation</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">cellpose_cellseg</span><span class="p">(</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">array</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">seg_channels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># Use first channel for segmentation</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">diameter</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>       <span class="c1"># Typical nucleus size</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span>          <span class="c1"># Scaling factor</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="stardist_cellseg">stardist_cellseg<a class="headerlink" href="#stardist_cellseg" title="Permanent link">&para;</a></h3>
+<p>Star-convex object-based segmentation using StarDist.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.stardist.stardist_cellseg" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">stardist</span><span class="o">.</span><span class="n">stardist_cellseg</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.stardist.stardist_cellseg" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Segment image by stardist deeplearning method</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>image</code>
+            </td>
+            <td>
+                  <code>Multichannel image as numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>seg_channels</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>scaling</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>threshold</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>_min</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>_max</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>labels</code></td>            <td>
+                  <code>per cell segmentation as numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><p><strong>Usage Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span><span class="p">,</span> <span class="n">stardist_cellseg</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Load an image</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Perform segmentation</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">stardist_cellseg</span><span class="p">(</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">array</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">seg_channels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>     <span class="c1"># Channels for segmentation</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>            <span class="c1"># Scaling factor</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">threshold</span><span class="o">=</span><span class="mf">0.479071</span><span class="p">,</span>   <span class="c1"># Probability threshold</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">_min</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>            <span class="c1"># Lower percentile for normalization</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">_max</span><span class="o">=</span><span class="mf">98.5</span>            <span class="c1"># Upper percentile for normalization</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="watershed_classic">watershed_classic<a class="headerlink" href="#watershed_classic" title="Permanent link">&para;</a></h3>
+<p>Classical watershed segmentation.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.watershed.watershed_classic" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">watershed</span><span class="o">.</span><span class="n">watershed_classic</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.watershed.watershed_classic" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Detect nuclei in image using classic watershed</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>img</code>
+            </td>
+            <td>
+                  <code>Multichannel image as numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>seg_channels</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>dilated_labels</code></td>            <td>
+                  <code>per cell segmentation as numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h2 id="postprocessing">Postprocessing<a class="headerlink" href="#postprocessing" title="Permanent link">&para;</a></h2>
+<h3 id="rescue_cells">rescue_cells<a class="headerlink" href="#rescue_cells" title="Permanent link">&para;</a></h3>
+<p>Recovery of cells that might have been lost during segmentation.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.postprocessing.rescue_cells" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">rescue_cells</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">label_ling</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.postprocessing.rescue_cells" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Rescue/Segment cells that deep learning approach may have missed</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>image</code>
+            </td>
+            <td>
+                  <code>raw image 2d numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>seg_channels</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>label_ling</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>combine_label</code></td>            <td>
+                  <code>2D numpy array with added cells</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h3 id="simulate_cell">simulate_cell<a class="headerlink" href="#simulate_cell" title="Permanent link">&para;</a></h3>
+<p>Cell simulation for testing and validation.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.postprocessing.simulate_cell" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">simulate_cell</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.postprocessing.simulate_cell" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Dilate labels by fixed amount to simulate cells</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>labels</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dist</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>out</code></td>            <td>
+                  <code>2D label numpy array with simulated cells</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h3 id="remove_small_objects">remove_small_objects<a class="headerlink" href="#remove_small_objects" title="Permanent link">&para;</a></h3>
+<p>Removal of small objects.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.postprocessing.remove_small_objects" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">remove_small_objects</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">minsize</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.postprocessing.remove_small_objects" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Remove small segmented objects</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>segments</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>minsize</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>out</code></td>            <td>
+                  <code>2D label numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h3 id="remove_large_objects">remove_large_objects<a class="headerlink" href="#remove_large_objects" title="Permanent link">&para;</a></h3>
+<p>Removal of large objects.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.postprocessing.remove_large_objects" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">remove_large_objects</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">maxsize</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.postprocessing.remove_large_objects" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Remove large segmented objects</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>segments</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>maxsize</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>out</code></td>            <td>
+                  <code>2D label numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h3 id="feature_extraction_adata">feature_extraction_adata<a class="headerlink" href="#feature_extraction_adata" title="Permanent link">&para;</a></h3>
+<p>Feature extraction from segmented images to AnnData format.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spex.core.segmentation.postprocessing.feature_extraction_adata" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">feature_extraction_adata</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">all_channels</span><span class="p">)</span></code>
+
+<a href="#spex.core.segmentation.postprocessing.feature_extraction_adata" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Extract per cell expression for all channels</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>perCellanndata</code></td>            <td>
+                  <code>anndata single-cell object with all data</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code>param labels:</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code>param img: Multichannel image as numpy array</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code>param all_channels:</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h2 id="typical-segmentation-pipeline">Typical Segmentation Pipeline<a class="headerlink" href="#typical-segmentation-pipeline" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">load_image</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">median_denoise</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">background_subtract</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">cellpose_cellseg</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">remove_small_objects</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">feature_extraction_adata</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># 1. Load image</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># 2. Preprocessing</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="n">denoised</span> <span class="o">=</span> <span class="n">median_denoise</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Denoising for channels 0 and 1</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">subtracted</span> <span class="o">=</span> <span class="n">background_subtract</span><span class="p">(</span><span class="n">denoised</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Background subtraction</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="c1"># 3. Segmentation</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">cellpose_cellseg</span><span class="p">(</span><span class="n">subtracted</span><span class="p">,</span> <span class="n">seg_channels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">diameter</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="c1"># 4. Postprocessing</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="n">cleaned_labels</span> <span class="o">=</span> <span class="n">remove_small_objects</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="c1"># 5. Feature extraction</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="n">adata</span> <span class="o">=</span> <span class="n">feature_extraction_adata</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">cleaned_labels</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully segmented </span><span class="si">{</span><span class="n">cleaned_labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="supported-formats">Supported Formats<a class="headerlink" href="#supported-formats" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>OME-TIFF</strong> (.ome.tiff, .ome.tif) - Primary format for multi-channel images</li>
+<li><strong>OME-ZARR</strong> (.zarr) - Modern format for large datasets</li>
+<li><strong>TIFF</strong> - Standard image format (with limited metadata support)</li>
+</ul>
+<h2 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Preprocessing</strong>: Always apply noise filtering before segmentation</li>
+<li><strong>Channel Selection</strong>: Use channels with clear cell boundaries for segmentation</li>
+<li><strong>Parameters</strong>: Adjust diameter and thresholds based on your data</li>
+<li><strong>Validation</strong>: Visually check segmentation results</li>
+<li><strong>Postprocessing</strong>: Remove artifacts and objects that are too small or large</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

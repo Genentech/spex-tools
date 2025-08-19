@@ -8,7 +8,6 @@ import numpy as np
 
 
 def watershed_classic(img, seg_channels):
-
     """Detect nuclei in image using classic watershed
 
     Parameters
@@ -16,7 +15,6 @@ def watershed_classic(img, seg_channels):
     img : Multichannel image as numpy array
     seg_channels: list of indices to use for nuclear segmentation
 
-    -------
     Returns
     -------
     dilated_labels : per cell segmentation as numpy array

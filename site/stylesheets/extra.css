@@ -1,0 +1,181 @@
+/* Custom styles for SPEX documentation */
+
+/* Improve code block appearance */
+.md-typeset pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.md-typeset code {
+    background-color: #f1f3f4;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.9em;
+}
+
+/* Improve table appearance */
+.md-typeset table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.md-typeset table th {
+    background-color: #3f51b5;
+    color: white;
+    font-weight: 600;
+    padding: 12px 16px;
+}
+
+.md-typeset table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* Fix parameter table styling */
+.md-typeset table td code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+}
+
+/* Remove boxes around parameter names and types */
+.md-typeset .doc-function table td:first-child,
+.md-typeset .doc-function table td:nth-child(2) {
+    background-color: transparent;
+}
+
+.md-typeset .doc-function table td:first-child code,
+.md-typeset .doc-function table td:nth-child(2) code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-weight: 600;
+    color: #1976d2;
+}
+
+/* Consistent default value styling */
+.md-typeset .doc-function table td:last-child {
+    font-style: italic;
+    color: #666;
+}
+
+.md-typeset .doc-function table td:last-child code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-style: italic;
+    color: #666;
+}
+
+/* Improve admonition boxes */
+.md-typeset .admonition {
+    border-radius: 8px;
+    border-left: 4px solid;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.md-typeset .admonition-title {
+    font-weight: 600;
+    padding: 12px 16px;
+}
+
+/* Improve navigation */
+.md-nav__link {
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.md-nav__link:hover {
+    background-color: #f1f3f4;
+}
+
+/* Improve headings */
+.md-typeset h1 {
+    color: #1a237e;
+    border-bottom: 3px solid #3f51b5;
+    padding-bottom: 8px;
+}
+
+.md-typeset h2 {
+    color: #283593;
+    border-bottom: 2px solid #5c6bc0;
+    padding-bottom: 6px;
+}
+
+.md-typeset h3 {
+    color: #303f9f;
+}
+
+/* Improve buttons and links */
+.md-button {
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.md-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Improve content spacing */
+.md-content {
+    line-height: 1.6;
+}
+
+.md-typeset p {
+    margin-bottom: 16px;
+}
+
+/* Improve list appearance */
+.md-typeset ul, .md-typeset ol {
+    padding-left: 24px;
+}
+
+.md-typeset li {
+    margin-bottom: 8px;
+}
+
+/* Custom styling for function documentation */
+.md-typeset .doc-function {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/* Improve search appearance */
+.md-search__input {
+    border-radius: 20px;
+}
+
+/* Fix function signature display */
+.md-typeset .doc-function .doc-function-signature {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 16px 0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+    overflow-x: auto;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .md-typeset pre {
+        padding: 12px;
+        font-size: 0.9em;
+    }
+    
+    .md-typeset table {
+        font-size: 0.9em;
+    }
+}
