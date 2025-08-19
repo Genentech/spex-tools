@@ -2,18 +2,53 @@
 
 /* Improve code block appearance */
 .md-typeset pre {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background-color: #2d3748;
+    border: 1px solid #4a5568;
     border-radius: 6px;
     padding: 16px;
     margin: 16px 0;
+    color: #e2e8f0;
 }
 
 .md-typeset code {
-    background-color: #f1f3f4;
+    background-color: #4a5568;
     border-radius: 4px;
     padding: 2px 6px;
     font-size: 0.9em;
+    color: #e2e8f0;
+}
+
+/* Don't style code in tables - more specific selectors */
+.md-typeset table code,
+.md-typeset table td code,
+.md-typeset table th code,
+.md-typeset .doc table code,
+.md-typeset .doc-contents table code,
+table code,
+td code,
+th code,
+/* More aggressive selectors for table code */
+.md-typeset table * code,
+.md-typeset table * .highlight,
+.md-typeset table * .highlight *,
+.md-typeset .doc table * code,
+.md-typeset .doc-contents table * code,
+.md-typeset .doc-contents table * .highlight,
+.md-typeset .doc-contents table * .highlight *,
+table * code,
+table * .highlight,
+table * .highlight *,
+td * code,
+th * code {
+    background-color: #4a5568 !important;
+    background: #4a5568 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    margin: 0 !important;
+    font-size: inherit !important;
+    box-shadow: none !important;
+    color: #e2e8f0 !important;
 }
 
 /* Improve table appearance */
@@ -37,40 +72,106 @@
 
 /* Fix parameter table styling */
 .md-typeset table td code {
-    background-color: transparent;
-    border: none;
-    padding: 0;
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
     font-size: inherit;
-    color: inherit;
+    color: inherit !important;
+    box-shadow: none !important;
+}
+
+/* Override any code styling in tables - comprehensive */
+.md-typeset table code,
+.md-typeset .doc-contents table code,
+.md-typeset .doc-contents table .highlight code,
+.md-typeset .doc table code,
+.md-typeset .doc table .highlight code,
+table .highlight code,
+table .highlight,
+.doc-contents table .highlight {
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    font-family: inherit;
+    color: inherit !important;
+}
+
+/* Force remove highlights in tables */
+.md-typeset table .highlight {
+    background: transparent !important;
+}
+
+/* Force plain text style for table code elements */
+.md-typeset table .highlight .n,
+.md-typeset table .highlight .nb,
+.md-typeset table .highlight .nf,
+.md-typeset table .highlight .k,
+.md-typeset table .highlight .kn,
+.md-typeset table .highlight .s,
+.md-typeset table .highlight .si,
+.md-typeset table .highlight .mi {
+    color: inherit !important;
+    background: transparent !important;
 }
 
 /* Remove boxes around parameter names and types */
-.md-typeset .doc-function table td:first-child,
-.md-typeset .doc-function table td:nth-child(2) {
+.md-typeset table td:first-child,
+.md-typeset table td:nth-child(2) {
     background-color: transparent;
 }
 
-.md-typeset .doc-function table td:first-child code,
-.md-typeset .doc-function table td:nth-child(2) code {
-    background-color: transparent;
-    border: none;
-    padding: 0;
+.md-typeset table td:first-child code,
+.md-typeset table td:nth-child(2) code {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
     font-weight: 600;
-    color: #1976d2;
+    color: #333 !important;
+}
+
+/* Specific styling for parameter names */
+.md-typeset table td:first-child {
+    color: #1976d2 !important;
+    font-weight: 600 !important;
+}
+
+.md-typeset table td:first-child code {
+    color: #1976d2 !important;
+    background: #4a5568 !important;
+    border: none !important;
+    padding: 2px 6px !important;
+    font-weight: 600 !important;
+}
+
+/* Specific styling for parameter types */
+.md-typeset table td:nth-child(2) {
+    color: #e2e8f0 !important;
+    font-style: italic !important;
+}
+
+.md-typeset table td:nth-child(2) code {
+    color: #e2e8f0 !important;
+    background: #4a5568 !important;
+    border: none !important;
+    padding: 2px 6px !important;
+    font-style: italic !important;
 }
 
 /* Consistent default value styling */
-.md-typeset .doc-function table td:last-child {
+.md-typeset table td:last-child {
     font-style: italic;
     color: #666;
 }
 
-.md-typeset .doc-function table td:last-child code {
-    background-color: transparent;
-    border: none;
-    padding: 0;
+.md-typeset table td:last-child code {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
     font-style: italic;
-    color: #666;
+    color: #666 !important;
 }
 
 /* Improve admonition boxes */
@@ -126,10 +227,37 @@
 /* Improve content spacing */
 .md-content {
     line-height: 1.6;
+    background-color: #2d3748 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Make main content area dark */
+.md-main__inner {
+    background-color: #2d3748 !important;
+}
+
+.md-content__inner {
+    background-color: #2d3748 !important;
+    color: #e2e8f0 !important;
 }
 
 .md-typeset p {
     margin-bottom: 16px;
+    color: #e2e8f0 !important;
+}
+
+/* Make all text visible on dark background */
+.md-typeset {
+    color: #e2e8f0 !important;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    color: #e2e8f0 !important;
 }
 
 /* Improve list appearance */
@@ -156,9 +284,14 @@
 }
 
 /* Fix function signature display */
-.md-typeset .doc-function .doc-function-signature {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
+.md-typeset .doc-function .doc-function-signature,
+.md-typeset .doc-function-signature,
+.md-typeset .doc-contents .doc-function-signature,
+.md-typeset .doc .doc-function-signature,
+.doc-function-signature,
+.doc-contents .doc-function-signature {
+    background-color: #2d3748 !important;
+    border: 1px solid #4a5568 !important;
     border-radius: 6px;
     padding: 16px;
     margin: 16px 0;
@@ -166,6 +299,7 @@
     font-size: 0.9em;
     line-height: 1.4;
     overflow-x: auto;
+    color: #e2e8f0 !important;
 }
 
 /* Responsive improvements */
@@ -174,8 +308,110 @@
         padding: 12px;
         font-size: 0.9em;
     }
-    
+
     .md-typeset table {
         font-size: 0.9em;
     }
+}
+
+/* LAST RESORT - Nuclear option for all code elements */
+* table * code,
+* table * .highlight,
+* table * .highlight *,
+table *,
+.md-typeset * code,
+.md-typeset * .highlight,
+.md-typeset * .highlight *,
+/* Function signatures and main blocks */
+.doc-function-signature,
+.doc-function-signature *,
+.doc-contents .doc-function-signature,
+.doc-contents .doc-function-signature *,
+.doc-function-signature code,
+.doc-function-signature .highlight,
+.doc-function-signature .highlight *,
+/* Table-specific overrides */
+.md-typeset table *,
+.md-typeset .doc-contents table *,
+.md-typeset .doc table *,
+.doc-contents table *,
+.doc table * {
+    background: #4a5568 !important;
+    background-color: #4a5568 !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #e2e8f0 !important;
+}
+
+/* Make table text visible */
+.md-typeset table td {
+    color: #e2e8f0 !important;
+    background-color: #4a5568 !important;
+}
+
+.md-typeset table td:first-child {
+    color: #1976d2 !important;
+    font-weight: 600 !important;
+    background-color: #4a5568 !important;
+}
+
+.md-typeset table td:nth-child(2) {
+    color: #e2e8f0 !important;
+    font-style: italic !important;
+    background-color: #4a5568 !important;
+}
+
+.md-typeset table td:nth-child(3) {
+    color: #e2e8f0 !important;
+    background-color: #4a5568 !important;
+}
+
+.md-typeset table td:nth-child(4) {
+    color: #e2e8f0 !important;
+    background-color: #4a5568 !important;
+}
+
+/* Catch all remaining white elements */
+.md-typeset code,
+.md-typeset .highlight,
+.md-typeset .highlight code,
+.md-typeset .highlight *,
+.md-typeset pre code,
+.md-typeset .doc-contents code,
+.md-typeset .doc-contents .highlight,
+.md-typeset .doc-contents .highlight *,
+.doc-contents code,
+.doc-contents .highlight,
+.doc-contents .highlight *,
+.doc code,
+.doc .highlight,
+.doc .highlight *,
+.doc-function code,
+.doc-function .highlight,
+.doc-function .highlight *,
+/* Function signature blocks */
+.doc-function-signature,
+.doc-function-signature *,
+.doc-contents .doc-function-signature,
+.doc-contents .doc-function-signature *,
+/* Any remaining code blocks */
+.md-typeset pre,
+.md-typeset .doc-contents pre,
+.doc-contents pre,
+.doc pre,
+/* Table code elements - force grey */
+.md-typeset table code,
+.md-typeset table .highlight,
+.md-typeset table .highlight *,
+.md-typeset .doc-contents table code,
+.md-typeset .doc-contents table .highlight,
+.md-typeset .doc-contents table .highlight *,
+.doc-contents table code,
+.doc-contents table .highlight,
+.doc-contents table .highlight * {
+    background-color: #4a5568 !important;
+    background: #4a5568 !important;
+    color: #e2e8f0 !important;
+    border: none !important;
+    box-shadow: none !important;
 }

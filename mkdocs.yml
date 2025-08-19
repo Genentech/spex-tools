@@ -54,7 +54,6 @@ plugins:
             filters: ["!^_"]
             docstring_options:
               ignore_init_summary: true
-              ignore_init_description: true
   - mkdocs-jupyter:
       execute: false
 

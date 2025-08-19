@@ -1390,16 +1390,14 @@
 <h2 id="installation">📦 Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h3>
 <p>Before using OpenCV-related features, install the required system libraries:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libgl1-mesa-glx<span class="w"> </span>libjpeg-dev<span class="w"> </span>zlib1g-dev<span class="w"> </span>libpng-dev<span class="w"> </span>libgl1<span class="w"> </span>libfftw3-dev<span class="w"> </span>build-essential<span class="w"> </span>python3-dev
-</span></code></pre></div>
+<pre class="highlight"><code class="language-bash">sudo apt install -y libgl1-mesa-glx libjpeg-dev zlib1g-dev libpng-dev libgl1 libfftw3-dev build-essential python3-dev</code></pre>
 <h3 id="package-installation">Package Installation<a class="headerlink" href="#package-installation" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Upgrade pip and install dependencies</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel<span class="w"> </span>packaging
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>pip<span class="w"> </span>install<span class="w"> </span>pytest
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Install the package locally</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>pip<span class="w"> </span>install<span class="w"> </span>.
-</span></code></pre></div>
+<pre class="highlight"><code class="language-bash"># Upgrade pip and install dependencies
+pip install --upgrade pip setuptools wheel packaging
+pip install pytest
+
+# Install the package locally
+pip install .</code></pre>
 <h2 id="documentation">📚 Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="api/">API Reference</a></strong> - Complete API documentation</li>
@@ -1430,16 +1428,15 @@
 <li>⚙️ Includes integrated <strong>Cellpose</strong> support, with fallback model handling</li>
 </ul>
 <h2 id="quick-start">🔧 Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span><span class="p">,</span> <span class="n">cellpose_cellseg</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Load an image</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Perform segmentation</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">cellpose_cellseg</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">seg_channels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">diameter</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">from spex import load_image, cellpose_cellseg
+
+# Load an image
+array, channels = load_image("path/to/image.ome.tiff")
+
+# Perform segmentation
+labels = cellpose_cellseg(array, seg_channels=[0], diameter=30, scaling=1)
+
+print(f"Detected {labels.max()} cells")</code></pre>
 <h2 id="core-modules">📖 Core Modules<a class="headerlink" href="#core-modules" title="Permanent link">&para;</a></h2>
 
 
@@ -1539,7 +1536,7 @@
 
 
 <h8 id="spex.core.clustering.phenograph.phenograph_cluster" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">phenograph_cluster</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">,</span> <span class="n">channel_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">knn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">transformation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;arcsin&#39;</span><span class="p">,</span> <span class="n">scaling</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;z-score&#39;</span><span class="p">,</span> <span class="n">cofactor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">umap_min_dist</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span></code>
+            <code class="highlight language-python">phenograph_cluster(adata: ad.AnnData, channel_names: List[str], knn: int = 30, transformation: str = 'arcsin', scaling: str = 'z-score', cofactor: float = 5.0, umap_min_dist: float = 0.5) -&gt; ad.AnnData</code>
 
 <a href="#spex.core.clustering.phenograph.phenograph_cluster" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -1786,7 +1783,7 @@ Marker channels are specified by name; their indices are resolved via adata.uns[
 
 
 <h8 id="spex.core.segmentation.background_subtract.background_subtract" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">background_subtract</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">subtraction</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span></code>
+            <code class="highlight language-python">background_subtract(image, channel: int, threshold: int, subtraction: int)</code>
 
 <a href="#spex.core.segmentation.background_subtract.background_subtract" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -1944,7 +1941,7 @@ Marker channels are specified by name; their indices are resolved via adata.uns[
 
 
 <h8 id="spex.core.segmentation.filters.median_denoise" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">median_denoise</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">kernel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ch</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></code>
+            <code class="highlight language-python">median_denoise(image: np.ndarray, kernel: int, ch: list[int]) -&gt; np.ndarray</code>
 
 <a href="#spex.core.segmentation.filters.median_denoise" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2048,7 +2045,7 @@ Marker channels are specified by name; their indices are resolved via adata.uns[
 
 
 <h8 id="spex.core.segmentation.filters.nlm_denoise" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">nlm_denoise</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">patch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dist</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></code>
+            <code class="highlight language-python">nlm_denoise(image, patch: int = 5, dist: int = 6) -&gt; np.ndarray</code>
 
 <a href="#spex.core.segmentation.filters.nlm_denoise" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2190,7 +2187,7 @@ Marker channels are specified by name; their indices are resolved via adata.uns[
 
 
 <h8 id="spex.core.segmentation.io.load_image" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">load_image</span><span class="p">(</span><span class="n">imgpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span></code>
+            <code class="highlight language-python">load_image(imgpath: str = '') -&gt; tuple</code>
 
 <a href="#spex.core.segmentation.io.load_image" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2268,15 +2265,13 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Load an OME-TIFF file:</p>
-    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image shape: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Channels: </span><span class="si">{</span><span class="n">channels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+    <pre class="highlight"><code class="language-pycon">&gt;&gt;&gt; from spex import load_image
+&gt;&gt;&gt; array, channels = load_image("path/to/image.ome.tiff")
+&gt;&gt;&gt; print(f"Image shape: {array.shape}")
+&gt;&gt;&gt; print(f"Channels: {channels}")</code></pre>
     <p>Load an OME-ZARR file:</p>
-    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.zarr/0&quot;</span><span class="p">)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of channels: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+    <pre class="highlight"><code class="language-pycon">&gt;&gt;&gt; array, channels = load_image("path/to/image.zarr/0")
+&gt;&gt;&gt; print(f"Number of channels: {array.shape[0]}")</code></pre>
 
 
 <details class="note" open>
@@ -2337,7 +2332,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.segmentation.postprocessing.simulate_cell" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">simulate_cell</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span></code>
+            <code class="highlight language-python">simulate_cell(labels, dist)</code>
 
 <a href="#spex.core.segmentation.postprocessing.simulate_cell" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2423,7 +2418,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.segmentation.postprocessing.rescue_cells" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">rescue_cells</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">label_ling</span><span class="p">)</span></code>
+            <code class="highlight language-python">rescue_cells(image, seg_channels, label_ling)</code>
 
 <a href="#spex.core.segmentation.postprocessing.rescue_cells" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2525,7 +2520,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.segmentation.postprocessing.remove_large_objects" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">remove_large_objects</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">maxsize</span><span class="p">)</span></code>
+            <code class="highlight language-python">remove_large_objects(segments, maxsize)</code>
 
 <a href="#spex.core.segmentation.postprocessing.remove_large_objects" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2611,7 +2606,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.segmentation.postprocessing.remove_small_objects" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">remove_small_objects</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">minsize</span><span class="p">)</span></code>
+            <code class="highlight language-python">remove_small_objects(segments, minsize)</code>
 
 <a href="#spex.core.segmentation.postprocessing.remove_small_objects" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2697,7 +2692,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.segmentation.postprocessing.feature_extraction_adata" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">feature_extraction_adata</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">all_channels</span><span class="p">)</span></code>
+            <code class="highlight language-python">feature_extraction_adata(img, labels, all_channels)</code>
 
 <a href="#spex.core.segmentation.postprocessing.feature_extraction_adata" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2806,7 +2801,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.segmentation.stardist.stardist_cellseg" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">stardist_cellseg</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span><span class="p">)</span></code>
+            <code class="highlight language-python">stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max)</code>
 
 <a href="#spex.core.segmentation.stardist.stardist_cellseg" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -2991,7 +2986,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.segmentation.watershed.watershed_classic" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">watershed_classic</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">)</span></code>
+            <code class="highlight language-python">watershed_classic(img, seg_channels)</code>
 
 <a href="#spex.core.segmentation.watershed.watershed_classic" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -3154,7 +3149,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h8 id="spex.core.spatial_transcriptomics.analyze_pathways.annotate_clusters_dc" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">annotate_clusters_dc</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">marker_db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;mlm&#39;</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span></code>
+            <code class="highlight language-python">annotate_clusters_dc(adata, marker_db=None, method='mlm', tmin=3)</code>
 
 <a href="#spex.core.spatial_transcriptomics.analyze_pathways.annotate_clusters_dc" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -3212,7 +3207,7 @@ Strings are NOT accepted here (strings are reserved for Pegasus path).</p>
 
 
 <h8 id="spex.core.spatial_transcriptomics.niche.to_dense" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">to_dense</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span></code>
+            <code class="highlight language-python">to_dense(arr)</code>
 
 <a href="#spex.core.spatial_transcriptomics.niche.to_dense" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -3234,7 +3229,7 @@ Strings are NOT accepted here (strings are reserved for Pegasus path).</p>
 
 
 <h8 id="spex.core.spatial_transcriptomics.niche.to_uint8" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">to_uint8</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">norm_along</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python">to_uint8(arr, norm_along=None)</code>
 
 <a href="#spex.core.spatial_transcriptomics.niche.to_uint8" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -3303,7 +3298,7 @@ Strings are NOT accepted here (strings are reserved for Pegasus path).</p>
 
 
 <h6 id="spex.core.utils.to_uint8" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">to_uint8</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">norm_along</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python">to_uint8(arr, norm_along=None)</code>
 
 <a href="#spex.core.utils.to_uint8" class="headerlink" title="Permanent link">&para;</a></h6>
 
@@ -3321,7 +3316,7 @@ Strings are NOT accepted here (strings are reserved for Pegasus path).</p>
 
 
 <h6 id="spex.core.utils.delete_cellpose_models" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">delete_cellpose_models</span><span class="p">()</span></code>
+            <code class="highlight language-python">delete_cellpose_models()</code>
 
 <a href="#spex.core.utils.delete_cellpose_models" class="headerlink" title="Permanent link">&para;</a></h6>
 
@@ -3384,7 +3379,7 @@ Strings are NOT accepted here (strings are reserved for Pegasus path).</p>
 
 
 <h4 id="spex.core.utils.to_uint8" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">to_uint8</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">norm_along</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python">to_uint8(arr, norm_along=None)</code>
 
 <a href="#spex.core.utils.to_uint8" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -3402,7 +3397,7 @@ Strings are NOT accepted here (strings are reserved for Pegasus path).</p>
 
 
 <h4 id="spex.core.utils.delete_cellpose_models" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">delete_cellpose_models</span><span class="p">()</span></code>
+            <code class="highlight language-python">delete_cellpose_models()</code>
 
 <a href="#spex.core.utils.delete_cellpose_models" class="headerlink" title="Permanent link">&para;</a></h4>
 

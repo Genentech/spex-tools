@@ -1244,7 +1244,7 @@
 
 
 <h2 id="spex.core.segmentation.io.load_image" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">imgpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span></code>
+            <code class="highlight language-python">spex.core.segmentation.io.load_image(imgpath: str = '') -&gt; tuple</code>
 
 <a href="#spex.core.segmentation.io.load_image" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1322,15 +1322,13 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 <p><span class="doc-section-title">Examples:</span></p>
     <p>Load an OME-TIFF file:</p>
-    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image shape: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Channels: </span><span class="si">{</span><span class="n">channels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+    <pre class="highlight"><code class="language-pycon">&gt;&gt;&gt; from spex import load_image
+&gt;&gt;&gt; array, channels = load_image("path/to/image.ome.tiff")
+&gt;&gt;&gt; print(f"Image shape: {array.shape}")
+&gt;&gt;&gt; print(f"Channels: {channels}")</code></pre>
     <p>Load an OME-ZARR file:</p>
-    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.zarr/0&quot;</span><span class="p">)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of channels: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+    <pre class="highlight"><code class="language-pycon">&gt;&gt;&gt; array, channels = load_image("path/to/image.zarr/0")
+&gt;&gt;&gt; print(f"Number of channels: {array.shape[0]}")</code></pre>
 
 
 <details class="note" open>
@@ -1348,17 +1346,16 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
     </div>
 
 </div><p><strong>Usage Example:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Load OME-TIFF file</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image shape: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Channels: </span><span class="si">{</span><span class="n">channels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Load OME-ZARR file</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.zarr/0&quot;</span><span class="p">)</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of channels: </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">from spex import load_image
+
+# Load OME-TIFF file
+array, channels = load_image("path/to/image.ome.tiff")
+print(f"Image shape: {array.shape}")
+print(f"Channels: {channels}")
+
+# Load OME-ZARR file
+array, channels = load_image("path/to/image.zarr/0")
+print(f"Number of channels: {array.shape[0]}")</code></pre>
 <h2 id="filtering-and-preprocessing">Filtering and Preprocessing<a class="headerlink" href="#filtering-and-preprocessing" title="Permanent link">&para;</a></h2>
 <h3 id="median_denoise">median_denoise<a class="headerlink" href="#median_denoise" title="Permanent link">&para;</a></h3>
 <p>Median filtering for noise removal.</p>
@@ -1368,7 +1365,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.filters.median_denoise" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">median_denoise</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">kernel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ch</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></code>
+            <code class="highlight language-python">spex.core.segmentation.filters.median_denoise(image: np.ndarray, kernel: int, ch: list[int]) -&gt; np.ndarray</code>
 
 <a href="#spex.core.segmentation.filters.median_denoise" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1474,7 +1471,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.filters.nlm_denoise" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">nlm_denoise</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">patch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dist</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></code>
+            <code class="highlight language-python">spex.core.segmentation.filters.nlm_denoise(image, patch: int = 5, dist: int = 6) -&gt; np.ndarray</code>
 
 <a href="#spex.core.segmentation.filters.nlm_denoise" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1580,7 +1577,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.background_subtract.background_subtract" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">background_subtract</span><span class="o">.</span><span class="n">background_subtract</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">subtraction</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.background_subtract.background_subtract(image, channel: int, threshold: int, subtraction: int)</code>
 
 <a href="#spex.core.segmentation.background_subtract.background_subtract" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1703,7 +1700,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.cellpose_cellseg.cellpose_cellseg" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">cellpose_cellseg</span><span class="o">.</span><span class="n">cellpose_cellseg</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">diameter</span><span class="p">,</span> <span class="n">scaling</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.cellpose_cellseg.cellpose_cellseg(img, seg_channels, diameter, scaling)</code>
 
 <a href="#spex.core.segmentation.cellpose_cellseg.cellpose_cellseg" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1714,21 +1711,20 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
     </div>
 
 </div><p><strong>Usage Example:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span><span class="p">,</span> <span class="n">cellpose_cellseg</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Load an image</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Perform segmentation</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">cellpose_cellseg</span><span class="p">(</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">array</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">seg_channels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># Use first channel for segmentation</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">diameter</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>       <span class="c1"># Typical nucleus size</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span>          <span class="c1"># Scaling factor</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">)</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">from spex import load_image, cellpose_cellseg
+
+# Load an image
+array, channels = load_image("path/to/image.ome.tiff")
+
+# Perform segmentation
+labels = cellpose_cellseg(
+    array,
+    seg_channels=[0],  # Use first channel for segmentation
+    diameter=30,       # Typical nucleus size
+    scaling=1          # Scaling factor
+)
+
+print(f"Detected {labels.max()} cells")</code></pre>
 <h3 id="stardist_cellseg">stardist_cellseg<a class="headerlink" href="#stardist_cellseg" title="Permanent link">&para;</a></h3>
 <p>Star-convex object-based segmentation using StarDist.</p>
 
@@ -1737,7 +1733,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.stardist.stardist_cellseg" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">stardist</span><span class="o">.</span><span class="n">stardist_cellseg</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.stardist.stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max)</code>
 
 <a href="#spex.core.segmentation.stardist.stardist_cellseg" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1879,21 +1875,20 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
     </div>
 
 </div><p><strong>Usage Example:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_image</span><span class="p">,</span> <span class="n">stardist_cellseg</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Load an image</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Perform segmentation</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">stardist_cellseg</span><span class="p">(</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">array</span><span class="p">,</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">seg_channels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>     <span class="c1"># Channels for segmentation</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>            <span class="c1"># Scaling factor</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">threshold</span><span class="o">=</span><span class="mf">0.479071</span><span class="p">,</span>   <span class="c1"># Probability threshold</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">_min</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>            <span class="c1"># Lower percentile for normalization</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">_max</span><span class="o">=</span><span class="mf">98.5</span>            <span class="c1"># Upper percentile for normalization</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">from spex import load_image, stardist_cellseg
+
+# Load an image
+array, channels = load_image("path/to/image.ome.tiff")
+
+# Perform segmentation
+labels = stardist_cellseg(
+    array,
+    seg_channels=[0],     # Channels for segmentation
+    scaling=1,            # Scaling factor
+    threshold=0.479071,   # Probability threshold
+    _min=1.0,            # Lower percentile for normalization
+    _max=98.5            # Upper percentile for normalization
+)</code></pre>
 <h3 id="watershed_classic">watershed_classic<a class="headerlink" href="#watershed_classic" title="Permanent link">&para;</a></h3>
 <p>Classical watershed segmentation.</p>
 
@@ -1902,7 +1897,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.watershed.watershed_classic" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">watershed</span><span class="o">.</span><span class="n">watershed_classic</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.watershed.watershed_classic(img, seg_channels)</code>
 
 <a href="#spex.core.segmentation.watershed.watershed_classic" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1992,7 +1987,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.postprocessing.rescue_cells" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">rescue_cells</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">seg_channels</span><span class="p">,</span> <span class="n">label_ling</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.postprocessing.rescue_cells(image, seg_channels, label_ling)</code>
 
 <a href="#spex.core.segmentation.postprocessing.rescue_cells" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -2096,7 +2091,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.postprocessing.simulate_cell" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">simulate_cell</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.postprocessing.simulate_cell(labels, dist)</code>
 
 <a href="#spex.core.segmentation.postprocessing.simulate_cell" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -2184,7 +2179,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.postprocessing.remove_small_objects" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">remove_small_objects</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">minsize</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.postprocessing.remove_small_objects(segments, minsize)</code>
 
 <a href="#spex.core.segmentation.postprocessing.remove_small_objects" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -2272,7 +2267,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.postprocessing.remove_large_objects" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">remove_large_objects</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">maxsize</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.postprocessing.remove_large_objects(segments, maxsize)</code>
 
 <a href="#spex.core.segmentation.postprocessing.remove_large_objects" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -2360,7 +2355,7 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
 
 
 <h2 id="spex.core.segmentation.postprocessing.feature_extraction_adata" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">spex</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">feature_extraction_adata</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">all_channels</span><span class="p">)</span></code>
+            <code class="highlight language-python">spex.core.segmentation.postprocessing.feature_extraction_adata(img, labels, all_channels)</code>
 
 <a href="#spex.core.segmentation.postprocessing.feature_extraction_adata" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -2426,33 +2421,32 @@ OME-ZARR (.zarr) formats. For OME-ZARR files, the path must end with
     </div>
 
 </div><h2 id="typical-segmentation-pipeline">Typical Segmentation Pipeline<a class="headerlink" href="#typical-segmentation-pipeline" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spex</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">load_image</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">median_denoise</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">background_subtract</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">cellpose_cellseg</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">remove_small_objects</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">feature_extraction_adata</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># 1. Load image</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">array</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;path/to/image.ome.tiff&quot;</span><span class="p">)</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># 2. Preprocessing</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="n">denoised</span> <span class="o">=</span> <span class="n">median_denoise</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Denoising for channels 0 and 1</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">subtracted</span> <span class="o">=</span> <span class="n">background_subtract</span><span class="p">(</span><span class="n">denoised</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Background subtraction</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="c1"># 3. Segmentation</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">cellpose_cellseg</span><span class="p">(</span><span class="n">subtracted</span><span class="p">,</span> <span class="n">seg_channels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">diameter</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="c1"># 4. Postprocessing</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="n">cleaned_labels</span> <span class="o">=</span> <span class="n">remove_small_objects</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="c1"># 5. Feature extraction</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="n">adata</span> <span class="o">=</span> <span class="n">feature_extraction_adata</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">cleaned_labels</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully segmented </span><span class="si">{</span><span class="n">cleaned_labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">from spex import (
+    load_image,
+    median_denoise,
+    background_subtract,
+    cellpose_cellseg,
+    remove_small_objects,
+    feature_extraction_adata
+)
+
+# 1. Load image
+array, channels = load_image("path/to/image.ome.tiff")
+
+# 2. Preprocessing
+denoised = median_denoise(array, [0, 1])  # Denoising for channels 0 and 1
+subtracted = background_subtract(denoised, [0])  # Background subtraction
+
+# 3. Segmentation
+labels = cellpose_cellseg(subtracted, seg_channels=[0], diameter=30, scaling=1)
+
+# 4. Postprocessing
+cleaned_labels = remove_small_objects(labels, min_size=50)
+
+# 5. Feature extraction
+adata = feature_extraction_adata(array, cleaned_labels, channels)
+
+print(f"Successfully segmented {cleaned_labels.max()} cells")</code></pre>
 <h2 id="supported-formats">Supported Formats<a class="headerlink" href="#supported-formats" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>OME-TIFF</strong> (.ome.tiff, .ome.tif) - Primary format for multi-channel images</li>
