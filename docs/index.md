@@ -16,6 +16,7 @@ SPEX is a spatial transcriptomics analysis library that implements methods devel
 - **Niche Analysis** - Cell niche identification and interactions
 - **Differential Expression** - Analysis of differences between groups
 - **Pathway Analysis** - Cluster annotation and signaling pathway analysis
+- **CLQ Analysis** - Co-localization quotient for spatial relationships
 
 ### Utilities
 - **Data Loading** - Support for OME-TIFF, OME-ZARR, AnnData formats
@@ -45,9 +46,10 @@ pip install .
 
 ## 📚 Documentation
 
-- **[API Reference](api.md)** - Complete API documentation
 - **[Image Segmentation](segmentation.md)** - Detailed segmentation documentation
+- **[Clustering and Spatial Transcriptomics](clustering.md)** - Clustering and spatial analysis
 - **[Practical Examples](examples.md)** - Complete workflows and tutorials
+- **[API Reference](api.md)** - Complete API documentation
 
 ## 📂 Examples
 
@@ -85,8 +87,18 @@ labels = cellpose_cellseg(array, seg_channels=[0], diameter=30, scaling=1)
 print(f"Detected {labels.max()} cells")
 ```
 
-## 📖 Core Modules
+## 🎯 Getting Started
 
-::: spex.core
+1. **Install SPEX** - Follow the installation instructions above
+2. **Load your data** - Use `load_image()` for microscopy images
+3. **Segment cells** - Choose from Cellpose, StarDist, or Watershed
+4. **Extract features** - Get per-cell measurements
+5. **Analyze spatially** - Perform clustering and spatial analysis
 
-::: spex.core.utils
+## 📖 What's New
+
+- **Complete segmentation pipelines** - From image loading to feature extraction
+- **Advanced clustering** - PhenoGraph with spatial awareness
+- **CLQ analysis** - Co-localization quotient for spatial relationships
+- **Comprehensive documentation** - Step-by-step tutorials and examples
+- **Error handling** - Robust pipelines with fallback methods

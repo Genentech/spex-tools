@@ -1,5 +1,55 @@
 /* Custom styles for SPEX documentation */
 
+/* Force dark theme everywhere - GLOBAL OVERRIDE */
+body,
+.md-main,
+.md-main__inner,
+.md-content,
+.md-content__inner,
+.md-typeset,
+.md-typeset *,
+.doc,
+.doc *,
+.doc-contents,
+.doc-contents *,
+.doc-function,
+.doc-function *,
+.doc-function-signature,
+.doc-function-signature *,
+.doc-contents .doc-function-signature,
+.doc-contents .doc-function-signature * {
+    background-color: #2d3748 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Force dark background for all content areas */
+.md-content__inner,
+.md-typeset,
+.doc-contents,
+.doc-function,
+.doc-function-signature,
+.doc-contents .doc-function-signature {
+    background-color: #2d3748 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Force dark background for all text elements */
+.md-typeset p,
+.md-typeset div,
+.md-typeset span,
+.md-typeset li,
+.doc-contents p,
+.doc-contents div,
+.doc-contents span,
+.doc-contents li,
+.doc-function p,
+.doc-function div,
+.doc-function span,
+.doc-function li {
+    background-color: #2d3748 !important;
+    color: #e2e8f0 !important;
+}
+
 /* Improve code block appearance */
 .md-typeset pre {
     background-color: #2d3748;

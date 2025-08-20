@@ -60,6 +60,7 @@ plugins:
 nav:
   - Home: index.md
   - Image Segmentation: segmentation.md
+  - Clustering and Spatial Transcriptomics: clustering.md
   - Practical Examples: examples.md
   - API Reference: api.md
   - Changelog: CHANGELOG.md
