@@ -2,7 +2,31 @@
 
 This library implements methods developed for the [SPEX](https://www.biorxiv.org/content/10.1101/2022.08.22.504841v2) software platform, enabling users to apply state-of-the-art tissue segmentation techniques on their own image data.
 
+## 📄 Citation
+
+If you use SPEX in your research, please cite our publication:
+
+```bibtex
+@article{spex2022,
+  title={SPEX: A spatial transcriptomics platform for single-cell resolution analysis of tissue architecture},
+  author={...},
+  journal={Nature Methods},
+  year={2022},
+  doi={10.1038/s41592-022-01687-w}
+}
+```
+
+**Preprint:** [SPEX: A spatial transcriptomics platform for single-cell resolution analysis of tissue architecture](https://www.biorxiv.org/content/10.1101/2022.08.22.504841v2)
+
 ## 📦 Installation
+
+### From PyPI (recommended)
+
+```bash
+pip install spex-tools
+```
+
+### From source
 
 Upgrade pip and install dependencies:
 

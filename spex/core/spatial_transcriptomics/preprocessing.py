@@ -4,24 +4,92 @@ import pandas as pd
 import scipy as sp
 
 
-def MAD_threshold(variable,ndevs=2.5):
-    mad = sp.stats.median_abs_deviation(variable,nan_policy='omit')
-    return np.median(variable) - mad*ndevs
+def MAD_threshold(variable, ndevs=2.5):
+    """
+    Calculate threshold using Median Absolute Deviation (MAD).
+    
+    This function calculates a threshold value using the MAD method,
+    which is robust to outliers.
+    
+    Parameters
+    ----------
+    variable : array-like
+        Input data array.
+    ndevs : float, optional
+        Number of MAD deviations from the median.
+        
+    Returns
+    -------
+    float
+        Threshold value calculated as median - ndevs * MAD.
+        
+    Notes
+    -----
+    MAD is calculated as median(|x - median(x)|)
+    """
+    mad = sp.stats.median_abs_deviation(variable, nan_policy='omit')
+    return np.median(variable) - mad * ndevs
 
 
 def should_batch_correct(adata):
+    """
+    Check if batch correction should be performed.
+    
+    This function checks if batch correction is needed by looking
+    for batch information in the AnnData object.
+    
+    Parameters
+    ----------
+    adata : AnnData
+        AnnData object to check for batch information.
+        
+    Returns
+    -------
+    bool
+        True if batch correction should be performed, False otherwise.
+        
+    Notes
+    -----
+    Checks for 'batch_key' in adata.uns and ensures it's not None.
+    """
     if 'batch_key' in adata.uns:
         if adata.uns['batch_key']:
             return True
     return False
 
-# Preprocessing module.
-def preprocess(adata, scale_max = 10, size_factor = None, do_QC = False):
-    #Args:
-    #adata : Anndata with cell x gene matrix.
-    #scale_max : Maximum number of std away from mean (clip larger values to this number)
-    #size_factor : The set size factor (default to median library size)
-    #do_QC : Whether or not we filter out "outlier" cells with high total counts and number of expressed genes.
+
+def preprocess(adata, scale_max=10, size_factor=None, do_QC=False):
+    """
+    Preprocess AnnData object for analysis.
+    
+    This function performs comprehensive preprocessing including quality control,
+    normalization, and feature selection.
+    
+    Parameters
+    ----------
+    adata : AnnData
+        AnnData object to preprocess.
+    scale_max : float, optional
+        Maximum value for scaling (clips larger values).
+    size_factor : float, optional
+        Size factor for normalization. If None, uses median library size.
+    do_QC : bool, optional
+        Whether to perform quality control filtering.
+        
+    Returns
+    -------
+    AnnData
+        Preprocessed AnnData object.
+        
+    Notes
+    -----
+    Preprocessing steps include:
+    1. Quality control (if do_QC=True)
+    2. Normalization
+    3. Log transformation
+    4. Highly variable gene selection
+    5. Scaling
+    """
     if size_factor == 0:
         size_factor = None
 

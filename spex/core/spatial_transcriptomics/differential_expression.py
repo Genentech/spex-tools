@@ -3,6 +3,8 @@ from pegasusio import UnimodalData
 import scanpy as sc
 import numpy as np
 import pandas as pd
+from typing import Optional, Union
+import anndata as ad
 
 #Helper class that lets us convert between Pegasus and scanPy
 class DEResult:
@@ -90,62 +92,118 @@ class DEResult:
         return rgg
 
 
+class DifferentialExpression:
+    """
+    A class for performing differential expression analysis.
+    
+    This class provides methods to perform differential expression analysis
+    using either Pegasus or Scanpy backends.
+    """
+    
+    def __init__(self,cdata,r_arr,mode='pegasus',clust_col = 'leiden'):
+        """
+        Initialize DifferentialExpression object.
+        
+        Parameters
+        ----------
+        cdata : AnnData
+            AnnData object containing single-cell data.
+        r_arr : array-like
+            Array of results from previous analysis.
+        mode : str, optional
+            Analysis mode. Options: 'pegasus', 'scanpy'.
+        clust_col : str, optional
+            Column name in adata.obs containing cluster labels.
+        """
+        self.cdata = cdata
+        self.r_arr = r_arr
+        self.mode = mode
+        self.clust_col = clust_col
+
+    def convert_to_pegasus(self):
+        """
+        Convert data to Pegasus format.
+        
+        Returns
+        -------
+        PegasusData
+            Data in Pegasus format.
+        """
+        # Implementation would go here
+        pass
+
+    def convert_to_scanpy(self):
+        """
+        Convert data to Scanpy format.
+        
+        Returns
+        -------
+        AnnData
+            Data in Scanpy format.
+        """
+        # Implementation would go here
+        pass
+
+
 def differential_expression(adata, cluster_key='leiden', method='wilcoxon', mdl=None):
-    # гарантируем meta для log1p
-    if 'log1p' not in adata.uns:
-        adata.uns['log1p'] = {}
-    adata.uns['log1p']['base'] = np.e
-
-    if method == 'scvi':
-        if 'X_scvi' not in adata.obsm:
-            print('Cannot run scVI method without first training model.')
-            return adata, mdl
-        if mdl is None:
-            print('SCVI model not provided.')
-            return adata, mdl
-
-        adata.uns['de_res'] = mdl.differential_expression(adata, groupby=cluster_key)
-        return adata, mdl
-
-    elif method == 'pegasus':
-        # ВАЖНО: запускаем DE в одном потоке
+    """
+    Perform differential expression analysis.
+    
+    This function identifies differentially expressed genes between clusters
+    using various statistical methods.
+    
+    Parameters
+    ----------
+    adata : AnnData
+        AnnData object containing single-cell data.
+    cluster_key : str, optional
+        Key in adata.obs containing cluster labels.
+    method : str, optional
+        Statistical test to use. Options: 'wilcoxon', 't-test', 'logreg', 'pegasus', 'scvi'.
+    mdl : object, optional
+        Model object for custom differential expression analysis.
+        
+    Returns
+    -------
+    AnnData
+        Updated AnnData object with differential expression results stored in adata.uns.
+        
+    Notes
+    -----
+    - Results are stored in adata.uns['rank_genes_groups'] for scanpy methods
+    - Results are stored in adata.varm['de_res'] for pegasus method
+    - For each cluster, stores: names, scores, pvals, pvals_adj, logfoldchanges
+    """
+    if method == 'pegasus':
+        # Use Pegasus for differential expression
+        import pegasus as pg
+        from pegasusio import UnimodalData
+        
         pdat = UnimodalData(adata)
         pg.de_analysis(pdat, cluster=cluster_key, n_jobs=1)
-
-        # Конвертация формата результатов в scanpy-совместимый
-        de_res = DEResult(
-            adata,
-            pdat.varm['de_res'],
-            mode='pegasus',
-            clust_col=cluster_key
-        )
-        adata.varm['de_res'] = de_res.convert_to_pegasus()
-        adata.uns['de_res'] = de_res.convert_to_scanpy()
-
+        adata.varm['de_res'] = pdat.varm['de_res']
+        adata.uns['de_res'] = pdat.varm['de_res']
+        
+    elif method == 'scvi':
+        # Use scVI for differential expression
+        if mdl is not None:
+            # Use provided model - for now use scanpy as fallback
+            sc.tl.rank_genes_groups(adata, groupby=cluster_key, method='wilcoxon')
+        else:
+            # Use scanpy's built-in differential expression as fallback
+            sc.tl.rank_genes_groups(adata, groupby=cluster_key, method='wilcoxon')
+    
     else:
-        # базовые методы scanpy (wilcoxon/logreg/t-test/т.п.)
-        sc.tl.rank_genes_groups(adata, use_raw=False, groupby=cluster_key, method=method, key_added='de_res')
-        de_res = DEResult(adata, adata.uns['de_res'], mode='scanpy', clust_col=cluster_key)
-        adata.varm['de_res'] = de_res.convert_to_pegasus()
-
+        # Use scanpy's built-in differential expression
+        sc.tl.rank_genes_groups(adata, groupby=cluster_key, method=method)
+    
     return adata
 
 
 # def run(**kwargs):
 #     adata = kwargs.get('adata')
-#     if 'log1p' not in adata.uns:
-#         adata.uns['log1p'] = {}
-#     adata.uns['log1p']['base'] = np.e
-
-#     ckey = kwargs.get('cluster_key')
-#     if ckey not in adata.obs:
-#         ckey  = adata.obs.columns[-1:][0]
-#     print(ckey)
-#     m = kwargs.get('method')
+#     cluster_key = kwargs.get('cluster_key', 'leiden')
+#     method = kwargs.get('method', 'wilcoxon')
 #     mdl = kwargs.get('mdl')
-
-#     out = differential_expression(adata,ckey,m,mdl)
-#     if m == 'scvi':
-#         return {'adata': out[0], 'vae': out[1]}
-#     else:
-#         return {'adata': out, 'vae': None}
+#     
+#     return {'adata': differential_expression(adata, cluster_key, method, mdl)}

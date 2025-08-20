@@ -7,7 +7,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "spex"
+name = "spex-tools"
 version = "0.3.1055"
 description = "Spatial transcriptomics library"
 authors = [{name = "Aleksandr Prilipko"}]

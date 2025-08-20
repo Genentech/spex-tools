@@ -12,7 +12,6 @@ import re
 
 
 def simulate_cell(labels, dist):
-
     """Dilate labels by fixed amount to simulate cells
 
     Parameters
@@ -30,7 +29,6 @@ def simulate_cell(labels, dist):
 
 
 def rescue_cells(image, seg_channels, label_ling):
-
     """Rescue/Segment cells that deep learning approach may have missed
 
     Parameters
@@ -55,9 +53,7 @@ def rescue_cells(image, seg_channels, label_ling):
     seg_image = temp2 / len(seg_channels)
 
     props = regionprops_table(
-        label_ling,
-        intensity_image=seg_image,
-        properties=["mean_intensity", "area"]
+        label_ling, intensity_image=seg_image, properties=["mean_intensity", "area"]
     )
 
     if len(props["mean_intensity"]) == 0:
@@ -73,9 +69,7 @@ def rescue_cells(image, seg_channels, label_ling):
     med = median(seg_image, disk(max(1, radius)))
 
     local_max = peak_local_max(
-        med,
-        min_distance=max(1, math.floor(radius * 1.2)),
-        indices=False
+        med, min_distance=max(1, math.floor(radius * 1.2)), indices=False
     )
 
     mask = med > threshold
@@ -86,11 +80,7 @@ def rescue_cells(image, seg_channels, label_ling):
     seed_label = label(masked_peaks)
 
     watershed_labels = watershed(
-        image=-med,
-        markers=seed_label,
-        mask=mask,
-        watershed_line=True,
-        compactness=20
+        image=-med, markers=seed_label, mask=mask, watershed_line=True, compactness=20
     )
 
     selem = disk(1)
@@ -117,7 +107,6 @@ def rescue_cells(image, seg_channels, label_ling):
 
 
 def remove_large_objects(segments, maxsize):
-
     """Remove large segmented objects
 
     Parameters
@@ -142,7 +131,6 @@ def remove_large_objects(segments, maxsize):
 
 
 def remove_small_objects(segments, minsize):
-
     """Remove small segmented objects
 
     Parameters
@@ -166,6 +154,42 @@ def remove_small_objects(segments, minsize):
     return out
 
 
+def feature_extraction(img, labels, all_channels):
+    """Extract per cell expression for all channels
+
+    Parameters
+    ----------
+    img : np.ndarray
+        Multichannel image as numpy array with shape (C, X, Y).
+    labels : np.ndarray
+        Segmentation labels as numpy array with shape (X, Y).
+    all_channels : list
+        List of channel names.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame with per-cell expression data for all channels.
+    """
+    label_array = labels
+
+    props = regionprops_table(
+        label_array,
+        intensity_image=np.transpose(img, (1, 2, 0)),
+        properties=["label", "area", "centroid", "mean_intensity"],
+    )
+    perCellData = pd.DataFrame(props)
+
+    perCellData.columns = [
+        "cell_id",
+        "area_pixels",
+        "Y",
+        "X",
+    ] + all_channels  # rename columns
+
+    return perCellData
+
+
 def feature_extraction_adata(img, labels, all_channels):
     """Extract per cell expression for all channels
 
@@ -181,13 +205,21 @@ def feature_extraction_adata(img, labels, all_channels):
     label_array = labels
     import re
 
-    props = regionprops_table(label_array, intensity_image=np.transpose(img, (1, 2, 0)),
-                                      properties=['label', 'area', 'centroid', 'mean_intensity'])
+    props = regionprops_table(
+        label_array,
+        intensity_image=np.transpose(img, (1, 2, 0)),
+        properties=["label", "area", "centroid", "mean_intensity"],
+    )
     perCellData = pd.DataFrame(props)
 
-    perCellData.columns = ['cell_id', 'area_pixels', 'Y', 'X'] + all_channels  # rename columns
+    perCellData.columns = [
+        "cell_id",
+        "area_pixels",
+        "Y",
+        "X",
+    ] + all_channels  # rename columns
 
-    coordinates = np.array([k for k in perCellData[['X', 'Y']].values.tolist()])
+    coordinates = np.array([k for k in perCellData[["X", "Y"]].values.tolist()])
 
     props = regionprops(label_array)
     ordered_contours = []
@@ -212,20 +244,23 @@ def feature_extraction_adata(img, labels, all_channels):
 
         ordered_contours.append(sorted_contour)
 
-    adata = AnnData(perCellData[all_channels], obsm={"spatial": coordinates}, dtype="float32")
-    adata.obsm['cell_polygon'] = np.array(ordered_contours, dtype=object)
+    adata = AnnData(
+        perCellData[all_channels], obsm={"spatial": coordinates}, dtype="float32"
+    )
+    adata.obsm["cell_polygon"] = np.array(ordered_contours, dtype=object)
 
-    adata.obs['Cell_ID'] = perCellData[['cell_id']].values
-    adata.obs['Nucleus_area'] = perCellData[['area_pixels']].values
-    adata.obs['x_coordinate'] = perCellData[['X']].values
-    adata.obs['y_coordinate'] = perCellData[['Y']].values
+    adata.obs["Cell_ID"] = perCellData[["cell_id"]].values
+    adata.obs["Nucleus_area"] = perCellData[["area_pixels"]].values
+    adata.obs["x_coordinate"] = perCellData[["X"]].values
+    adata.obs["y_coordinate"] = perCellData[["Y"]].values
 
-    adata.layers['X_uint8'] = to_uint8(adata.X, norm_along="global")  # vitessce only supports 8bit expression
+    adata.layers["X_uint8"] = to_uint8(
+        adata.X, norm_along="global"
+    )  # vitessce only supports 8bit expression
     channel_index_map = {
         re.sub("[^0-9a-zA-Z]", "", ch).lower().replace("target", ""): idx
         for idx, ch in enumerate(all_channels)
     }
-    adata.uns['channel_index_map'] = channel_index_map
+    adata.uns["channel_index_map"] = channel_index_map
 
     return adata
-

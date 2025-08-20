@@ -1,13 +1,37 @@
 import scanpy as sc
 
 
-def cluster(adata, spatial_weight = 0.0, resolution=1.0, method='leiden'):
-    #Args:
-    #adata: The anndata after preprocessing and dimensionality reduction.
-    #spatial_agg: Whether we include spatial neighbors in the adjacency calculation
-    #resolution: The resolution of the modularity cost function. Lower is less clusters, higher is more clusters.
-    #method: The method by which we cluster data. Louvain, Leiden, TODO:: spectral Louvain, spectral Leiden
-
+def cluster(adata, spatial_weight=0.0, resolution=1.0, method='leiden'):
+    """
+    Perform clustering with optional spatial weights.
+    
+    This function performs clustering on AnnData objects with optional spatial
+    neighbor weights. It supports both Leiden and Louvain clustering algorithms.
+    
+    Parameters
+    ----------
+    adata : AnnData
+        AnnData object after preprocessing and dimensionality reduction.
+    spatial_weight : float, optional
+        Weight for spatial neighbors in adjacency calculation. 
+        If > 0, spatial neighbors are forced to be close.
+    resolution : float, optional
+        Resolution of the modularity cost function. 
+        Lower values result in fewer clusters, higher values in more clusters.
+    method : str, optional
+        Clustering algorithm to use. Options: 'leiden', 'louvain'.
+        
+    Returns
+    -------
+    AnnData
+        Updated AnnData object with clustering results in adata.obs.
+        
+    Notes
+    -----
+    - Requires 'connectivities' in adata.obsp
+    - For spatial clustering, requires 'spatial_connectivities' in adata.obsp
+    - Results are stored in adata.obs with the method name as column
+    """
     #Clustering
     adjacency = adata.obsp['connectivities']
 

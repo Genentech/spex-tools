@@ -7,6 +7,28 @@ import time
 
 @njit(parallel=True, fastmath=True)
 def _count_neighborhood_vectors(indices, indptr, cell_types, n_clust):
+    """
+    Count neighborhood vectors for each cell type.
+    
+    This is a Numba-optimized function that counts the number of neighbors
+    of each cell type for every cell.
+    
+    Parameters
+    ----------
+    indices : array
+        Indices of neighbors for each cell.
+    indptr : array
+        Pointer array for sparse neighbor matrix.
+    cell_types : array
+        Cell type labels for each cell.
+    n_clust : int
+        Number of unique cell types.
+        
+    Returns
+    -------
+    array
+        Neighborhood count matrix of shape (n_cells, n_clust).
+    """
     n_cells = indptr.shape[0] - 1
     result = np.zeros((n_cells, n_clust), dtype=np.float32)
 
@@ -23,6 +45,26 @@ def _count_neighborhood_vectors(indices, indptr, cell_types, n_clust):
 
 @njit(parallel=True)
 def _calculate_global_clq(local_clq, cell_types, n_clust):
+    """
+    Calculate global CLQ values.
+    
+    This function computes the global co-localization quotient
+    by averaging local CLQ values for each cell type.
+    
+    Parameters
+    ----------
+    local_clq : array
+        Local CLQ values for each cell.
+    cell_types : array
+        Cell type labels for each cell.
+    n_clust : int
+        Number of unique cell types.
+        
+    Returns
+    -------
+    array
+        Global CLQ matrix of shape (n_clust, n_clust).
+    """
     global_clq = np.zeros((n_clust, n_clust), dtype=np.float32)
 
     for cell_type in prange(n_clust):
@@ -41,6 +83,47 @@ def _calculate_global_clq(local_clq, cell_types, n_clust):
 
 
 def CLQ_vec_numba(adata, clust_col='leiden', clust_uniq=None, radius=50, n_perms=1000):
+    """
+    Calculate Co-Localization Quotient (CLQ) using Numba optimization.
+    
+    This function computes the co-localization quotient between different cell types
+    in spatial data. CLQ measures whether cell types are attracted to or avoid each other
+    compared to random spatial distribution.
+    
+    Parameters
+    ----------
+    adata : AnnData
+        AnnData object containing spatial data and cluster labels.
+    clust_col : str, optional
+        Column name in adata.obs containing cluster/cell type labels.
+    clust_uniq : array-like, optional
+        Unique cluster labels. If None, will be inferred from adata.obs[clust_col].
+    radius : float, optional
+        Radius for spatial neighbor calculation.
+    n_perms : int, optional
+        Number of permutations for significance testing.
+        
+    Returns
+    -------
+    tuple
+        A tuple containing:
+        - adata_out : AnnData
+            Updated AnnData object with CLQ results in adata.obsm and adata.uns
+        - results : dict
+            Dictionary containing CLQ results:
+            - 'global_clq': Global CLQ matrix
+            - 'permute_test': Permutation test p-values
+            - 'local_clq': Local CLQ values for each cell
+            - 'NCV': Neighborhood count vectors
+            
+    Notes
+    -----
+    - CLQ > 1 indicates attraction between cell types
+    - CLQ < 1 indicates avoidance between cell types
+    - CLQ = 1 indicates random spatial distribution
+    - Results are stored in adata.obsm['local_clq'] and adata.obsm['NCV']
+    - Global results are stored in adata.uns['CLQ']
+    """
     start_time = time.time()
     if 'spatial' not in adata.obsm:
         # Create spatial coordinates from x_coordinate and y_coordinate
@@ -98,38 +181,21 @@ def CLQ_vec_numba(adata, clust_col='leiden', clust_uniq=None, radius=50, n_perms
     clq_perm_avoid = permute_counts / n_perms
     clq_perm_attr = 1 - clq_perm_avoid
 
-    clq_perm_attr = pd.DataFrame(clq_perm_attr, index=idx, columns=idx)
-    clq_perm_avoid = pd.DataFrame(clq_perm_avoid, index=idx, columns=idx)
+    # Store results in AnnData object
+    adata.obsm['local_clq'] = local_clq
+    adata.obsm['NCV'] = observed_ncv
+    adata.uns['CLQ'] = {
+        'global_clq': global_clq,
+        'permute_test': clq_perm_attr,
+        'cell_types': idx
+    }
 
-    perm_test = pd.DataFrame('n.s.', index=idx, columns=idx)
-    perm_test[clq_perm_attr < 0.05] = 'attractive'
-    perm_test[clq_perm_avoid < 0.05] = 'avoidant'
+    results = {
+        'global_clq': global_clq,
+        'permute_test': clq_perm_attr,
+        'local_clq': local_clq,
+        'NCV': observed_ncv,
+        'cell_types': idx
+    }
 
-    # Prepare results
-    lclq = pd.DataFrame(local_clq, columns=idx, index=adata.obs_names)
-    gclq_df = pd.DataFrame(global_clq, index=idx, columns=idx)
-    ncv_df = pd.DataFrame(observed_ncv, index=adata.obs_names, columns=idx)
-    clq_perm_df = perm_test
-
-    # Optional reindex to custom order
-    if clust_uniq is not None:
-        ncv_df = ncv_df.reindex(columns=clust_uniq)
-        lclq = lclq.reindex(columns=clust_uniq)
-        gclq_df = gclq_df.reindex(index=clust_uniq, columns=clust_uniq)
-        clq_perm_df = clq_perm_df.reindex(index=clust_uniq, columns=clust_uniq)
-
-    # Store results
-    adata.obsm['NCV'] = ncv_df
-    adata.obsm['local_clq'] = lclq
-    adata.obs[clust_col] = adata.obs[clust_col].astype(str)
-    adata.uns['CLQ'] = {'global_clq': gclq_df, 'permute_test': clq_perm_df}
-
-    # Create output AnnData object
-    obs = pd.DataFrame(index=adata.obs[clust_col].unique(), columns=[], data=[])
-    var = pd.DataFrame(index=adata.obs[clust_col].unique(), columns=[], data=[])
-
-    bdata = AnnData(obs=obs, var=var)
-    bdata.layers['global_clq'] = gclq_df
-    bdata.layers['permute_test'] = clq_perm_df
-
-    return bdata, adata
+    return adata, results

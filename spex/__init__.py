@@ -10,19 +10,22 @@ warnings.filterwarnings(
 )
 import pkg_resources  # needed for Pegasus, deprecated but still in use
 
-#vendored chex
+# vendored chex
 vendored_chex_path = os.path.join(os.path.dirname(__file__), "chex")
 
-spec = importlib.util.spec_from_file_location("chex", os.path.join(vendored_chex_path, "__init__.py"))
+spec = importlib.util.spec_from_file_location(
+    "chex", os.path.join(vendored_chex_path, "__init__.py")
+)
 chex_module = importlib.util.module_from_spec(spec)
 sys.modules["chex"] = chex_module
 spec.loader.exec_module(chex_module)
-#vendored chex
+# vendored chex
 
-#fix np.bool8
+# fix np.bool8
 import numpy as np
+
 np.bool8 = np.bool_
-#fix np.bool8
+# fix np.bool8
 
 # === FIX: JAX CPU ONLY ===
 os.environ["JAX_PLATFORMS"] = "cpu"
@@ -30,10 +33,10 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import jax.numpy as jnp
 import jax
 
-if not hasattr(jax, 'interpreters'):
-    jax.interpreters = type('fake', (), {})()
-if not hasattr(jax.interpreters, 'xla'):
-    jax.interpreters.xla = type('fake', (), {})()
+if not hasattr(jax, "interpreters"):
+    jax.interpreters = type("fake", (), {})()
+if not hasattr(jax.interpreters, "xla"):
+    jax.interpreters.xla = type("fake", (), {})()
 jax.interpreters.xla.DeviceArray = type(jnp.array(0))
 # === FIX: JAX CPU ONLY ===
 
@@ -47,7 +50,8 @@ from .core.segmentation.postprocessing import (
     simulate_cell,
     remove_large_objects,
     remove_small_objects,
-    feature_extraction_adata
+    feature_extraction,
+    feature_extraction_adata,
 )
 from .core.spatial_transcriptomics.clq import CLQ_vec_numba
 from .core.spatial_transcriptomics.niche import niche
@@ -55,18 +59,19 @@ from .core.clustering.phenograph import phenograph_cluster
 from .core.spatial_transcriptomics.preprocessing import (
     preprocess,
     MAD_threshold,
-    should_batch_correct
+    should_batch_correct,
 )
-from .core.spatial_transcriptomics.reduce_dimensionality import (
-    reduce_dimensionality
-)
+from .core.spatial_transcriptomics.reduce_dimensionality import reduce_dimensionality
 from .core.spatial_transcriptomics.clustering import cluster
-from .core.spatial_transcriptomics.differential_expression import differential_expression
+from .core.spatial_transcriptomics.differential_expression import (
+    differential_expression,
+)
 from .core.spatial_transcriptomics.analyze_pathways import (
     annotate_clusters,
-    analyze_pathways
+    analyze_pathways,
 )
 from .core.spatial_transcriptomics.load_anndata import load_anndata
+from .core.utils import download_cellpose_models, delete_cellpose_models, to_uint8
 from importlib.metadata import version
 
 __version__ = version("spex")
@@ -85,6 +90,7 @@ __all__ = [
     "simulate_cell",
     "remove_large_objects",
     "remove_small_objects",
+    "feature_extraction",
     "feature_extraction_adata",
     "phenograph_cluster",
     "niche",
@@ -97,11 +103,15 @@ __all__ = [
     "annotate_clusters",
     "analyze_pathways",
     "CLQ_vec_numba",
-    "load_anndata"
+    "load_anndata",
+    "download_cellpose_models",
+    "delete_cellpose_models",
+    "to_uint8",
 ]
 
 try:
     from spex.core.utils import download_cellpose_models
+
     download_cellpose_models()
 except Exception as e:
     print(f"[spex] ⚠️ Model download skipped: {e}")

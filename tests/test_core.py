@@ -170,6 +170,12 @@ def test_download_cellpose_models_multipart_resume_cleanup(tmp_home, http_server
     stale_part = model_dir / "big.bin.part07"
     stale_part.write_bytes(b"stale")
 
+    # Mock input to automatically answer "y"
+    def mock_input(prompt):
+        return "y"
+    
+    monkeypatch.setattr("builtins.input", mock_input)
+    
     # Run the download
     download_cellpose_models()
 

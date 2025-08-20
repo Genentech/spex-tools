@@ -14,7 +14,40 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 
 # This function reduces dimensionality of transcriptomic data and constructs a k-NN graph.
-def reduce_dimensionality(adata, prefilter=False,  method='pca', mdist=0.5, n_neighbors=None, latent_dim=None):
+def reduce_dimensionality(adata, prefilter=False, method='pca', mdist=0.5, n_neighbors=None, latent_dim=None):
+    """
+    Reduce dimensionality of AnnData object.
+    
+    This function performs dimensionality reduction using various methods
+    including PCA, UMAP, and t-SNE.
+    
+    Parameters
+    ----------
+    adata : AnnData
+        AnnData object to reduce dimensionality.
+    prefilter : bool, optional
+        Whether to prefilter highly variable genes.
+    method : str, optional
+        Dimensionality reduction method. Options: 'pca', 'umap', 'tsne'.
+    mdist : float, optional
+        Minimum distance for UMAP (if method='umap').
+    n_neighbors : int, optional
+        Number of neighbors for UMAP/t-SNE. If None, uses default.
+    latent_dim : int, optional
+        Number of latent dimensions. If None, uses default.
+        
+    Returns
+    -------
+    AnnData
+        Updated AnnData object with dimensionality reduction results.
+        
+    Notes
+    -----
+    - For PCA: results stored in adata.obsm['X_pca']
+    - For UMAP: results stored in adata.obsm['X_umap']
+    - For t-SNE: results stored in adata.obsm['X_tsne']
+    - Computes neighborhood graph for UMAP/t-SNE methods
+    """
     #Args:
     #adata: AnnData (after preprocessing)
     #prefilter: Whether to do PCA on only HVGs or use all genes.
@@ -129,6 +162,26 @@ def reduce_dimensionality(adata, prefilter=False,  method='pca', mdist=0.5, n_ne
 
 
 def should_batch_correct(adata):
+    """
+    Check if batch correction should be performed.
+    
+    This function checks if batch correction is needed by looking
+    for batch information in the AnnData object.
+    
+    Parameters
+    ----------
+    adata : AnnData
+        AnnData object to check for batch information.
+        
+    Returns
+    -------
+    bool
+        True if batch correction should be performed, False otherwise.
+        
+    Notes
+    -----
+    Checks for 'batch_key' in adata.uns and ensures it's not None.
+    """
     if 'batch_key' in adata.uns:
         if adata.uns['batch_key']:
             return True
@@ -137,13 +190,10 @@ def should_batch_correct(adata):
 
 # def run(**kwargs):
 #     adata = kwargs.get('adata')
-
-#     prefilter = kwargs.get('prefilter')
-#     method = kwargs.get('method')
-#     # mdist = kwargs.get('min_dist')
-#     # n_neighbors = kwargs.get('n_neighbors')
-#     # latent_dim = kwargs.get('latent_dim')
-
-#     # out = reduce_dimensionality(adata, prefilter, method)
-#     out = reduce_dimensionality(adata, prefilter=False,  method='pca')
-#     return {'adata': out}
+#     prefilter = kwargs.get('prefilter', False)
+#     method = kwargs.get('method', 'pca')
+#     mdist = kwargs.get('mdist', 0.5)
+#     n_neighbors = kwargs.get('n_neighbors')
+#     latent_dim = kwargs.get('latent_dim')
+#     
+#     return {'adata': reduce_dimensionality(adata, prefilter, method, mdist, n_neighbors, latent_dim)}

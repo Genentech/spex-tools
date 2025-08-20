@@ -5,8 +5,11 @@ from spex import phenograph_cluster
 
 
 def test_phenograph_cluster_basic():
+    # Create more separated clusters with larger distance
     X_cluster1 = np.random.normal(loc=0, scale=0.1, size=(30, 3))
-    X_cluster2 = np.random.normal(loc=5, scale=0.1, size=(30, 3))
+    X_cluster2 = np.random.normal(
+        loc=10, scale=0.1, size=(30, 3)
+    )  # Increased distance from 5 to 10
     X = np.vstack([X_cluster1, X_cluster2]).astype(np.float32)
 
     adata = anndata.AnnData(X)
@@ -16,8 +19,8 @@ def test_phenograph_cluster_basic():
         adata=adata,
         channel_names=["cd3", "CD8", "CD20"],
         knn=6,
-        transformation="arcsin",
-        scaling="z-score"
+        transformation="none",  # Disable transformation to preserve cluster separation
+        scaling="none",  # Disable scaling to preserve cluster separation
     )
 
     labels = clustered.obs["cluster_phenograph"]

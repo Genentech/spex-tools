@@ -179,7 +179,7 @@ table .highlight,
     border: none !important;
     padding: 0 !important;
     font-weight: 600;
-    color: #333 !important;
+    color: #e2e8f0 !important;
 }
 
 /* Specific styling for parameter names */
@@ -213,7 +213,7 @@ table .highlight,
 /* Consistent default value styling */
 .md-typeset table td:last-child {
     font-style: italic;
-    color: #666;
+    color: #a0aec0;
 }
 
 .md-typeset table td:last-child code {
@@ -221,7 +221,7 @@ table .highlight,
     border: none !important;
     padding: 0 !important;
     font-style: italic;
-    color: #666 !important;
+    color: #a0aec0 !important;
 }
 
 /* Improve admonition boxes */

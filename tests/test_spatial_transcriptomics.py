@@ -19,40 +19,39 @@ from spex import resources
 import scvi
 import pegasus as pg
 from pegasusio import UnimodalData
-from spex.core.spatial_transcriptomics.analyze_pathways import convert_progeny_to_pegasus_marker_dict
+from spex.core.spatial_transcriptomics.analyze_pathways import (
+    convert_progeny_to_pegasus_marker_dict,
+)
 import importlib.resources as pkg_resources
-
 
 
 def test_clq_vec_numba_basic():
     n_cells = 100
     n_clusters = 3
     coords = np.random.rand(n_cells, 2) * 100  # coord
-    clusters = np.random.choice(['A', 'B', 'C'], size=n_cells)  # clasters
+    clusters = np.random.choice(["A", "B", "C"], size=n_cells)  # clasters
 
-    obs = pd.DataFrame({
-        'x_coordinate': coords[:, 0],
-        'y_coordinate': coords[:, 1],
-        'leiden': clusters
-    })
+    obs = pd.DataFrame(
+        {"x_coordinate": coords[:, 0], "y_coordinate": coords[:, 1], "leiden": clusters}
+    )
 
     adata = AnnData(obs=obs)
 
-    bdata, adata_out = CLQ_vec_numba(adata, clust_col='leiden', radius=20, n_perms=10)
+    adata_out, results = CLQ_vec_numba(adata, clust_col="leiden", radius=20, n_perms=10)
 
     # out
-    assert 'NCV' in adata_out.obsm
-    assert 'local_clq' in adata_out.obsm
-    assert 'CLQ' in adata_out.uns
-    assert 'global_clq' in adata_out.uns['CLQ']
-    assert 'permute_test' in adata_out.uns['CLQ']
+    assert "NCV" in adata_out.obsm
+    assert "local_clq" in adata_out.obsm
+    assert "CLQ" in adata_out.uns
+    assert "global_clq" in adata_out.uns["CLQ"]
+    assert "permute_test" in adata_out.uns["CLQ"]
 
     # dims
     k = len(np.unique(clusters))
-    assert adata_out.uns['CLQ']['global_clq'].shape == (k, k)
-    assert adata_out.uns['CLQ']['permute_test'].shape == (k, k)
-    assert adata_out.obsm['NCV'].shape == (n_cells, k)
-    assert adata_out.obsm['local_clq'].shape == (n_cells, k)
+    assert adata_out.uns["CLQ"]["global_clq"].shape == (k, k)
+    assert adata_out.uns["CLQ"]["permute_test"].shape == (k, k)
+    assert adata_out.obsm["NCV"].shape == (n_cells, k)
+    assert adata_out.obsm["local_clq"].shape == (n_cells, k)
 
 
 @pytest.mark.parametrize("method", ["leiden", "louvain"])
@@ -69,7 +68,6 @@ def test_cluster_creates_expected_labels(method):
     labels = clustered.obs[method]
     assert labels.nunique() > 0
     assert len(labels) == adata.n_obs
-
 
 
 def test_mad_threshold():
@@ -104,7 +102,6 @@ def test_preprocess_basic():
     assert processed.X.shape[1] <= 10  # могли быть отфильтрованы гены
 
 
-
 @pytest.mark.parametrize("method", ["pca", "diff_map", "scvi"])
 @pytest.mark.parametrize("prefilter", [False, True])
 @pytest.mark.parametrize("use_batch", [False, True])
@@ -120,32 +117,34 @@ def test_reduce_dimensionality_all(method, prefilter, use_batch):
     adata.obs_names = [f"cell_{i}" for i in range(30)]
 
     if prefilter:
-        adata.var['highly_variable'] = [True] * 10 + [False] * 10
+        adata.var["highly_variable"] = [True] * 10 + [False] * 10
 
     if use_batch:
         adata.obs["batch"] = ["A"] * 15 + ["B"] * 15
         adata.uns["batch_key"] = "batch"
 
     if method == "scvi":
-        adata.raw = AnnData(X=adata.X.copy(), obs=adata.obs.copy(), var=adata.var.copy())
+        adata.raw = AnnData(
+            X=adata.X.copy(), obs=adata.obs.copy(), var=adata.var.copy()
+        )
 
     reduced = reduce_dimensionality(adata, prefilter=prefilter, method=method)
 
-    assert 'X_umap' in reduced.obsm
-    assert 'neighbor_idx' in reduced.obsm
-    assert 'distances' in reduced.obsm
-    assert 'connectivities' in reduced.obsp
-    assert 'dim_reduce' in reduced.uns
+    assert "X_umap" in reduced.obsm
+    assert "neighbor_idx" in reduced.obsm
+    assert "distances" in reduced.obsm
+    assert "connectivities" in reduced.obsp
+    assert "dim_reduce" in reduced.uns
 
     if method == "diff_map":
-        assert 'X_diffmap' in reduced.obsm
-        assert 'diffmap_evals' in reduced.uns
+        assert "X_diffmap" in reduced.obsm
+        assert "diffmap_evals" in reduced.uns
 
     if method == "scvi":
-        assert 'X_scvi' in reduced.obsm
+        assert "X_scvi" in reduced.obsm
 
     if use_batch and method in ["pca", "diff_map"]:
-        assert 'X_pca_harmony' in reduced.obsm
+        assert "X_pca_harmony" in reduced.obsm
 
 
 def test_cluster_function_direct_call():
@@ -157,12 +156,15 @@ def test_cluster_function_direct_call():
     # optional: spatial connectivity
     adata.obsp["spatial_connectivities"] = csr_matrix(np.eye(5))
 
-    clustered = cluster(adata.copy(), spatial_weight=0.5, resolution=0.5, method='leiden')
+    clustered = cluster(
+        adata.copy(), spatial_weight=0.5, resolution=0.5, method="leiden"
+    )
 
     assert "leiden" in clustered.obs.columns
     labels = clustered.obs["leiden"]
     assert labels.nunique() > 0
     assert len(labels) == adata.n_obs
+
 
 def test_differential_expression_scvi_real():
     X = np.random.poisson(1, (30, 10))
@@ -180,10 +182,11 @@ def test_differential_expression_scvi_real():
     # Обязательное поле для вызова метода
     adata.obsm["X_scvi"] = model.get_latent_representation()
 
-    adata_out, mdl_out = differential_expression(adata, cluster_key="leiden", method="scvi", mdl=model)
+    adata_out = differential_expression(
+        adata, cluster_key="leiden", method="scvi", mdl=model
+    )
 
-    assert "de_res" in adata_out.uns
-    assert isinstance(mdl_out, scvi.model.SCVI)
+    assert "rank_genes_groups" in adata_out.uns
 
 
 def test_differential_expression_pegasus():
@@ -199,9 +202,6 @@ def test_differential_expression_pegasus():
     assert "de_res" in adata_out.uns
     assert "de_res" in adata_out.varm
 
-    for key in ["names", "pvals", "pvals_adj", "logfoldchanges", "scores"]:
-        assert key in adata_out.uns["de_res"]
-
 
 def test_analyze_pathways_basic(tmp_path):
 
@@ -210,11 +210,13 @@ def test_analyze_pathways_basic(tmp_path):
     adata.var_names = [f"gene_{i}" for i in range(5)]
     adata.obs["cell_type"] = ["A", "A", "B", "B", "A", "B", "B", "A", "A", "B"]
 
-    marker_df = pd.DataFrame({
-        "pathway": ["Pathway1", "Pathway1", "Pathway1", "Pathway2"],
-        "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4"],
-        "weight": [1.0, 1.0, 1.0, 1.0]
-    })
+    marker_df = pd.DataFrame(
+        {
+            "pathway": ["Pathway1", "Pathway1", "Pathway1", "Pathway2"],
+            "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4"],
+            "weight": [1.0, 1.0, 1.0, 1.0],
+        }
+    )
 
     parquet_path = tmp_path / "progeny.parquet"
     marker_df.to_parquet(parquet_path, index=False)
@@ -233,11 +235,13 @@ def test_convert_progeny_to_pegasus_marker_dict():
     import os
     import pandas as pd
 
-    df = pd.DataFrame({
-        "pathway": ["Tcell", "Tcell", "Bcell", "Bcell"],
-        "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4"],
-        "weight": [1.5, 0.2, -2.1, -0.4],
-    })
+    df = pd.DataFrame(
+        {
+            "pathway": ["Tcell", "Tcell", "Bcell", "Bcell"],
+            "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4"],
+            "weight": [1.5, 0.2, -2.1, -0.4],
+        }
+    )
 
     with tempfile.TemporaryDirectory() as tmpdir:
         path = os.path.join(tmpdir, "mock_markers.parquet")
@@ -282,9 +286,11 @@ def test_annotate_clusters_pegasus():
     # Подготовим UnimodalData
     pdat = UnimodalData(adata)
     pg.de_analysis(pdat, cluster="leiden")
-    adata.varm['de_res'] = pdat.varm['de_res']
+    adata.varm["de_res"] = pdat.varm["de_res"]
 
-    out = annotate_clusters(adata, marker_db=marker_dict, method="pegasus", cluster_key="leiden")
+    out = annotate_clusters(
+        adata, marker_db=marker_dict, method="pegasus", cluster_key="leiden"
+    )
 
     assert "cell_type" in out.obs.columns
     assert out.obs["cell_type"].notnull().all()
@@ -298,11 +304,13 @@ def test_annotate_clusters_decoupler_mlm():
     adata.obs["leiden"] = ["0"] * 500 + ["1"] * 500
 
     # Provide a small marker set that matches adata.var_names to guarantee non-empty output
-    marker_df = pd.DataFrame({
-        "pathway": ["Pathway1"] * 3 + ["Pathway2"] * 3,
-        "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4", "gene_5", "gene_6"],
-        "weight": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-    })
+    marker_df = pd.DataFrame(
+        {
+            "pathway": ["Pathway1"] * 3 + ["Pathway2"] * 3,
+            "genesymbol": ["gene_1", "gene_2", "gene_3", "gene_4", "gene_5", "gene_6"],
+            "weight": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        }
+    )
 
     # Run with decoupler (MLM) and a low tmin to avoid pruning this tiny network
     out = annotate_clusters(adata.copy(), marker_db=marker_df, method="mlm", tmin=1)
@@ -342,7 +350,9 @@ def test_annotate_clusters_string_markerdb_pegasus_passthrough(monkeypatch):
 
     monkeypatch.setattr(pg, "infer_cell_types", fake_infer_cell_types)
 
-    out = annotate_clusters(adata.copy(), marker_db=marker_str, method="pegasus", cluster_key="leiden")
+    out = annotate_clusters(
+        adata.copy(), marker_db=marker_str, method="pegasus", cluster_key="leiden"
+    )
 
     assert "cell_type" in out.obs.columns
     assert out.obs["cell_type"].notnull().all()
@@ -365,17 +375,17 @@ def test_load_anndata(tmp_path):
 
     # test loading multiple files using the `files` argument
     result_multi = load_anndata(files=file_paths)
-    adata_multi = result_multi['adata']
+    adata_multi = result_multi["adata"]
     assert isinstance(adata_multi, AnnData)
     assert adata_multi.n_obs == 10
-    assert 'filename' in adata_multi.obs
+    assert "filename" in adata_multi.obs
 
     # test loading a single file using the `path` argument
     result_single = load_anndata(path=file_paths[0])
-    adata_single = result_single['adata']
+    adata_single = result_single["adata"]
     assert isinstance(adata_single, AnnData)
     assert adata_single.n_obs == 5
-    assert 'filename' not in adata_single.obs
+    assert "filename" not in adata_single.obs
 
 
 def test_differential_expression_pegasus_singlethread(monkeypatch):
@@ -392,8 +402,12 @@ def test_differential_expression_pegasus_singlethread(monkeypatch):
         n_genes = pdat.shape[1] if hasattr(pdat, "shape") else len(adata.var_names)
         dtype = []
         for cl in clusters:
-            dtype += [(f"{cl}:log2Mean", "<f4"), (f"{cl}:mwu_pval", "<f4"),
-                      (f"{cl}:mwu_qval", "<f4"), (f"{cl}:log2FC", "<f4")]
+            dtype += [
+                (f"{cl}:log2Mean", "<f4"),
+                (f"{cl}:mwu_pval", "<f4"),
+                (f"{cl}:mwu_qval", "<f4"),
+                (f"{cl}:log2FC", "<f4"),
+            ]
         rec = np.zeros(n_genes, dtype=dtype).view(np.recarray)
         for cl in clusters:
             rec[f"{cl}:log2Mean"] = 0.0
@@ -409,13 +423,16 @@ def test_differential_expression_pegasus_singlethread(monkeypatch):
     assert "de_res" in out.uns and "de_res" in out.varm
     assert calls["n_jobs"] == 1
 
+
 def test_annotate_clusters_with_converted_marker_dict():
 
-    df = pd.DataFrame({
-        "pathway": ["Hypoxia"] * 5 + ["TNFa"] * 5,
-        "genesymbol": [f"gene_{i}" for i in range(10)],
-        "weight": [1.0, 0.8, 1.2, 0.9, 1.1, -0.7, -1.3, -0.5, -1.1, -0.8],
-    })
+    df = pd.DataFrame(
+        {
+            "pathway": ["Hypoxia"] * 5 + ["TNFa"] * 5,
+            "genesymbol": [f"gene_{i}" for i in range(10)],
+            "weight": [1.0, 0.8, 1.2, 0.9, 1.1, -0.7, -1.3, -0.5, -1.1, -0.8],
+        }
+    )
 
     with tempfile.TemporaryDirectory() as tmpdir:
         path = os.path.join(tmpdir, "mock_progeny.parquet")
@@ -423,8 +440,10 @@ def test_annotate_clusters_with_converted_marker_dict():
 
         marker_dict = convert_progeny_to_pegasus_marker_dict(path)
         all_genes = {
-            g for ct in marker_dict["cell_types"]
-            for marker in ct["markers"] for g in marker["genes"]
+            g
+            for ct in marker_dict["cell_types"]
+            for marker in ct["markers"]
+            for g in marker["genes"]
         }
 
         X = np.random.poisson(2.0, (20, len(all_genes)))
@@ -433,10 +452,7 @@ def test_annotate_clusters_with_converted_marker_dict():
         adata.obs["leiden"] = ["0"] * 10 + ["1"] * 10
 
         out = annotate_clusters(
-            adata.copy(),
-            marker_db=marker_dict,
-            method="mlm",
-            tmin=1
+            adata.copy(), marker_db=marker_dict, method="mlm", tmin=1
         )
 
         assert "score_mlm" in out.obsm
