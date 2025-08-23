@@ -17,7 +17,7 @@ SPEX supports:
 
 ### Is SPEX free to use?
 
-Yes, SPEX is open-source and free to use under the MIT license.
+Yes, SPEX is open-source and free to use under the Apache License 2.0.
 
 ### What are the system requirements?
 

@@ -1,7 +1,7 @@
 # SPEX - Spatial Omics Analysis Library
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)]()
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://genentech.github.io/spex-tools/)
 
 SPEX is a comprehensive spatial transcriptomics analysis library that implements state-of-the-art methods for tissue segmentation, clustering, and spatial analysis. The library enables researchers to apply advanced image processing and spatial analysis techniques to their own microscopy data.
@@ -213,7 +213,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE.md) file for details.
 
 ## 🔗 Links
 
