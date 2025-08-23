@@ -1,0 +1,2234 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/api-reference/preprocessing/">
+      
+      
+        <link rel="prev" href="../spatial-analysis/">
+      
+      
+        <link rel="next" href="../../examples/complete-pipeline/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>🔧 Preprocessing - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#preprocessing-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🔧 Preprocessing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation-basics/" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/complete-pipeline/" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      preprocess
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mad_threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAD_threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#should_batch_correct" class="md-nav__link">
+    <span class="md-ellipsis">
+      should_batch_correct
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduce_dimensionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      reduce_dimensionality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_anndata" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_anndata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimensionality-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dimensionality Reduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Correction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-other-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Other Modules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Other Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      With Clustering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-spatial-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      With Spatial Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-segmentation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      With Segmentation Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/complete-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      preprocess
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mad_threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAD_threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#should_batch_correct" class="md-nav__link">
+    <span class="md-ellipsis">
+      should_batch_correct
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduce_dimensionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      reduce_dimensionality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_anndata" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_anndata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimensionality-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dimensionality Reduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Correction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-other-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Other Modules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Other Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      With Clustering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-spatial-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      With Spatial Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-segmentation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      With Segmentation Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="preprocessing-api-reference">Preprocessing API Reference<a class="headerlink" href="#preprocessing-api-reference" title="Permanent link">&para;</a></h1>
+<p>This module provides comprehensive data preprocessing functions for spatial transcriptomics data analysis in SPEX.</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="preprocess">preprocess<a class="headerlink" href="#preprocess" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">preprocess(adata, scale_max=10, size_factor=None, do_QC=False)</code></pre>
+<p>Comprehensive preprocessing pipeline for AnnData objects.</p>
+<p>Performs quality control, normalization, feature selection, and scaling in a single function call.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>adata</code></td>
+<td>AnnData</td>
+<td>-</td>
+<td>AnnData object to preprocess</td>
+</tr>
+<tr>
+<td><code>scale_max</code></td>
+<td>float</td>
+<td>10</td>
+<td>Maximum value for scaling (clips larger values)</td>
+</tr>
+<tr>
+<td><code>size_factor</code></td>
+<td>float</td>
+<td>None</td>
+<td>Size factor for normalization. If None, uses median library size</td>
+</tr>
+<tr>
+<td><code>do_QC</code></td>
+<td>bool</td>
+<td>False</td>
+<td>Whether to perform quality control filtering</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AnnData</td>
+<td>Preprocessed AnnData object</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<p>The preprocessing pipeline includes the following steps:</p>
+<ol>
+<li><strong>Quality Control</strong> (if <code>do_QC=True</code>):</li>
+<li>Filter cells with low gene counts using MAD threshold</li>
+<li>Filter genes with low cell counts</li>
+<li>
+<p>Remove cells with low total counts</p>
+</li>
+<li>
+<p><strong>Normalization</strong>:</p>
+</li>
+<li>Calculate size factors (median library size if not provided)</li>
+<li>Normalize total counts per cell</li>
+<li>
+<p>Apply log1p transformation</p>
+</li>
+<li>
+<p><strong>Feature Selection</strong>:</p>
+</li>
+<li>Identify highly variable genes</li>
+<li>
+<p>Account for batch effects if present</p>
+</li>
+<li>
+<p><strong>Scaling</strong>:</p>
+</li>
+<li>Z-transform data</li>
+<li>Clip values to <code>scale_max</code></li>
+</ol>
+<p><strong>Examples:</strong></p>
+<pre class="highlight"><code class="language-python">import spex as sp
+import scanpy as sc
+
+# Load data
+adata = sc.read_h5ad("data.h5ad")
+
+# Basic preprocessing
+adata = sp.preprocess(adata)
+
+# Preprocessing with quality control
+adata = sp.preprocess(
+    adata,
+    scale_max=10,
+    do_QC=True
+)
+
+# Custom size factor
+adata = sp.preprocess(
+    adata,
+    size_factor=10000,
+    do_QC=True
+)</code></pre>
+<p><strong>Storage:</strong></p>
+<p>Results are stored in the AnnData object:
+- <code>adata.raw</code>: Original data backup
+- <code>adata.uns['prepro']</code>: Preprocessing parameters
+- <code>adata.var.highly_variable</code>: Highly variable gene flags
+- <code>adata.layers['counts']</code>: Normalized count data</p>
+<hr />
+<h3 id="mad_threshold">MAD_threshold<a class="headerlink" href="#mad_threshold" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">MAD_threshold(variable, ndevs=2.5)</code></pre>
+<p>Calculate threshold using Median Absolute Deviation (MAD).</p>
+<p>This function calculates a robust threshold value using the MAD method, which is less sensitive to outliers than standard deviation-based methods.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>variable</code></td>
+<td>array-like</td>
+<td>-</td>
+<td>Input data array</td>
+</tr>
+<tr>
+<td><code>ndevs</code></td>
+<td>float</td>
+<td>2.5</td>
+<td>Number of MAD deviations from the median</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>Threshold value calculated as median - ndevs * MAD</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>MAD is calculated as <code>median(|x - median(x)|)</code></li>
+<li>The threshold is computed as <code>median - ndevs * MAD</code></li>
+<li>This method is robust to outliers and non-normal distributions</li>
+<li>Commonly used for quality control filtering in single-cell data</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre class="highlight"><code class="language-python">import spex as sp
+import numpy as np
+
+# Calculate threshold for total counts
+total_counts = adata.obs['total_counts']
+threshold = sp.MAD_threshold(total_counts, ndevs=2.5)
+
+# Filter cells below threshold
+filtered_adata = adata[adata.obs['total_counts'] &gt; threshold, :]
+
+# Use different threshold for genes
+n_genes = adata.obs['n_genes_by_counts']
+gene_threshold = sp.MAD_threshold(n_genes, ndevs=1.5)</code></pre>
+<hr />
+<h3 id="should_batch_correct">should_batch_correct<a class="headerlink" href="#should_batch_correct" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">should_batch_correct(adata)</code></pre>
+<p>Check if batch correction should be performed.</p>
+<p>This function checks if batch correction is needed by looking for batch information in the AnnData object.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>adata</code></td>
+<td>AnnData</td>
+<td>AnnData object to check for batch information</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td>True if batch correction should be performed, False otherwise</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Checks for 'batch_key' in <code>adata.uns</code></li>
+<li>Returns True if batch_key exists and is not None</li>
+<li>Used internally by preprocessing functions to determine batch correction strategy</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre class="highlight"><code class="language-python">import spex as sp
+
+# Check if batch correction is needed
+needs_batch_correction = sp.should_batch_correct(adata)
+
+if needs_batch_correction:
+    print(f"Batch correction will be performed using: {adata.uns['batch_key']}")
+else:
+    print("No batch correction needed")</code></pre>
+<hr />
+<h3 id="reduce_dimensionality">reduce_dimensionality<a class="headerlink" href="#reduce_dimensionality" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">reduce_dimensionality(adata, prefilter=False, method='pca', mdist=0.5, n_neighbors=None, latent_dim=None)</code></pre>
+<p>Reduce dimensionality of AnnData object.</p>
+<p>This function performs dimensionality reduction using various methods including PCA, UMAP, t-SNE, and scVI. It also constructs neighborhood graphs for downstream analysis.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>adata</code></td>
+<td>AnnData</td>
+<td>-</td>
+<td>AnnData object to reduce dimensionality</td>
+</tr>
+<tr>
+<td><code>prefilter</code></td>
+<td>bool</td>
+<td>False</td>
+<td>Whether to prefilter highly variable genes</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>str</td>
+<td>'pca'</td>
+<td>Dimensionality reduction method. Options: 'pca', 'umap', 'tsne', 'scvi', 'diff_map'</td>
+</tr>
+<tr>
+<td><code>mdist</code></td>
+<td>float</td>
+<td>0.5</td>
+<td>Minimum distance for UMAP</td>
+</tr>
+<tr>
+<td><code>n_neighbors</code></td>
+<td>int</td>
+<td>None</td>
+<td>Number of neighbors for UMAP/t-SNE. If None, uses sqrt(n_cells)</td>
+</tr>
+<tr>
+<td><code>latent_dim</code></td>
+<td>int</td>
+<td>None</td>
+<td>Number of latent dimensions. If None, uses automatic estimation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AnnData</td>
+<td>Updated AnnData object with dimensionality reduction results</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<p><strong>Supported Methods:</strong></p>
+<ul>
+<li><strong>PCA</strong>: Principal Component Analysis (fastest, most common)</li>
+<li><strong>UMAP</strong>: Uniform Manifold Approximation and Projection (good for visualization)</li>
+<li><strong>t-SNE</strong>: t-Distributed Stochastic Neighbor Embedding (good for visualization)</li>
+<li><strong>scVI</strong>: Single-Cell Variational Inference (good for batch correction)</li>
+<li><strong>diff_map</strong>: Diffusion maps (good for trajectory analysis)</li>
+</ul>
+<p><strong>Automatic Parameter Estimation:</strong></p>
+<ul>
+<li><code>n_neighbors</code>: If None, uses <code>sqrt(n_cells)</code></li>
+<li><code>latent_dim</code>: If None, uses elbow method on singular values</li>
+</ul>
+<p><strong>Batch Correction:</strong></p>
+<ul>
+<li>If batch information is present, applies Harmony integration</li>
+<li>Results stored in <code>adata.obsm['X_pca_harmony']</code></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre class="highlight"><code class="language-python">import spex as sp
+
+# Basic PCA reduction
+adata = sp.reduce_dimensionality(adata, method='pca')
+
+# UMAP with custom parameters
+adata = sp.reduce_dimensionality(
+    adata,
+    method='umap',
+    n_neighbors=30,
+    latent_dim=50,
+    mdist=0.3
+)
+
+# scVI for batch correction
+adata = sp.reduce_dimensionality(
+    adata,
+    method='scvi',
+    latent_dim=20
+)</code></pre>
+<p><strong>Storage:</strong></p>
+<p>Results are stored in the AnnData object:
+- <code>adata.obsm['X_pca']</code>: PCA coordinates
+- <code>adata.obsm['X_umap']</code>: UMAP coordinates
+- <code>adata.obsm['X_tsne']</code>: t-SNE coordinates (if computed)
+- <code>adata.obsm['X_scvi']</code>: scVI latent space (if computed)
+- <code>adata.obsp['connectivities']</code>: Neighborhood graph
+- <code>adata.obsm['distances']</code>: Distance matrix</p>
+<hr />
+<h3 id="load_anndata">load_anndata<a class="headerlink" href="#load_anndata" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">load_anndata(path=None, files=None)</code></pre>
+<p>Load AnnData objects from file(s).</p>
+<p>This function loads AnnData objects from single or multiple files. When loading multiple files, they are combined into a single AnnData object.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>str</td>
+<td>None</td>
+<td>Path to a single AnnData file (.h5ad)</td>
+</tr>
+<tr>
+<td><code>files</code></td>
+<td>list</td>
+<td>None</td>
+<td>List of file paths to load and combine</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dict</td>
+<td>Dictionary containing the loaded AnnData object(s): 'adata': AnnData object</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>If both <code>path</code> and <code>files</code> are provided, <code>files</code> takes precedence</li>
+<li>When combining multiple files, a 'filename' column is added to <code>adata.obs</code></li>
+<li>Files are combined using <code>scanpy.concat</code> with outer join</li>
+<li>Supports .h5ad format files</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre class="highlight"><code class="language-python">import spex as sp
+
+# Load single file
+result = sp.load_anndata(path="data.h5ad")
+adata = result['adata']
+
+# Load multiple files
+files = ["sample1.h5ad", "sample2.h5ad", "sample3.h5ad"]
+result = sp.load_anndata(files=files)
+combined_adata = result['adata']
+
+# Check combined data
+print(f"Combined shape: {combined_adata.shape}")
+print(f"Files included: {combined_adata.obs['filename'].unique()}")</code></pre>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="quality-control">Quality Control<a class="headerlink" href="#quality-control" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Always perform QC</strong> before analysis:
+   <pre class="highlight"><code class="language-python">adata = sp.preprocess(adata, do_QC=True)</code></pre></p>
+</li>
+<li>
+<p><strong>Check data quality metrics</strong>:
+   <pre class="highlight"><code class="language-python">import scanpy as sc
+sc.pp.calculate_qc_metrics(adata, inplace=True)
+print(f"Cells: {adata.n_obs}, Genes: {adata.n_vars}")</code></pre></p>
+</li>
+<li>
+<p><strong>Use appropriate thresholds</strong>:
+   <pre class="highlight"><code class="language-python"># Conservative thresholds for high-quality data
+threshold_counts = sp.MAD_threshold(adata.obs['total_counts'], ndevs=2.0)
+threshold_genes = sp.MAD_threshold(adata.obs['n_genes_by_counts'], ndevs=1.5)</code></pre></p>
+</li>
+</ol>
+<h3 id="dimensionality-reduction">Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Choose appropriate method</strong>:</li>
+<li><strong>PCA</strong>: For fast preprocessing and clustering</li>
+<li><strong>UMAP</strong>: For visualization and exploration</li>
+<li>
+<p><strong>scVI</strong>: For batch correction and integration</p>
+</li>
+<li>
+<p><strong>Estimate parameters automatically</strong>:
+   <pre class="highlight"><code class="language-python"># Let the function estimate optimal parameters
+adata = sp.reduce_dimensionality(adata, method='pca')</code></pre></p>
+</li>
+<li>
+<p><strong>Check results</strong>:
+   <pre class="highlight"><code class="language-python"># Verify dimensionality reduction worked
+print(f"PCA components: {adata.obsm['X_pca'].shape}")
+print(f"UMAP coordinates: {adata.obsm['X_umap'].shape}")</code></pre></p>
+</li>
+</ol>
+<h3 id="batch-correction">Batch Correction<a class="headerlink" href="#batch-correction" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Set up batch information</strong>:
+   <pre class="highlight"><code class="language-python">adata.uns['batch_key'] = 'batch'</code></pre></p>
+</li>
+<li>
+<p><strong>Use batch-aware preprocessing</strong>:
+   <pre class="highlight"><code class="language-python"># Preprocessing will automatically detect and handle batches
+adata = sp.preprocess(adata, do_QC=True)</code></pre></p>
+</li>
+<li>
+<p><strong>Verify batch correction</strong>:
+   <pre class="highlight"><code class="language-python"># Check if batch correction was applied
+if 'X_pca_harmony' in adata.obsm:
+    print("Batch correction applied successfully")</code></pre></p>
+</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Memory errors during preprocessing</strong>:</li>
+<li>Reduce <code>scale_max</code> parameter</li>
+<li>Use data subsampling</li>
+<li>
+<p>Increase available RAM</p>
+</li>
+<li>
+<p><strong>Slow dimensionality reduction</strong>:</p>
+</li>
+<li>Use <code>prefilter=True</code> to reduce gene number</li>
+<li>Choose faster methods (PCA over UMAP)</li>
+<li>
+<p>Reduce <code>latent_dim</code> parameter</p>
+</li>
+<li>
+<p><strong>Batch correction not working</strong>:</p>
+</li>
+<li>Ensure <code>adata.uns['batch_key']</code> is set</li>
+<li>Check that batch column exists in <code>adata.obs</code></li>
+<li>
+<p>Verify batch column contains valid values</p>
+</li>
+<li>
+<p><strong>File loading errors</strong>:</p>
+</li>
+<li>Check file paths are correct</li>
+<li>Ensure files are in .h5ad format</li>
+<li>Verify file permissions</li>
+</ol>
+<h3 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Use appropriate data types</strong>:
+   <pre class="highlight"><code class="language-python"># Convert to float32 for memory efficiency
+adata.X = adata.X.astype('float32')</code></pre></p>
+</li>
+<li>
+<p><strong>Subsample large datasets</strong>:
+   <pre class="highlight"><code class="language-python"># Random subsampling
+import scanpy as sc
+sc.pp.subsample(adata, n_obs=10000, random_state=42)</code></pre></p>
+</li>
+<li>
+<p><strong>Save intermediate results</strong>:
+   <pre class="highlight"><code class="language-python"># Save after preprocessing
+adata.write("preprocessed_data.h5ad")</code></pre></p>
+</li>
+</ol>
+<h2 id="integration-with-other-modules">Integration with Other Modules<a class="headerlink" href="#integration-with-other-modules" title="Permanent link">&para;</a></h2>
+<h3 id="with-clustering">With Clustering<a class="headerlink" href="#with-clustering" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Complete preprocessing for clustering
+adata = sp.preprocess(adata, do_QC=True)
+adata = sp.reduce_dimensionality(adata, method='pca')
+adata = sp.cluster(adata, method='leiden')</code></pre>
+<h3 id="with-spatial-analysis">With Spatial Analysis<a class="headerlink" href="#with-spatial-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Preprocessing for spatial analysis
+adata = sp.preprocess(adata, do_QC=True)
+adata = sp.reduce_dimensionality(adata, method='pca')
+# Spatial analysis functions can now use preprocessed data</code></pre>
+<h3 id="with-segmentation-results">With Segmentation Results<a class="headerlink" href="#with-segmentation-results" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Load and preprocess feature extraction results
+adata = sp.load_anndata(path="segmentation_features.h5ad")['adata']
+adata = sp.preprocess(adata, do_QC=True)</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

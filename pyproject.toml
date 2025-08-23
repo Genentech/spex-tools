@@ -8,8 +8,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spex-tools"
-version = "0.3.1056"
-description = "Spatial transcriptomics library"
+version = "0.3.1057"
+description = "Comprehensive spatial transcriptomics analysis library with advanced segmentation, clustering, and spatial analysis tools"
+readme = "README.md"
 authors = [{name = "Aleksandr Prilipko"}]
 license = "Apache-2.0"
 requires-python = ">=3.11"
@@ -86,6 +87,11 @@ docs = [
 
 [tool.setuptools]
 packages = { find = {} }
+
+[project.urls]
+Homepage = "https://genentech.github.io/spex-tools/"
+Repository = "https://github.com/genentech/spex-tools"
+Documentation = "https://genentech.github.io/spex-tools/"
 
 [tool.setuptools.package-data]
 "spex.resources" = ["*.parquet"]

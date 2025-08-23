@@ -1,0 +1,2883 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/reference/troubleshooting/">
+      
+      
+        <link rel="prev" href="../faq/">
+      
+      
+        <link rel="next" href="../../faq/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>🐛 Troubleshooting - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🐛 Troubleshooting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation-basics/" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/complete-pipeline/" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/complete-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-no-module-named-spex-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: "No module named 'spex'" Error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-cudagpu-installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: CUDA/GPU Installation Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-opencv-installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: OpenCV Installation Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-loading-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Loading Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Loading Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-memory-errors-when-loading-large-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Memory Errors When Loading Large Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-unsupported-image-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Unsupported Image Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-incorrect-channel-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Incorrect Channel Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-preprocessing-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Preprocessing Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Preprocessing Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-background-subtraction-not-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Background Subtraction Not Working
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-denoising-too-aggressive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Denoising Too Aggressive
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-no-cells-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: No Cells Detected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-too-many-false-positive-cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Too Many False Positive Cells
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-missing-cells-in-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Missing Cells in Segmentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-segmentation-boundaries-not-accurate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Segmentation Boundaries Not Accurate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-extraction-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Extraction Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Extraction Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-feature-extraction-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Feature Extraction Fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-missing-values-in-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Missing Values in Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-too-manylow-quality-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Too Many/Low-Quality Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clustering-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clustering Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clustering Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-only-one-cluster-produced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Only One Cluster Produced
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-too-many-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Too Many Clusters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-clusters-dont-make-biological-sense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Clusters Don't Make Biological Sense
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-analysis-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Analysis Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Analysis Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-clq-calculation-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: CLQ Calculation Fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-spatial-analysis-results-dont-make-sense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Spatial Analysis Results Don't Make Sense
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-analysis-takes-too-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Analysis Takes Too Long
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-cuda-out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: CUDA Out of Memory
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-export-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Export Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Export Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-results-cant-be-saved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Results Can't Be Saved
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-large-files-cant-be-saved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Large Files Can't Be Saved
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Help">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-contact-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Contact Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-report-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Report Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-issue-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Issue Report
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-no-module-named-spex-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: "No module named 'spex'" Error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-cudagpu-installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: CUDA/GPU Installation Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-opencv-installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: OpenCV Installation Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-loading-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Loading Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Loading Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-memory-errors-when-loading-large-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Memory Errors When Loading Large Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-unsupported-image-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Unsupported Image Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-incorrect-channel-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Incorrect Channel Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-preprocessing-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Preprocessing Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Preprocessing Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-background-subtraction-not-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Background Subtraction Not Working
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-denoising-too-aggressive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Denoising Too Aggressive
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-no-cells-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: No Cells Detected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-too-many-false-positive-cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Too Many False Positive Cells
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-missing-cells-in-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Missing Cells in Segmentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-segmentation-boundaries-not-accurate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Segmentation Boundaries Not Accurate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-extraction-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Extraction Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Extraction Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-feature-extraction-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Feature Extraction Fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-missing-values-in-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Missing Values in Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-too-manylow-quality-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Too Many/Low-Quality Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clustering-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clustering Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clustering Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-only-one-cluster-produced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Only One Cluster Produced
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-too-many-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Too Many Clusters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-clusters-dont-make-biological-sense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Clusters Don't Make Biological Sense
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-analysis-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Analysis Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Analysis Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-clq-calculation-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: CLQ Calculation Fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-spatial-analysis-results-dont-make-sense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Spatial Analysis Results Don't Make Sense
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-analysis-takes-too-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Analysis Takes Too Long
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-cuda-out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: CUDA Out of Memory
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-export-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Export Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Export Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-results-cant-be-saved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Results Can't Be Saved
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-large-files-cant-be-saved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem: Large Files Can't Be Saved
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Help">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-contact-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Contact Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-report-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Report Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-issue-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Issue Report
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="troubleshooting-guide">🔧 Troubleshooting Guide<a class="headerlink" href="#troubleshooting-guide" title="Permanent link">&para;</a></h1>
+<h2 id="common-issues-and-solutions">Common Issues and Solutions<a class="headerlink" href="#common-issues-and-solutions" title="Permanent link">&para;</a></h2>
+<p>This guide provides solutions to the most common problems encountered when using SPEX for spatial transcriptomics analysis.</p>
+<h2 id="installation-issues">Installation Issues<a class="headerlink" href="#installation-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-no-module-named-spex-error">Problem: "No module named 'spex'" Error<a class="headerlink" href="#problem-no-module-named-spex-error" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">ImportError: No module named 'spex'</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check installation:</strong>
+   <pre class="highlight"><code class="language-bash">pip list | grep spex</code></pre></p>
+</li>
+<li>
+<p><strong>Reinstall SPEX:</strong>
+   <pre class="highlight"><code class="language-bash">pip uninstall spex-tools
+pip install spex-tools</code></pre></p>
+</li>
+<li>
+<p><strong>Check Python environment:</strong>
+   <pre class="highlight"><code class="language-bash">which python
+pip --version</code></pre></p>
+</li>
+<li>
+<p><strong>Install in virtual environment:</strong>
+   <pre class="highlight"><code class="language-bash">python -m venv spex_env
+source spex_env/bin/activate  # On Windows: spex_env\Scripts\activate
+pip install spex-tools</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-cudagpu-installation-issues">Problem: CUDA/GPU Installation Issues<a class="headerlink" href="#problem-cudagpu-installation-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">RuntimeError: CUDA out of memory
+ImportError: No module named 'torch'</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Install PyTorch with CUDA support:</strong>
+   <pre class="highlight"><code class="language-bash">pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118</code></pre></p>
+</li>
+<li>
+<p><strong>Use CPU-only version:</strong>
+   <pre class="highlight"><code class="language-bash">pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu</code></pre></p>
+</li>
+<li>
+<p><strong>Check GPU availability:</strong>
+   <pre class="highlight"><code class="language-python">import torch
+print(f"CUDA available: {torch.cuda.is_available()}")
+print(f"GPU count: {torch.cuda.device_count()}")</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-opencv-installation-issues">Problem: OpenCV Installation Issues<a class="headerlink" href="#problem-opencv-installation-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">ImportError: libGL.so.1: cannot open shared object file</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Install system dependencies (Ubuntu/Debian):</strong>
+   <pre class="highlight"><code class="language-bash">sudo apt-get update
+sudo apt-get install libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev</code></pre></p>
+</li>
+<li>
+<p><strong>Install system dependencies (CentOS/RHEL):</strong>
+   <pre class="highlight"><code class="language-bash">sudo yum install mesa-libGL libglib2.0-0 libSM libXext libXrender</code></pre></p>
+</li>
+<li>
+<p><strong>Reinstall OpenCV:</strong>
+   <pre class="highlight"><code class="language-bash">pip uninstall opencv-python
+pip install opencv-python-headless</code></pre></p>
+</li>
+</ol>
+<h2 id="data-loading-issues">Data Loading Issues<a class="headerlink" href="#data-loading-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-memory-errors-when-loading-large-images">Problem: Memory Errors When Loading Large Images<a class="headerlink" href="#problem-memory-errors-when-loading-large-images" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">MemoryError: Unable to allocate array</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Use chunked loading:</strong>
+   <pre class="highlight"><code class="language-python"># Load in chunks
+Image, channel = sp.load_image('large_image.tiff', chunk_size=1000)</code></pre></p>
+</li>
+<li>
+<p><strong>Reduce image resolution:</strong>
+   <pre class="highlight"><code class="language-python">from PIL import Image
+img = Image.open('large_image.tiff')
+img_resized = img.resize((img.width//2, img.height//2))
+img_resized.save('resized_image.tiff')</code></pre></p>
+</li>
+<li>
+<p><strong>Use memory-efficient data types:</strong>
+   <pre class="highlight"><code class="language-python">import numpy as np
+Image = Image.astype(np.float32)  # Instead of float64</code></pre></p>
+</li>
+<li>
+<p><strong>Monitor memory usage:</strong>
+   <pre class="highlight"><code class="language-python">import psutil
+import os
+
+def get_memory_usage():
+    process = psutil.Process(os.getpid())
+    return process.memory_info().rss / 1024 / 1024  # MB
+
+print(f"Memory usage: {get_memory_usage():.1f} MB")</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-unsupported-image-format">Problem: Unsupported Image Format<a class="headerlink" href="#problem-unsupported-image-format" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">ValueError: Unsupported image format</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Convert image format:</strong>
+   <pre class="highlight"><code class="language-python">from PIL import Image
+img = Image.open('unsupported_format.bmp')
+img.save('converted_image.tiff')</code></pre></p>
+</li>
+<li>
+<p><strong>Check supported formats:</strong>
+   <pre class="highlight"><code class="language-python">from PIL import Image
+print(Image.OPEN)</code></pre></p>
+</li>
+<li>
+<p><strong>Use alternative loading:</strong>
+   <pre class="highlight"><code class="language-python">import tifffile
+Image = tifffile.imread('image.tiff')</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-incorrect-channel-information">Problem: Incorrect Channel Information<a class="headerlink" href="#problem-incorrect-channel-information" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">IndexError: Channel index out of bounds</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check image dimensions:</strong>
+   <pre class="highlight"><code class="language-python">print(f"Image shape: {Image.shape}")
+print(f"Number of channels: {Image.shape[2] if len(Image.shape) == 3 else 1}")</code></pre></p>
+</li>
+<li>
+<p><strong>Verify channel indices:</strong>
+   <pre class="highlight"><code class="language-python"># Use valid channel indices
+valid_channels = list(range(Image.shape[2]))
+features = sp.feature_extraction(Image, labels, valid_channels)</code></pre></p>
+</li>
+<li>
+<p><strong>Handle single-channel images:</strong>
+   <pre class="highlight"><code class="language-python">if len(Image.shape) == 2:
+    Image = Image[:, :, np.newaxis]</code></pre></p>
+</li>
+</ol>
+<h2 id="image-preprocessing-issues">Image Preprocessing Issues<a class="headerlink" href="#image-preprocessing-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-background-subtraction-not-working">Problem: Background Subtraction Not Working<a class="headerlink" href="#problem-background-subtraction-not-working" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- No visible change after background subtraction
+- Images become too dark or bright</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Adjust window size:</strong>
+   <pre class="highlight"><code class="language-python"># Increase window size for larger background variations
+Image_bg = sp.background_subtract(Image, [0], window_size=100)
+
+# Decrease for fine detail preservation
+Image_bg = sp.background_subtract(Image, [0], window_size=20)</code></pre></p>
+</li>
+<li>
+<p><strong>Check image statistics:</strong>
+   <pre class="highlight"><code class="language-python">print(f"Original range: {Image.min():.2f} - {Image.max():.2f}")
+print(f"Background subtracted range: {Image_bg.min():.2f} - {Image_bg.max():.2f}")</code></pre></p>
+</li>
+<li>
+<p><strong>Visualize results:</strong>
+   <pre class="highlight"><code class="language-python">import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+axes[0].imshow(Image[:, :, 0], cmap='gray')
+axes[0].set_title('Original')
+axes[1].imshow(Image_bg[:, :, 0], cmap='gray')
+axes[1].set_title('Background Subtracted')
+plt.show()</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-denoising-too-aggressive">Problem: Denoising Too Aggressive<a class="headerlink" href="#problem-denoising-too-aggressive" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Loss of important features
+- Over-smoothed images</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Reduce denoising strength:</strong>
+   <pre class="highlight"><code class="language-python"># Use smaller h parameter for less aggressive denoising
+Image_denoised = sp.nlm_denoise(Image, [0], h=0.05)</code></pre></p>
+</li>
+<li>
+<p><strong>Try different denoising methods:</strong>
+   <pre class="highlight"><code class="language-python"># Use median filter for salt-and-pepper noise
+Image_denoised = sp.median_denoise(Image, [0])</code></pre></p>
+</li>
+<li>
+<p><strong>Apply denoising selectively:</strong>
+   <pre class="highlight"><code class="language-python"># Denoise only noisy channels
+Image_denoised = Image.copy()
+noisy_channels = [0, 2]  # Only denoise channels 0 and 2
+for ch in noisy_channels:
+    Image_denoised[:, :, ch] = sp.nlm_denoise(Image[:, :, ch], [0])</code></pre></p>
+</li>
+</ol>
+<h2 id="segmentation-issues">Segmentation Issues<a class="headerlink" href="#segmentation-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-no-cells-detected">Problem: No Cells Detected<a class="headerlink" href="#problem-no-cells-detected" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">print(f"Cells detected: {labels.max()}")  # Output: 0</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check image quality:</strong>
+   <pre class="highlight"><code class="language-python"># Verify image has sufficient contrast
+print(f"Image range: {Image.min():.2f} - {Image.max():.2f}")
+print(f"Image mean: {Image.mean():.2f}")
+print(f"Image std: {Image.std():.2f}")</code></pre></p>
+</li>
+<li>
+<p><strong>Improve preprocessing:</strong>
+   <pre class="highlight"><code class="language-python"># Apply better preprocessing
+Image_bg = sp.background_subtract(Image, [0], window_size=50)
+Image_denoised = sp.nlm_denoise(Image_bg, [0])</code></pre></p>
+</li>
+<li>
+<p><strong>Adjust segmentation parameters:</strong>
+   <pre class="highlight"><code class="language-python"># Try smaller diameter
+labels = sp.cellpose_cellseg(Image, [0], diameter=15)
+
+# Try different flow threshold
+labels = sp.cellpose_cellseg(Image, [0], flow_threshold=0.4)</code></pre></p>
+</li>
+<li>
+<p><strong>Use alternative segmentation method:</strong>
+   <pre class="highlight"><code class="language-python"># Try watershed segmentation
+labels = sp.watershed_classic(Image, [0])</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-too-many-false-positive-cells">Problem: Too Many False Positive Cells<a class="headerlink" href="#problem-too-many-false-positive-cells" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Many small objects detected
+- Noise identified as cells</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Remove small objects:</strong>
+   <pre class="highlight"><code class="language-python"># Increase minimum size threshold
+labels_clean = sp.remove_small_objects(labels, min_size=100)</code></pre></p>
+</li>
+<li>
+<p><strong>Remove large objects:</strong>
+   <pre class="highlight"><code class="language-python"># Remove objects that are too large
+labels_clean = sp.remove_large_objects(labels, max_size=500)</code></pre></p>
+</li>
+<li>
+<p><strong>Adjust segmentation parameters:</strong>
+   <pre class="highlight"><code class="language-python"># Increase diameter to avoid detecting small noise
+labels = sp.cellpose_cellseg(Image, [0], diameter=40)</code></pre></p>
+</li>
+<li>
+<p><strong>Improve image quality:</strong>
+   <pre class="highlight"><code class="language-python"># Apply stronger denoising
+Image_denoised = sp.nlm_denoise(Image, [0], h=0.1)
+Image_denoised = sp.median_denoise(Image_denoised, [0])</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-missing-cells-in-segmentation">Problem: Missing Cells in Segmentation<a class="headerlink" href="#problem-missing-cells-in-segmentation" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Expected cells not detected
+- Incomplete segmentation</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Use cell rescue:</strong>
+   <pre class="highlight"><code class="language-python"># Rescue missing cells
+labels_rescued = sp.rescue_cells(Image, labels, [0])</code></pre></p>
+</li>
+<li>
+<p><strong>Adjust diameter parameter:</strong>
+   <pre class="highlight"><code class="language-python"># Try smaller diameter for smaller cells
+labels = sp.cellpose_cellseg(Image, [0], diameter=20)</code></pre></p>
+</li>
+<li>
+<p><strong>Improve contrast:</strong>
+   <pre class="highlight"><code class="language-python"># Enhance contrast before segmentation
+from skimage import exposure
+Image_enhanced = exposure.equalize_hist(Image[:, :, 0])
+Image_enhanced = np.stack([Image_enhanced] * Image.shape[2], axis=2)</code></pre></p>
+</li>
+<li>
+<p><strong>Try different segmentation method:</strong>
+   <pre class="highlight"><code class="language-python"># Try StarDist for different cell shapes
+labels = sp.stardist_cellseg(Image, [0])</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-segmentation-boundaries-not-accurate">Problem: Segmentation Boundaries Not Accurate<a class="headerlink" href="#problem-segmentation-boundaries-not-accurate" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Cell boundaries don't follow actual cell edges
+- Over-segmentation or under-segmentation</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Validate boundaries:</strong>
+   <pre class="highlight"><code class="language-python">def validate_boundaries(image, labels):
+    from scipy import ndimage
+
+    # Calculate image gradients
+    grad_x = ndimage.sobel(image[:, :, 0], axis=0)
+    grad_y = ndimage.sobel(image[:, :, 0], axis=1)
+    gradient_magnitude = np.sqrt(grad_x**2 + grad_y**2)
+
+    # Find cell boundaries
+    boundaries = labels == 0
+    boundary_gradients = gradient_magnitude[boundaries]
+
+    quality_score = np.mean(boundary_gradients) / np.max(gradient_magnitude)
+    return quality_score
+
+quality = validate_boundaries(Image, labels)
+print(f"Boundary quality: {quality:.3f}")</code></pre></p>
+</li>
+<li>
+<p><strong>Adjust flow threshold:</strong>
+   <pre class="highlight"><code class="language-python"># Lower threshold for more precise boundaries
+labels = sp.cellpose_cellseg(Image, [0], flow_threshold=0.2)</code></pre></p>
+</li>
+<li>
+<p><strong>Use post-processing:</strong>
+   <pre class="highlight"><code class="language-python"># Apply morphological operations
+from scipy import ndimage
+labels_processed = ndimage.binary_fill_holes(labels &gt; 0)
+labels_processed = ndimage.label(labels_processed)[0]</code></pre></p>
+</li>
+</ol>
+<h2 id="feature-extraction-issues">Feature Extraction Issues<a class="headerlink" href="#feature-extraction-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-feature-extraction-fails">Problem: Feature Extraction Fails<a class="headerlink" href="#problem-feature-extraction-fails" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">ValueError: No valid cells found for feature extraction</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check segmentation:</strong>
+   <pre class="highlight"><code class="language-python">print(f"Number of cells: {labels.max()}")
+print(f"Unique labels: {np.unique(labels)}")</code></pre></p>
+</li>
+<li>
+<p><strong>Remove background label:</strong>
+   <pre class="highlight"><code class="language-python"># Ensure labels start from 1
+if labels.min() == 0:
+    labels = labels + 1</code></pre></p>
+</li>
+<li>
+<p><strong>Check channel indices:</strong>
+   <pre class="highlight"><code class="language-python"># Ensure channel indices are valid
+valid_channels = list(range(min(len(channel), Image.shape[2])))
+features = sp.feature_extraction(Image, labels, valid_channels)</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-missing-values-in-features">Problem: Missing Values in Features<a class="headerlink" href="#problem-missing-values-in-features" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">print(f"Missing values: {features.isnull().sum().sum()}")</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Handle missing values:</strong>
+   <pre class="highlight"><code class="language-python"># Remove cells with missing values
+features_clean = features.dropna()
+
+# Fill missing values
+features_filled = features.fillna(features.mean())
+
+# Interpolate missing values
+features_interpolated = features.interpolate(method='linear')</code></pre></p>
+</li>
+<li>
+<p><strong>Check for zero-variance features:</strong>
+   <pre class="highlight"><code class="language-python"># Remove features with zero variance
+feature_variance = features.var()
+good_features = feature_variance[feature_variance &gt; 0].index
+features_filtered = features[good_features]</code></pre></p>
+</li>
+<li>
+<p><strong>Investigate specific features:</strong>
+   <pre class="highlight"><code class="language-python"># Check which features have missing values
+missing_features = features.columns[features.isnull().any()].tolist()
+print(f"Features with missing values: {missing_features}")</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-too-manylow-quality-features">Problem: Too Many/Low-Quality Features<a class="headerlink" href="#problem-too-manylow-quality-features" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Too many features extracted
+- Features with low information content</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Select informative features:</strong>
+   <pre class="highlight"><code class="language-python"># Select features with high variance
+feature_variance = features.var()
+informative_features = feature_variance[feature_variance &gt; 0.01].index
+features_selected = features[informative_features]</code></pre></p>
+</li>
+<li>
+<p><strong>Remove correlated features:</strong>
+   <pre class="highlight"><code class="language-python"># Remove highly correlated features
+corr_matrix = features.corr()
+high_corr_pairs = []
+
+for i in range(len(corr_matrix.columns)):
+    for j in range(i+1, len(corr_matrix.columns)):
+        if abs(corr_matrix.iloc[i, j]) &gt; 0.95:
+            high_corr_pairs.append((corr_matrix.columns[i], corr_matrix.columns[j]))
+
+# Remove one feature from each highly correlated pair
+features_to_remove = [pair[1] for pair in high_corr_pairs]
+features_uncorr = features.drop(columns=features_to_remove)</code></pre></p>
+</li>
+<li>
+<p><strong>Use feature selection methods:</strong>
+   <pre class="highlight"><code class="language-python">from sklearn.feature_selection import SelectKBest, f_classif
+
+# Select top k features
+selector = SelectKBest(score_func=f_classif, k=50)
+features_selected = selector.fit_transform(features, clusters)</code></pre></p>
+</li>
+</ol>
+<h2 id="clustering-issues">Clustering Issues<a class="headerlink" href="#clustering-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-only-one-cluster-produced">Problem: Only One Cluster Produced<a class="headerlink" href="#problem-only-one-cluster-produced" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">print(f"Number of clusters: {len(np.unique(clusters))}")  # Output: 1</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check feature quality:</strong>
+   <pre class="highlight"><code class="language-python"># Check feature variance
+feature_variance = features.var()
+print(f"Features with zero variance: {(feature_variance == 0).sum()}")
+
+# Remove low-variance features
+good_features = feature_variance[feature_variance &gt; 0.01].index
+features_filtered = features[good_features]</code></pre></p>
+</li>
+<li>
+<p><strong>Increase resolution:</strong>
+   <pre class="highlight"><code class="language-python"># Try higher resolution
+clusters = sp.cluster(adata, method='leiden', resolution=1.0)</code></pre></p>
+</li>
+<li>
+<p><strong>Try different clustering method:</strong>
+   <pre class="highlight"><code class="language-python"># Use Phenograph
+clusters = sp.phenograph_cluster(features, k=30)</code></pre></p>
+</li>
+<li>
+<p><strong>Normalize features:</strong>
+   <pre class="highlight"><code class="language-python">from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+features_normalized = scaler.fit_transform(features)</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-too-many-clusters">Problem: Too Many Clusters<a class="headerlink" href="#problem-too-many-clusters" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">print(f"Number of clusters: {len(np.unique(clusters))}")  # Too many</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Decrease resolution:</strong>
+   <pre class="highlight"><code class="language-python"># Try lower resolution
+clusters = sp.cluster(adata, method='leiden', resolution=0.1)</code></pre></p>
+</li>
+<li>
+<p><strong>Reduce feature dimensionality:</strong>
+   <pre class="highlight"><code class="language-python">from sklearn.decomposition import PCA
+pca = PCA(n_components=20)
+features_pca = pca.fit_transform(features)</code></pre></p>
+</li>
+<li>
+<p><strong>Use different clustering method:</strong>
+   <pre class="highlight"><code class="language-python"># Use Louvain with lower resolution
+clusters = sp.cluster(adata, method='louvain', resolution=0.3)</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-clusters-dont-make-biological-sense">Problem: Clusters Don't Make Biological Sense<a class="headerlink" href="#problem-clusters-dont-make-biological-sense" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Clusters don't correspond to known cell types
+- Poor cluster separation</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Validate clustering quality:</strong>
+   <pre class="highlight"><code class="language-python">from sklearn.metrics import silhouette_score
+
+silhouette_avg = silhouette_score(features, clusters)
+print(f"Silhouette score: {silhouette_avg:.3f}")
+
+# Good: &gt; 0.3, Acceptable: &gt; 0.1, Poor: &lt; 0.1</code></pre></p>
+</li>
+<li>
+<p><strong>Check feature selection:</strong>
+   <pre class="highlight"><code class="language-python"># Use domain-specific features
+biological_features = ['area', 'perimeter', 'mean_intensity', 'eccentricity']
+features_bio = features[biological_features]</code></pre></p>
+</li>
+<li>
+<p><strong>Try different preprocessing:</strong>
+   <pre class="highlight"><code class="language-python"># Log transform features
+features_log = np.log1p(features)
+
+# Z-score normalization
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+features_scaled = scaler.fit_transform(features)</code></pre></p>
+</li>
+</ol>
+<h2 id="spatial-analysis-issues">Spatial Analysis Issues<a class="headerlink" href="#spatial-analysis-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-clq-calculation-fails">Problem: CLQ Calculation Fails<a class="headerlink" href="#problem-clq-calculation-fails" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">ValueError: Invalid cell types specified</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check cell type labels:</strong>
+   <pre class="highlight"><code class="language-python"># Ensure cell types exist in cluster labels
+unique_clusters = np.unique(clusters)
+print(f"Available cell types: {unique_clusters}")
+
+# Use valid cell types
+valid_cell_types = [0, 1, 2]  # Must exist in clusters
+clq_matrix = sp.CLQ_vec_numba(labels, clusters, cell_types=valid_cell_types)</code></pre></p>
+</li>
+<li>
+<p><strong>Check radius parameter:</strong>
+   <pre class="highlight"><code class="language-python"># Use appropriate radius
+clq_matrix = sp.CLQ_vec_numba(labels, clusters, cell_types=[0, 1, 2], radius=50)</code></pre></p>
+</li>
+<li>
+<p><strong>Ensure sufficient cells per type:</strong>
+   <pre class="highlight"><code class="language-python"># Check cell counts per type
+for cell_type in [0, 1, 2]:
+    count = np.sum(clusters == cell_type)
+    print(f"Cell type {cell_type}: {count} cells")</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-spatial-analysis-results-dont-make-sense">Problem: Spatial Analysis Results Don't Make Sense<a class="headerlink" href="#problem-spatial-analysis-results-dont-make-sense" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Unexpected spatial patterns
+- Counterintuitive results</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Validate spatial coordinates:</strong>
+   <pre class="highlight"><code class="language-python">from skimage import measure
+
+# Get cell centroids
+props = measure.regionprops_table(labels, properties=['centroid'])
+centroids = np.column_stack([props['centroid-0'], props['centroid-1']])
+
+# Check coordinate ranges
+print(f"X range: {centroids[:, 0].min():.1f} - {centroids[:, 0].max():.1f}")
+print(f"Y range: {centroids[:, 1].min():.1f} - {centroids[:, 1].max():.1f}")</code></pre></p>
+</li>
+<li>
+<p><strong>Visualize spatial distribution:</strong>
+   <pre class="highlight"><code class="language-python">import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 8))
+for cell_type in np.unique(clusters):
+    mask = clusters == cell_type
+    plt.scatter(centroids[mask, 0], centroids[mask, 1], 
+               label=f'Type {cell_type}', alpha=0.7)
+plt.legend()
+plt.title('Spatial Distribution of Cell Types')
+plt.show()</code></pre></p>
+</li>
+<li>
+<p><strong>Check for edge effects:</strong>
+   <pre class="highlight"><code class="language-python"># Remove cells near image edges
+edge_distance = 50
+valid_cells = (centroids[:, 0] &gt; edge_distance) &amp; (centroids[:, 0] &lt; Image.shape[1] - edge_distance) &amp; \
+              (centroids[:, 1] &gt; edge_distance) &amp; (centroids[:, 1] &lt; Image.shape[0] - edge_distance)
+
+labels_center = labels.copy()
+labels_center[~valid_cells] = 0</code></pre></p>
+</li>
+</ol>
+<h2 id="performance-issues">Performance Issues<a class="headerlink" href="#performance-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-analysis-takes-too-long">Problem: Analysis Takes Too Long<a class="headerlink" href="#problem-analysis-takes-too-long" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Processing time is excessive
+- Memory usage is high</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Use parallel processing:</strong>
+   <pre class="highlight"><code class="language-python"># Set number of jobs
+clusters = sp.cluster(adata, method='leiden', n_jobs=4)</code></pre></p>
+</li>
+<li>
+<p><strong>Reduce image size:</strong>
+   <pre class="highlight"><code class="language-python">from skimage.transform import resize
+Image_small = resize(Image, (Image.shape[0]//2, Image.shape[1]//2))</code></pre></p>
+</li>
+<li>
+<p><strong>Use chunked processing:</strong>
+   <pre class="highlight"><code class="language-python"># Process large images in chunks
+labels = sp.cellpose_cellseg(Image, [0], chunk_size=512)</code></pre></p>
+</li>
+<li>
+<p><strong>Optimize memory usage:</strong>
+   <pre class="highlight"><code class="language-python"># Use memory-efficient data types
+Image = Image.astype(np.float32)
+
+# Clear memory after processing
+import gc
+gc.collect()</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-cuda-out-of-memory">Problem: CUDA Out of Memory<a class="headerlink" href="#problem-cuda-out-of-memory" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">RuntimeError: CUDA out of memory</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Reduce batch size:</strong>
+   <pre class="highlight"><code class="language-python">labels = sp.cellpose_cellseg(Image, [0], batch_size=1)</code></pre></p>
+</li>
+<li>
+<p><strong>Use CPU instead of GPU:</strong>
+   <pre class="highlight"><code class="language-python">labels = sp.cellpose_cellseg(Image, [0], use_gpu=False)</code></pre></p>
+</li>
+<li>
+<p><strong>Process smaller chunks:</strong>
+   <pre class="highlight"><code class="language-python">labels = sp.cellpose_cellseg(Image, [0], chunk_size=256)</code></pre></p>
+</li>
+<li>
+<p><strong>Clear GPU memory:</strong>
+   <pre class="highlight"><code class="language-python">import torch
+if torch.cuda.is_available():
+    torch.cuda.empty_cache()</code></pre></p>
+</li>
+</ol>
+<h2 id="data-export-issues">Data Export Issues<a class="headerlink" href="#data-export-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-results-cant-be-saved">Problem: Results Can't Be Saved<a class="headerlink" href="#problem-results-cant-be-saved" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">PermissionError: [Errno 13] Permission denied</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check file permissions:</strong>
+   <pre class="highlight"><code class="language-python">import os
+print(f"Current directory: {os.getcwd()}")
+print(f"Write permission: {os.access('.', os.W_OK)}")</code></pre></p>
+</li>
+<li>
+<p><strong>Use absolute paths:</strong>
+   <pre class="highlight"><code class="language-python">import os
+output_dir = '/path/to/output/directory'
+os.makedirs(output_dir, exist_ok=True)
+
+# Save results
+features.to_csv(os.path.join(output_dir, 'features.csv'))</code></pre></p>
+</li>
+<li>
+<p><strong>Handle file formats:</strong>
+   <pre class="highlight"><code class="language-python"># Save in different formats
+features.to_csv('features.csv')
+features.to_excel('features.xlsx')
+features.to_hdf('features.h5', key='features')</code></pre></p>
+</li>
+</ol>
+<h3 id="problem-large-files-cant-be-saved">Problem: Large Files Can't Be Saved<a class="headerlink" href="#problem-large-files-cant-be-saved" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+<pre class="highlight"><code class="language-python">MemoryError: Unable to save large file</code></pre></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Save in chunks:</strong>
+   <pre class="highlight"><code class="language-python"># Save large DataFrames in chunks
+chunk_size = 1000
+for i in range(0, len(features), chunk_size):
+    chunk = features.iloc[i:i+chunk_size]
+    chunk.to_csv(f'features_chunk_{i//chunk_size}.csv')</code></pre></p>
+</li>
+<li>
+<p><strong>Use efficient formats:</strong>
+   <pre class="highlight"><code class="language-python"># Use HDF5 for large files
+features.to_hdf('features.h5', key='features', mode='w', complevel=9)
+
+# Use Parquet for large files
+features.to_parquet('features.parquet')</code></pre></p>
+</li>
+<li>
+<p><strong>Compress files:</strong>
+   <pre class="highlight"><code class="language-python"># Save with compression
+features.to_csv('features.csv.gz', compression='gzip')</code></pre></p>
+</li>
+</ol>
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<h3 id="when-to-contact-support">When to Contact Support<a class="headerlink" href="#when-to-contact-support" title="Permanent link">&para;</a></h3>
+<p>Contact the SPEX development team if you encounter:</p>
+<ol>
+<li><strong>Bugs</strong>: Unexpected behavior or crashes</li>
+<li><strong>Performance issues</strong>: Unreasonably slow processing</li>
+<li><strong>Missing features</strong>: Functionality you need but isn't available</li>
+<li><strong>Documentation issues</strong>: Unclear or incorrect documentation</li>
+</ol>
+<h3 id="how-to-report-issues">How to Report Issues<a class="headerlink" href="#how-to-report-issues" title="Permanent link">&para;</a></h3>
+<p>When reporting issues, include:</p>
+<ol>
+<li><strong>Clear description</strong> of the problem</li>
+<li><strong>Minimal reproducible example</strong> with code</li>
+<li><strong>System information</strong>:</li>
+<li>Operating system</li>
+<li>Python version</li>
+<li>SPEX version</li>
+<li>Hardware specifications</li>
+<li><strong>Error messages</strong> and stack traces</li>
+<li><strong>Expected vs actual behavior</strong></li>
+</ol>
+<h3 id="example-issue-report">Example Issue Report<a class="headerlink" href="#example-issue-report" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>Title: Segmentation fails with memory error on large images
+
+Description:
+When processing images larger than 4000x4000 pixels, segmentation fails with a memory error.
+
+Steps to reproduce:
+1. Load large image: Image, channel = sp.load_image('large_image.tiff')
+2. Run segmentation: labels = sp.cellpose_cellseg(Image, [0])
+3. Error occurs during processing
+
+System information:
+- OS: Ubuntu 20.04
+- Python: 3.9.7
+- SPEX: 0.3.1055
+- RAM: 16GB
+- GPU: NVIDIA RTX 3080
+
+Error message:
+RuntimeError: CUDA out of memory. Tried to allocate 2.00 GiB
+
+Expected behavior:
+Segmentation should complete successfully or provide a clear error message about memory requirements.</code></pre>
+<hr />
+<p><strong>Still having issues?</strong> Check the FAQ section or contact the SPEX development team for additional support.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

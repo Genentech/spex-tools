@@ -1,0 +1,2186 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/api-reference/spatial-analysis/">
+      
+      
+        <link rel="prev" href="../clustering/">
+      
+      
+        <link rel="next" href="../preprocessing/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>🧬 Spatial Analysis - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spatial-analysis-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🧬 Spatial Analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation-basics/" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/complete-pipeline/" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLQ Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLQ Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clq_vec_numba" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLQ_vec_numba()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Niche Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Niche Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#niche" class="md-nav__link">
+    <span class="md-ellipsis">
+      niche()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differential-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Differential Expression
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Differential Expression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#differential_expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      differential_expression()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pathway-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pathway Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pathway Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyze_pathways" class="md-nav__link">
+    <span class="md-ellipsis">
+      analyze_pathways()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotate_clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotate_clusters()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Autocorrelation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spatial-autocorrelation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/complete-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLQ Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLQ Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clq_vec_numba" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLQ_vec_numba()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Niche Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Niche Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#niche" class="md-nav__link">
+    <span class="md-ellipsis">
+      niche()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differential-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Differential Expression
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Differential Expression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#differential_expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      differential_expression()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pathway-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pathway Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pathway Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyze_pathways" class="md-nav__link">
+    <span class="md-ellipsis">
+      analyze_pathways()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotate_clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      annotate_clusters()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Autocorrelation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spatial-autocorrelation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="spatial-analysis-api-reference">🌐 Spatial Analysis API Reference<a class="headerlink" href="#spatial-analysis-api-reference" title="Permanent link">&para;</a></h1>
+<p>This document provides comprehensive API documentation for all spatial analysis functions in the SPEX library.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#clq-analysis">CLQ Analysis</a></li>
+<li><a href="#niche-analysis">Niche Analysis</a></li>
+<li><a href="#differential-expression">Differential Expression</a></li>
+<li><a href="#pathway-analysis">Pathway Analysis</a></li>
+<li><a href="#spatial-autocorrelation">Spatial Autocorrelation</a></li>
+<li><a href="#complete-workflow">Complete Workflow</a></li>
+</ol>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The SPEX spatial analysis module provides comprehensive tools for analyzing spatial relationships in transcriptomics data, including:</p>
+<ul>
+<li><strong>CLQ Analysis</strong>: Co-Localization Quotient for cell type interactions</li>
+<li><strong>Niche Analysis</strong>: Spatial microenvironment characterization</li>
+<li><strong>Differential Expression</strong>: Spatial-aware gene expression analysis</li>
+<li><strong>Pathway Analysis</strong>: Biological pathway enrichment in spatial context</li>
+<li><strong>Spatial Autocorrelation</strong>: Spatial dependency analysis</li>
+</ul>
+<h2 id="clq-analysis">CLQ Analysis<a class="headerlink" href="#clq-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="clq_vec_numba"><code>CLQ_vec_numba()</code><a class="headerlink" href="#clq_vec_numba" title="Permanent link">&para;</a></h3>
+<p>Calculate Co-Localization Quotient (CLQ) using Numba optimization.</p>
+<pre class="highlight"><code class="language-python">spex.CLQ_vec_numba(adata, clust_col='leiden', clust_uniq=None, radius=50, n_perms=1000)</code></pre>
+<p><strong>Parameters:</strong>
+- <code>adata</code> (AnnData): AnnData object containing spatial data and cluster labels
+- <code>clust_col</code> (str, optional): Column name in adata.obs containing cluster/cell type labels. Default: 'leiden'
+- <code>clust_uniq</code> (array-like, optional): Unique cluster labels. If None, will be inferred from adata.obs[clust_col]
+- <code>radius</code> (float, optional): Radius for spatial neighbor calculation in microns. Default: 50
+- <code>n_perms</code> (int, optional): Number of permutations for significance testing. Default: 1000</p>
+<p><strong>Returns:</strong>
+- <code>adata_out</code> (AnnData): Updated AnnData object with CLQ results in adata.obsm and adata.uns
+- <code>results</code> (dict): Dictionary containing CLQ results:
+  - 'global_clq': Global CLQ matrix
+  - 'permute_test': Permutation test p-values
+  - 'local_clq': Local CLQ values for each cell
+  - 'NCV': Neighborhood count vectors</p>
+<p><strong>Notes:</strong>
+- CLQ &gt; 1 indicates attraction between cell types
+- CLQ &lt; 1 indicates avoidance between cell types
+- CLQ = 1 indicates random spatial distribution
+- Results are stored in adata.obsm['local_clq'] and adata.obsm['NCV']
+- Global results are stored in adata.uns['CLQ']</p>
+<p><strong>Example:</strong>
+<pre class="highlight"><code class="language-python">import spex as sp
+import scanpy as sc
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load your AnnData object with spatial coordinates
+adata = sc.read_h5ad("your_data.h5ad")
+
+# Ensure spatial coordinates are available
+if 'spatial' not in adata.obsm:
+    adata.obsm['spatial'] = adata.obs[['x_coordinate', 'y_coordinate']].to_numpy()
+
+# Perform CLQ analysis
+adata_out, results = sp.CLQ_vec_numba(
+    adata,
+    clust_col='leiden',      # Column with cluster labels
+    radius=50,              # Analysis radius in microns
+    n_perms=1000            # Number of permutations for significance testing
+)
+
+# Access results
+print("Global CLQ matrix:")
+print(results['global_clq'])
+
+print("\nPermutation test results:")
+print(results['permute_test'])
+
+# Visualize global CLQ matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(
+    results['global_clq'],
+    annot=True,
+    cmap='RdBu_r',
+    center=1.0,
+    square=True,
+    fmt='.3f'
+)
+plt.title('Global Co-Localization Quotient')
+plt.xlabel('Cell Type')
+plt.ylabel('Cell Type')
+plt.tight_layout()
+plt.show()
+
+# Local CLQ values for each cell
+local_clq = adata_out.obsm['local_clq']
+neighborhood_vectors = adata_out.obsm['NCV']
+
+print(f"Local CLQ shape: {local_clq.shape}")
+print(f"Neighborhood vectors shape: {neighborhood_vectors.shape}")</code></pre></p>
+<hr />
+<h2 id="niche-analysis">Niche Analysis<a class="headerlink" href="#niche-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="niche"><code>niche()</code><a class="headerlink" href="#niche" title="Permanent link">&para;</a></h3>
+<p>Analyze spatial niches and microenvironment characteristics.</p>
+<pre class="highlight"><code class="language-python">spex.niche(adata, cluster_key='leiden', spatial_weight=0.5, resolution=1.0, 
+           min_cells=10, max_distance=100)</code></pre>
+<p><strong>Parameters:</strong>
+- <code>adata</code> (AnnData): AnnData object with spatial coordinates and cluster labels
+- <code>cluster_key</code> (str): Key in adata.obs containing cluster labels
+- <code>spatial_weight</code> (float): Weight for spatial proximity in niche definition
+- <code>resolution</code> (float): Resolution parameter for niche detection
+- <code>min_cells</code> (int): Minimum number of cells required for a niche
+- <code>max_distance</code> (float): Maximum distance for spatial neighbor calculation</p>
+<p><strong>Returns:</strong>
+- <code>AnnData</code>: Updated AnnData object with niche analysis results</p>
+<p><strong>Example:</strong>
+<pre class="highlight"><code class="language-python">import spex as sp
+import scanpy as sc
+
+# Perform niche analysis
+adata = sp.niche(
+    adata,
+    cluster_key='leiden',
+    spatial_weight=0.5,
+    resolution=1.0,
+    min_cells=10,
+    max_distance=100
+)
+
+# Access niche results
+niche_labels = adata.obs['niche_labels']
+niche_composition = adata.uns['niche_composition']
+
+print(f"Found {len(niche_labels.unique())} niches")
+print("Niche composition:")
+for niche_id in niche_labels.unique():
+    composition = niche_composition[niche_id]
+    print(f"Niche {niche_id}: {composition}")
+
+# Visualize niches
+sc.pl.spatial(adata, color='niche_labels', size=50)</code></pre></p>
+<hr />
+<h2 id="differential-expression">Differential Expression<a class="headerlink" href="#differential-expression" title="Permanent link">&para;</a></h2>
+<h3 id="differential_expression"><code>differential_expression()</code><a class="headerlink" href="#differential_expression" title="Permanent link">&para;</a></h3>
+<p>Perform differential expression analysis with spatial awareness.</p>
+<pre class="highlight"><code class="language-python">spex.differential_expression(adata, cluster_key='leiden', method='wilcoxon', 
+                           n_genes=10, logfc_threshold=0.25, spatial_weight=0.0)</code></pre>
+<p><strong>Parameters:</strong>
+- <code>adata</code> (AnnData): AnnData object with clustering results
+- <code>cluster_key</code> (str): Key in adata.obs containing cluster labels
+- <code>method</code> (str): Statistical test method ('wilcoxon', 't-test', 'logreg')
+- <code>n_genes</code> (int): Number of top genes to return per cluster
+- <code>logfc_threshold</code> (float): Minimum log fold change threshold
+- <code>spatial_weight</code> (float): Weight for spatial proximity in analysis</p>
+<p><strong>Returns:</strong>
+- <code>pandas.DataFrame</code>: Differential expression results</p>
+<p><strong>Example:</strong>
+<pre class="highlight"><code class="language-python">import spex as sp
+
+# Find marker genes with spatial awareness
+marker_genes = sp.differential_expression(
+    adata, 
+    cluster_key='leiden',
+    method='wilcoxon',
+    n_genes=20,
+    logfc_threshold=0.5,
+    spatial_weight=0.3
+)
+
+# Display top markers for each cluster
+for cluster in adata.obs['leiden'].unique():
+    cluster_markers = marker_genes[marker_genes['cluster'] == cluster]
+    print(f"\nCluster {cluster} markers:")
+    print(cluster_markers.head(5)[['gene', 'logfoldchanges', 'pvals_adj']])
+
+# Visualize spatial expression of top markers
+top_markers = marker_genes.groupby('cluster').head(3)['gene'].tolist()
+sc.pl.spatial(adata, color=top_markers[:6], ncols=3, size=50)</code></pre></p>
+<hr />
+<h2 id="pathway-analysis">Pathway Analysis<a class="headerlink" href="#pathway-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="analyze_pathways"><code>analyze_pathways()</code><a class="headerlink" href="#analyze_pathways" title="Permanent link">&para;</a></h3>
+<p>Perform pathway enrichment analysis on spatial data.</p>
+<pre class="highlight"><code class="language-python">spex.analyze_pathways(adata, cluster_key='leiden', marker_genes=None, 
+                     database='GO_Biological_Process_2021', p_threshold=0.05,
+                     spatial_context=True)</code></pre>
+<p><strong>Parameters:</strong>
+- <code>adata</code> (AnnData): AnnData object with clustering results
+- <code>cluster_key</code> (str): Key in adata.obs containing cluster labels
+- <code>marker_genes</code> (dict, optional): Dictionary of marker genes per cluster
+- <code>database</code> (str): Pathway database to use
+- <code>p_threshold</code> (float): P-value threshold for significance
+- <code>spatial_context</code> (bool): Whether to consider spatial context in analysis</p>
+<p><strong>Returns:</strong>
+- <code>pandas.DataFrame</code>: Pathway enrichment results</p>
+<p><strong>Example:</strong>
+<pre class="highlight"><code class="language-python">import spex as sp
+
+# Analyze pathways with spatial context
+pathway_results = sp.analyze_pathways(
+    adata,
+    cluster_key='leiden',
+    database='GO_Biological_Process_2021',
+    p_threshold=0.01,
+    spatial_context=True
+)
+
+# Display top pathways for each cluster
+for cluster in adata.obs['leiden'].unique():
+    cluster_pathways = pathway_results[pathway_results['cluster'] == cluster]
+    print(f"\nCluster {cluster} pathways:")
+    print(cluster_pathways.head(3)[['pathway', 'p_value', 'enrichment_score']])
+
+# Visualize pathway enrichment
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Create pathway heatmap
+pathway_matrix = pathway_results.pivot_table(
+    index='pathway', 
+    columns='cluster', 
+    values='enrichment_score'
+).fillna(0)
+
+plt.figure(figsize=(12, 8))
+sns.heatmap(pathway_matrix, cmap='RdBu_r', center=0, annot=True, fmt='.2f')
+plt.title('Pathway Enrichment by Cluster')
+plt.tight_layout()
+plt.show()</code></pre></p>
+<hr />
+<h3 id="annotate_clusters"><code>annotate_clusters()</code><a class="headerlink" href="#annotate_clusters" title="Permanent link">&para;</a></h3>
+<p>Automatically annotate clusters based on spatial context and pathway analysis.</p>
+<pre class="highlight"><code class="language-python">spex.annotate_clusters(adata, cluster_key='leiden', marker_genes=None, 
+                      pathway_results=None, method='spatial_aware')</code></pre>
+<p><strong>Parameters:</strong>
+- <code>adata</code> (AnnData): AnnData object with clustering results
+- <code>cluster_key</code> (str): Key in adata.obs containing cluster labels
+- <code>marker_genes</code> (dict, optional): Dictionary of marker genes per cluster
+- <code>pathway_results</code> (pandas.DataFrame, optional): Pathway analysis results
+- <code>method</code> (str): Annotation method ('spatial_aware', 'marker_based', 'hybrid')</p>
+<p><strong>Returns:</strong>
+- <code>AnnData</code>: Updated AnnData object with annotations in adata.obs</p>
+<p><strong>Example:</strong>
+<pre class="highlight"><code class="language-python">import spex as sp
+
+# Annotate clusters with spatial awareness
+adata = sp.annotate_clusters(
+    adata,
+    cluster_key='leiden',
+    method='spatial_aware'
+)
+
+# View annotations
+print("Cluster annotations:")
+for cluster in adata.obs['leiden'].unique():
+    annotation = adata.obs[adata.obs['leiden'] == cluster]['cell_type'].iloc[0]
+    print(f"Cluster {cluster}: {annotation}")
+
+# Visualize annotated clusters
+sc.pl.spatial(adata, color='cell_type', size=50)</code></pre></p>
+<hr />
+<h2 id="spatial-autocorrelation">Spatial Autocorrelation<a class="headerlink" href="#spatial-autocorrelation" title="Permanent link">&para;</a></h2>
+<h3 id="spatial-autocorrelation-analysis">Spatial Autocorrelation Analysis<a class="headerlink" href="#spatial-autocorrelation-analysis" title="Permanent link">&para;</a></h3>
+<p>SPEX provides tools for analyzing spatial autocorrelation in gene expression:</p>
+<pre class="highlight"><code class="language-python">import numpy as np
+from scipy.spatial.distance import pdist, squareform
+from scipy.stats import pearsonr
+
+def moran_i(adata, gene, spatial_key='spatial', weight_type='inverse_distance'):
+    """
+    Calculate Moran's I statistic for spatial autocorrelation.
+
+    Parameters:
+    - adata: AnnData object
+    - gene: Gene name to analyze
+    - spatial_key: Key for spatial coordinates
+    - weight_type: Type of spatial weights ('inverse_distance', 'binary')
+
+    Returns:
+    - moran_i: Moran's I statistic
+    - p_value: P-value for significance test
+    """
+    # Get spatial coordinates and gene expression
+    coords = adata.obsm[spatial_key]
+    expression = adata[:, gene].X.flatten()
+
+    # Calculate spatial weights
+    distances = squareform(pdist(coords))
+
+    if weight_type == 'inverse_distance':
+        weights = 1 / (distances + 1e-10)  # Add small constant to avoid division by zero
+    elif weight_type == 'binary':
+        threshold = np.median(distances[distances &gt; 0])
+        weights = (distances &lt;= threshold).astype(float)
+
+    # Set diagonal to zero
+    np.fill_diagonal(weights, 0)
+
+    # Calculate Moran's I
+    n = len(expression)
+    mean_expr = np.mean(expression)
+    variance = np.var(expression)
+
+    numerator = 0
+    denominator = 0
+
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                numerator += weights[i, j] * (expression[i] - mean_expr) * (expression[j] - mean_expr)
+                denominator += weights[i, j]
+
+    moran_i = (n / (2 * denominator)) * (numerator / variance)
+
+    # Calculate p-value (simplified)
+    p_value = 0.05  # Placeholder - would need proper permutation test
+
+    return moran_i, p_value
+
+# Example usage
+genes_to_test = ['Gene1', 'Gene2', 'Gene3']
+spatial_autocorr_results = {}
+
+for gene in genes_to_test:
+    if gene in adata.var_names:
+        moran_i_val, p_val = moran_i(adata, gene)
+        spatial_autocorr_results[gene] = {'moran_i': moran_i_val, 'p_value': p_val}
+
+# Display results
+print("Spatial autocorrelation results:")
+for gene, results in spatial_autocorr_results.items():
+    print(f"{gene}: Moran's I = {results['moran_i']:.3f}, p = {results['p_value']:.3f}")</code></pre>
+<hr />
+<h2 id="complete-workflow">Complete Workflow<a class="headerlink" href="#complete-workflow" title="Permanent link">&para;</a></h2>
+<p>Here's a complete spatial analysis workflow example:</p>
+<pre class="highlight"><code class="language-python">import spex as sp
+import scanpy as sc
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 1. Load and preprocess data
+adata = sc.read_h5ad("path/to/your/spatial_data.h5ad")
+
+# Ensure spatial coordinates are available
+if 'spatial' not in adata.obsm:
+    adata.obsm['spatial'] = adata.obs[['x_coordinate', 'y_coordinate']].to_numpy()
+
+# Basic preprocessing
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+sc.pp.scale(adata, max_value=10)
+
+# 2. Clustering (if not already done)
+sc.pp.highly_variable_features(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
+adata_hvg = adata[:, adata.var.highly_variable].copy()
+sc.tl.pca(adata_hvg, use_highly_variable=True)
+sc.pp.neighbors(adata_hvg, use_rep='X_pca')
+adata_hvg = sp.cluster(adata_hvg, method='leiden', resolution=0.5)
+
+# 3. CLQ Analysis
+print("Performing CLQ analysis...")
+adata_clq, clq_results = sp.CLQ_vec_numba(
+    adata_hvg,
+    clust_col='leiden',
+    radius=50,
+    n_perms=1000
+)
+
+# 4. Niche Analysis
+print("Performing niche analysis...")
+adata_niche = sp.niche(
+    adata_clq,
+    cluster_key='leiden',
+    spatial_weight=0.5,
+    resolution=1.0
+)
+
+# 5. Differential Expression
+print("Performing differential expression analysis...")
+marker_genes = sp.differential_expression(
+    adata_niche,
+    cluster_key='leiden',
+    method='wilcoxon',
+    n_genes=20,
+    spatial_weight=0.3
+)
+
+# 6. Pathway Analysis
+print("Performing pathway analysis...")
+pathway_results = sp.analyze_pathways(
+    adata_niche,
+    cluster_key='leiden',
+    database='GO_Biological_Process_2021',
+    spatial_context=True
+)
+
+# 7. Cluster Annotation
+print("Annotating clusters...")
+adata_final = sp.annotate_clusters(
+    adata_niche,
+    cluster_key='leiden',
+    method='spatial_aware'
+)
+
+# 8. Visualize Results
+fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+
+# Spatial plot colored by clusters
+sc.pl.spatial(adata_final, color='leiden', ax=axes[0, 0], show=False)
+axes[0, 0].set_title('Clusters')
+
+# Spatial plot colored by cell types
+sc.pl.spatial(adata_final, color='cell_type', ax=axes[0, 1], show=False)
+axes[0, 1].set_title('Cell Types')
+
+# Spatial plot colored by niches
+sc.pl.spatial(adata_final, color='niche_labels', ax=axes[0, 2], show=False)
+axes[0, 2].set_title('Niches')
+
+# CLQ heatmap
+sns.heatmap(clq_results['global_clq'], annot=True, cmap='RdBu_r', center=1.0, 
+            square=True, fmt='.3f', ax=axes[1, 0])
+axes[1, 0].set_title('Global CLQ Matrix')
+
+# Top marker genes heatmap
+top_genes = []
+for cluster in adata_final.obs['leiden'].unique():
+    cluster_markers = marker_genes[marker_genes['cluster'] == cluster]
+    top_genes.extend(cluster_markers.head(3)['gene'].tolist())
+
+sc.pl.heatmap(adata_final, top_genes, groupby='leiden', ax=axes[1, 1], show=False)
+axes[1, 1].set_title('Marker Genes')
+
+# Pathway enrichment heatmap
+pathway_matrix = pathway_results.pivot_table(
+    index='pathway', columns='cluster', values='enrichment_score'
+).fillna(0)
+sns.heatmap(pathway_matrix.head(10), cmap='RdBu_r', center=0, ax=axes[1, 2])
+axes[1, 2].set_title('Pathway Enrichment')
+
+plt.tight_layout()
+plt.show()
+
+# 9. Summary Statistics
+print("\n=== SPATIAL ANALYSIS SUMMARY ===")
+print(f"Dataset: {adata_final.n_obs} cells, {adata_final.n_vars} genes")
+print(f"Clusters: {len(adata_final.obs['leiden'].unique())}")
+print(f"Niches: {len(adata_final.obs['niche_labels'].unique())}")
+print(f"Cell types: {len(adata_final.obs['cell_type'].unique())}")
+print(f"Marker genes identified: {len(marker_genes)}")
+print(f"Pathways analyzed: {len(pathway_results)}")
+
+# CLQ interpretation
+print("\n=== CLQ INTERPRETATION ===")
+global_clq = clq_results['global_clq']
+for i in range(len(global_clq)):
+    for j in range(i+1, len(global_clq)):
+        clq_val = global_clq[i, j]
+        if clq_val &gt; 1.5:
+            print(f"Strong attraction between cell types {i} and {j} (CLQ = {clq_val:.3f})")
+        elif clq_val &lt; 0.5:
+            print(f"Strong avoidance between cell types {i} and {j} (CLQ = {clq_val:.3f})")
+
+print("\n✅ Spatial analysis complete!")</code></pre>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues-and-solutions">Common Issues and Solutions<a class="headerlink" href="#common-issues-and-solutions" title="Permanent link">&para;</a></h3>
+<p><strong>1. CLQ analysis fails or produces errors</strong>
+- Check spatial coordinates are properly formatted
+- Ensure cluster labels are available in adata.obs
+- Verify sufficient cells per cluster (minimum 10 recommended)
+- Adjust radius parameter based on your data scale</p>
+<p><strong>2. No significant spatial relationships found</strong>
+- Increase radius for neighbor calculation
+- Check data quality and preprocessing
+- Verify spatial coordinates are in correct units
+- Consider different clustering resolution</p>
+<p><strong>3. Memory issues with large datasets</strong>
+- Reduce number of permutations in CLQ analysis
+- Process data in spatial chunks
+- Use subset of genes for analysis
+- Optimize spatial neighbor calculation</p>
+<p><strong>4. Niche analysis produces too many/few niches</strong>
+- Adjust spatial_weight parameter
+- Modify resolution parameter
+- Change min_cells threshold
+- Check spatial distribution of cells</p>
+<p><strong>5. Pathway analysis returns no significant results</strong>
+- Lower p_threshold
+- Use different pathway database
+- Check marker gene quality
+- Verify gene annotation</p>
+<hr />
+<p><strong>Next Steps:</strong>
+- <a href="../../examples/complete-pipeline/">Complete Pipeline Example</a>
+- <a href="../../reference/troubleshooting/">Troubleshooting Guide</a>
+- <a href="../../getting-started/installation/">Installation Guide</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

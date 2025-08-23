@@ -1,0 +1,3089 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/tutorials/spatial-analysis/">
+      
+      
+        <link rel="prev" href="../clustering-guide/">
+      
+      
+        <link rel="next" href="../preprocessing-guide/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>🧬 Spatial Analysis - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spatial-analysis-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🧬 Spatial Analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../segmentation-basics/" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/complete-pipeline/" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmentation-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-required-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import Required Libraries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Your Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLQ Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLQ Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-clq" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding CLQ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic CLQ Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-clq-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing CLQ Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced CLQ Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Niche Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Niche Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-spatial-niches" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Spatial Niches?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-niches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finding Niches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-niche-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing Niche Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Niche Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization-for-niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization for Niche Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biological-interpretation-of-niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biological Interpretation of Niche Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Autocorrelation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morans-i-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moran's I Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gearys-c-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geary's C Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-analysis-of-multiple-genes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Analysis of Multiple Genes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-spatial-autocorrelation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing Spatial Autocorrelation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization-for-spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization for Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biological-interpretation-of-spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biological Interpretation of Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neighborhood-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neighborhood Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Neighborhood Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cell-neighborhood-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Neighborhood Relationships
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neighborhood-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neighborhood Visualization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-spatial-analysis-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Spatial Analysis Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interpretation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/complete-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-required-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import Required Libraries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Your Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLQ Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLQ Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-clq" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding CLQ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic CLQ Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-clq-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing CLQ Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-clq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced CLQ Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Niche Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Niche Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-spatial-niches" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Spatial Niches?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-niches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finding Niches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-niche-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing Niche Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Niche Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization-for-niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization for Niche Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biological-interpretation-of-niche-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biological Interpretation of Niche Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Autocorrelation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morans-i-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moran's I Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gearys-c-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geary's C Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-analysis-of-multiple-genes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Analysis of Multiple Genes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-spatial-autocorrelation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing Spatial Autocorrelation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization-for-spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization for Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biological-interpretation-of-spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biological Interpretation of Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neighborhood-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neighborhood Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Neighborhood Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cell-neighborhood-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Neighborhood Relationships
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neighborhood-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neighborhood Visualization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-spatial-analysis-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Spatial Analysis Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interpretation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="spatial-analysis-tutorial">Spatial Analysis Tutorial<a class="headerlink" href="#spatial-analysis-tutorial" title="Permanent link">&para;</a></h1>
+<p>This tutorial covers spatial analysis techniques for spatial transcriptomics data using SPEX.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Spatial analysis in SPEX provides tools to understand spatial relationships between cells and genes in tissue samples. This includes:</p>
+<ul>
+<li><strong>CLQ Analysis</strong>: Co-occurrence and Local Quotient analysis</li>
+<li><strong>Niche Analysis</strong>: Identification of spatial microenvironments</li>
+<li><strong>Spatial Autocorrelation</strong>: Analysis of spatial patterns</li>
+<li><strong>Neighborhood Analysis</strong>: Cell-to-cell relationships</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Before starting this tutorial, make sure you have:</p>
+<ul>
+<li>Completed the <a href="../segmentation-basics/">Segmentation Basics</a> tutorial</li>
+<li>Completed the <a href="../clustering-guide/">Clustering Guide</a> tutorial</li>
+<li>An AnnData object with spatial coordinates and cell type annotations</li>
+</ul>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<h3 id="import-required-libraries">Import Required Libraries<a class="headerlink" href="#import-required-libraries" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">import spex
+import scanpy as sc
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set up plotting
+sc.settings.set_figure_params(dpi=80, facecolor='white')</code></pre>
+<h3 id="load-your-data">Load Your Data<a class="headerlink" href="#load-your-data" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Load your processed AnnData object
+adata = sc.read_h5ad("path/to/your/processed_data.h5ad")
+
+# Ensure spatial coordinates are available
+print(f"Spatial coordinates: {adata.obsm.keys()}")
+print(f"Cell types: {adata.obs['cell_type'].unique()}")</code></pre>
+<h2 id="clq-analysis">CLQ Analysis<a class="headerlink" href="#clq-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="understanding-clq">Understanding CLQ<a class="headerlink" href="#understanding-clq" title="Permanent link">&para;</a></h3>
+<p>CLQ (Co-occurrence and Local Quotient) analysis measures the spatial co-occurrence of different cell types. It helps identify:</p>
+<ul>
+<li>Which cell types tend to be found together</li>
+<li>Spatial patterns in tissue organization</li>
+<li>Potential functional relationships</li>
+</ul>
+<p><strong>Key Concepts:</strong>
+- <strong>CLQ &gt; 1</strong>: Cell types are attracted to each other (co-localized)
+- <strong>CLQ &lt; 1</strong>: Cell types avoid each other (spatially separated)
+- <strong>CLQ = 1</strong>: Cell types are randomly distributed relative to each other</p>
+<h3 id="basic-clq-analysis">Basic CLQ Analysis<a class="headerlink" href="#basic-clq-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">from spex import CLQ_vec_numba
+
+# Perform CLQ analysis
+adata_out, results = CLQ_vec_numba(
+    adata,
+    clust_col='leiden',      # Column with cluster labels
+    radius=50,              # Spatial radius in microns
+    n_perms=1000            # Number of permutations for significance testing
+)
+
+# View results
+print("Global CLQ matrix:")
+print(results['global_clq'])
+
+print("\nPermutation test p-values:")
+print(results['permute_test'])
+
+# Access local CLQ values for each cell
+local_clq = adata_out.obsm['local_clq']
+neighborhood_vectors = adata_out.obsm['NCV']
+
+print(f"Local CLQ shape: {local_clq.shape}")
+print(f"Neighborhood vectors shape: {neighborhood_vectors.shape}")</code></pre>
+<h3 id="visualizing-clq-results">Visualizing CLQ Results<a class="headerlink" href="#visualizing-clq-results" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Create a comprehensive CLQ visualization
+fig, axes = plt.subplots(2, 2, figsize=(15, 12))
+
+# 1. Global CLQ matrix
+sns.heatmap(
+    results['global_clq'],
+    annot=True,
+    cmap='RdBu_r',
+    center=1.0,
+    square=True,
+    fmt='.3f',
+    ax=axes[0, 0]
+)
+axes[0, 0].set_title('Global Co-Localization Quotient')
+axes[0, 0].set_xlabel('Cell Type')
+axes[0, 0].set_ylabel('Cell Type')
+
+# 2. Permutation test p-values
+sns.heatmap(
+    results['permute_test'],
+    annot=True,
+    cmap='RdBu_r',
+    center=0.5,
+    square=True,
+    fmt='.3f',
+    ax=axes[0, 1]
+)
+axes[0, 1].set_title('CLQ Permutation Test P-values')
+axes[0, 1].set_xlabel('Cell Type')
+axes[0, 1].set_ylabel('Cell Type')
+
+# 3. Significant interactions only
+significant_mask = results['permute_test'] &lt; 0.05
+significant_clq = results['global_clq'] * significant_mask
+
+sns.heatmap(
+    significant_clq,
+    annot=True,
+    cmap='RdBu_r',
+    center=1.0,
+    square=True,
+    fmt='.3f',
+    ax=axes[1, 0]
+)
+axes[1, 0].set_title('Significant CLQ Interactions (p &lt; 0.05)')
+axes[1, 0].set_xlabel('Cell Type')
+axes[1, 0].set_ylabel('Cell Type')
+
+# 4. Local CLQ distribution
+cell_types = adata.obs['leiden'].unique()
+local_clq_df = pd.DataFrame(
+    local_clq,
+    columns=cell_types
+)
+
+local_clq_df.boxplot(ax=axes[1, 1])
+axes[1, 1].set_title('Distribution of Local CLQ Values')
+axes[1, 1].set_xlabel('Cell Type')
+axes[1, 1].set_ylabel('Local CLQ Value')
+axes[1, 1].tick_params(axis='x', rotation=45)
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="advanced-clq-analysis">Advanced CLQ Analysis<a class="headerlink" href="#advanced-clq-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Analyze significant interactions
+significant_mask = results['permute_test'] &lt; 0.05
+significant_clq = results['global_clq'] * significant_mask
+
+print("Significant CLQ interactions (p &lt; 0.05):")
+cell_types = adata.obs['leiden'].unique()
+
+for i in range(significant_clq.shape[0]):
+    for j in range(significant_clq.shape[1]):
+        if significant_mask[i, j] and i != j:
+            cell_type_i = cell_types[i]
+            cell_type_j = cell_types[j]
+            clq_value = significant_clq[i, j]
+            p_value = results['permute_test'][i, j]
+
+            if clq_value &gt; 1:
+                relationship = "attraction"
+            else:
+                relationship = "avoidance"
+
+            print(f"{cell_type_i} - {cell_type_j}: CLQ={clq_value:.3f}, p={p_value:.3f} ({relationship})")
+
+# Create spatial visualization of local CLQ
+fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+# Plot spatial distribution of cell types
+scatter = axes[0].scatter(
+    adata.obsm['spatial'][:, 0],
+    adata.obsm['spatial'][:, 1],
+    c=adata.obs['leiden'].astype('category').cat.codes,
+    cmap='tab20',
+    s=20,
+    alpha=0.8
+)
+axes[0].set_title('Spatial Distribution of Cell Types')
+axes[0].set_xlabel('X Coordinate')
+axes[0].set_ylabel('Y Coordinate')
+
+# Plot local CLQ for a specific cell type
+cell_type_idx = 0  # First cell type
+local_clq_values = local_clq[:, cell_type_idx]
+scatter = axes[1].scatter(
+    adata.obsm['spatial'][:, 0],
+    adata.obsm['spatial'][:, 1],
+    c=local_clq_values,
+    cmap='RdBu_r',
+    s=20,
+    alpha=0.8
+)
+axes[1].set_title(f'Local CLQ for {cell_types[cell_type_idx]}')
+axes[1].set_xlabel('X Coordinate')
+axes[1].set_ylabel('Y Coordinate')
+plt.colorbar(scatter, ax=axes[1])
+
+# Plot neighborhood size
+neighborhood_sizes = np.sum(neighborhood_vectors, axis=1)
+scatter = axes[2].scatter(
+    adata.obsm['spatial'][:, 0],
+    adata.obsm['spatial'][:, 1],
+    c=neighborhood_sizes,
+    cmap='viridis',
+    s=20,
+    alpha=0.8
+)
+axes[2].set_title('Neighborhood Size')
+axes[2].set_xlabel('X Coordinate')
+axes[2].set_ylabel('Y Coordinate')
+plt.colorbar(scatter, ax=axes[2])
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="parameter-optimization">Parameter Optimization<a class="headerlink" href="#parameter-optimization" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Test different radius values
+radii = [25, 50, 100, 150]
+clq_results = {}
+
+for radius in radii:
+    print(f"Testing radius: {radius} microns")
+    adata_out, results = CLQ_vec_numba(
+        adata,
+        clust_col='leiden',
+        radius=radius,
+        n_perms=100  # Reduced for faster testing
+    )
+    clq_results[radius] = results['global_clq']
+
+# Compare results across different radii
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+for idx, radius in enumerate(radii):
+    row, col = idx // 2, idx % 2
+
+    sns.heatmap(
+        clq_results[radius],
+        annot=True,
+        cmap='RdBu_r',
+        center=1.0,
+        square=True,
+        fmt='.3f',
+        ax=axes[row, col]
+    )
+    axes[row, col].set_title(f'CLQ Matrix (radius={radius}μm)')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="niche-analysis">Niche Analysis<a class="headerlink" href="#niche-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="what-are-spatial-niches">What are Spatial Niches?<a class="headerlink" href="#what-are-spatial-niches" title="Permanent link">&para;</a></h3>
+<p>Spatial niches are microenvironments where specific cell types are enriched. They represent functional units in tissue organization and can indicate:</p>
+<ul>
+<li><strong>Functional microenvironments</strong> with specific cell type compositions</li>
+<li><strong>Tissue organization patterns</strong> and spatial domains  </li>
+<li><strong>Potential signaling centers</strong> or specialized regions</li>
+<li><strong>Disease-related spatial alterations</strong></li>
+</ul>
+<h3 id="finding-niches">Finding Niches<a class="headerlink" href="#finding-niches" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">from spex import niche
+
+# Perform niche analysis
+adata = niche(
+    adata,
+    spatial_weight=0.3,    # Weight for spatial neighbors
+    resolution=1.0,        # Clustering resolution
+    method='leiden'        # Clustering method
+)
+
+# Access results
+print("Niche analysis completed!")
+print(f"Identified niches: {adata.obs['leiden'].unique()}")
+print(f"Number of cells per niche:")
+print(adata.obs['leiden'].value_counts())</code></pre>
+<h3 id="visualizing-niche-results">Visualizing Niche Results<a class="headerlink" href="#visualizing-niche-results" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+# Create comprehensive niche visualization
+fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+
+# 1. Spatial distribution of niches
+scatter = axes[0, 0].scatter(
+    adata.obsm['spatial'][:, 0],
+    adata.obsm['spatial'][:, 1],
+    c=adata.obs['leiden'].astype('category').cat.codes,
+    cmap='tab20',
+    s=20,
+    alpha=0.8
+)
+axes[0, 0].set_title('Spatial Distribution of Niches')
+axes[0, 0].set_xlabel('X Coordinate')
+axes[0, 0].set_ylabel('Y Coordinate')
+axes[0, 0].set_aspect('equal')
+
+# 2. Niche size distribution
+niche_counts = adata.obs['leiden'].value_counts()
+axes[0, 1].bar(range(len(niche_counts)), niche_counts.values)
+axes[0, 1].set_title('Niche Size Distribution')
+axes[0, 1].set_xlabel('Niche ID')
+axes[0, 1].set_ylabel('Number of Cells')
+axes[0, 1].set_xticks(range(len(niche_counts)))
+axes[0, 1].set_xticklabels(niche_counts.index, rotation=45)
+
+# 3. Niche composition analysis (if cell types are available)
+if 'cell_type' in adata.obs.columns:
+    niche_composition = pd.crosstab(adata.obs['leiden'], adata.obs['cell_type'])
+
+    sns.heatmap(
+        niche_composition,
+        annot=True,
+        cmap='Blues',
+        ax=axes[1, 0]
+    )
+    axes[1, 0].set_title('Niche Composition by Cell Type')
+    axes[1, 0].set_xlabel('Cell Type')
+    axes[1, 0].set_ylabel('Niche ID')
+
+# 4. Niche spatial characteristics
+niche_centroids = []
+niche_radii = []
+
+for niche_id in adata.obs['leiden'].unique():
+    niche_mask = adata.obs['leiden'] == niche_id
+    niche_coords = adata.obsm['spatial'][niche_mask]
+
+    # Calculate centroid
+    centroid = np.mean(niche_coords, axis=0)
+    niche_centroids.append(centroid)
+
+    # Calculate radius (distance from centroid to farthest cell)
+    distances = np.linalg.norm(niche_coords - centroid, axis=1)
+    radius = np.max(distances)
+    niche_radii.append(radius)
+
+# Plot niche characteristics
+niche_radii = np.array(niche_radii)
+axes[1, 1].hist(niche_radii, bins=20, alpha=0.7, edgecolor='black')
+axes[1, 1].set_title('Distribution of Niche Radii')
+axes[1, 1].set_xlabel('Niche Radius (microns)')
+axes[1, 1].set_ylabel('Frequency')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="advanced-niche-analysis">Advanced Niche Analysis<a class="headerlink" href="#advanced-niche-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Analyze niche characteristics
+niche_stats = {}
+
+for niche_id in adata.obs['leiden'].unique():
+    niche_mask = adata.obs['leiden'] == niche_id
+    niche_cells = adata[niche_mask]
+
+    # Basic statistics
+    niche_stats[niche_id] = {
+        'n_cells': len(niche_cells),
+        'centroid': np.mean(niche_cells.obsm['spatial'], axis=0),
+        'radius': np.max(np.linalg.norm(
+            niche_cells.obsm['spatial'] - np.mean(niche_cells.obsm['spatial'], axis=0), 
+            axis=1
+        )),
+        'density': len(niche_cells) / (np.pi * np.max(np.linalg.norm(
+            niche_cells.obsm['spatial'] - np.mean(niche_cells.obsm['spatial'], axis=0), 
+            axis=1
+        ))**2)
+    }
+
+# Create summary table
+niche_summary = pd.DataFrame(niche_stats).T
+print("Niche Analysis Summary:")
+print(niche_summary)
+
+# Visualize niche relationships
+fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+
+# Niche size vs radius
+axes[0].scatter(niche_summary['radius'], niche_summary['n_cells'], alpha=0.7)
+axes[0].set_xlabel('Niche Radius (microns)')
+axes[0].set_ylabel('Number of Cells')
+axes[0].set_title('Niche Size vs Radius')
+
+# Niche density distribution
+axes[1].hist(niche_summary['density'], bins=15, alpha=0.7, edgecolor='black')
+axes[1].set_xlabel('Cell Density (cells/μm²)')
+axes[1].set_ylabel('Frequency')
+axes[1].set_title('Distribution of Niche Densities')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="parameter-optimization-for-niche-analysis">Parameter Optimization for Niche Analysis<a class="headerlink" href="#parameter-optimization-for-niche-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Test different spatial weights
+spatial_weights = [0.0, 0.1, 0.3, 0.5]
+niche_results = {}
+
+for weight in spatial_weights:
+    print(f"Testing spatial weight: {weight}")
+
+    # Create a copy for testing
+    adata_test = adata.copy()
+
+    # Perform niche analysis
+    adata_test = niche(
+        adata_test,
+        spatial_weight=weight,
+        resolution=1.0,
+        method='leiden'
+    )
+
+    # Store results
+    niche_results[weight] = {
+        'n_niches': len(adata_test.obs['leiden'].unique()),
+        'niche_sizes': adata_test.obs['leiden'].value_counts().values,
+        'niche_labels': adata_test.obs['leiden']
+    }
+
+# Compare results
+fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+
+for idx, weight in enumerate(spatial_weights):
+    row, col = idx // 2, idx % 2
+
+    # Plot spatial distribution
+    scatter = axes[row, col].scatter(
+        adata.obsm['spatial'][:, 0],
+        adata.obsm['spatial'][:, 1],
+        c=niche_results[weight]['niche_labels'].astype('category').cat.codes,
+        cmap='tab20',
+        s=15,
+        alpha=0.8
+    )
+    axes[row, col].set_title(f'Spatial Weight = {weight}\n({niche_results[weight]["n_niches"]} niches)')
+    axes[row, col].set_xlabel('X Coordinate')
+    axes[row, col].set_ylabel('Y Coordinate')
+    axes[row, col].set_aspect('equal')
+
+plt.tight_layout()
+plt.show()
+
+# Compare niche statistics
+print("Niche Analysis Comparison:")
+print("=" * 50)
+for weight in spatial_weights:
+    n_niches = niche_results[weight]['n_niches']
+    avg_size = np.mean(niche_results[weight]['niche_sizes'])
+    print(f"Spatial weight {weight}: {n_niches} niches, avg size {avg_size:.1f} cells")</code></pre>
+<h3 id="biological-interpretation-of-niche-analysis">Biological Interpretation of Niche Analysis<a class="headerlink" href="#biological-interpretation-of-niche-analysis" title="Permanent link">&para;</a></h3>
+<p><strong>Key Insights:</strong>
+1. <strong>Niche Size</strong>: Larger niches may indicate broader functional domains or tissue regions
+2. <strong>Niche Composition</strong>: Cell type mixtures suggest functional relationships and signaling networks
+3. <strong>Spatial Distribution</strong>: Clustered vs. dispersed niches indicate different tissue organization patterns
+4. <strong>Niche Density</strong>: High-density niches may indicate active regions or specialized microenvironments</p>
+<p><strong>Parameter Selection Guidelines:</strong>
+- <strong>spatial_weight</strong>: 
+  - 0.0-0.1: Focus on gene expression similarity
+  - 0.3-0.5: Balance expression and spatial proximity
+  - &gt;0.5: Strong emphasis on spatial relationships
+- <strong>resolution</strong>:
+  - 0.5-1.0: Identify larger, general niches
+  - 1.0-2.0: Identify smaller, specific niches
+  - &gt;2.0: Very fine-grained niche identification</p>
+<h2 id="spatial-autocorrelation">Spatial Autocorrelation<a class="headerlink" href="#spatial-autocorrelation" title="Permanent link">&para;</a></h2>
+<h3 id="understanding-spatial-autocorrelation">Understanding Spatial Autocorrelation<a class="headerlink" href="#understanding-spatial-autocorrelation" title="Permanent link">&para;</a></h3>
+<p>Spatial autocorrelation measures the degree to which similar values cluster together in space. It helps identify:</p>
+<ul>
+<li><strong>Spatial gradients</strong> and tissue domains</li>
+<li><strong>Functional regions</strong> with similar gene expression</li>
+<li><strong>Spatial patterns</strong> in cell type distribution</li>
+<li><strong>Tissue organization</strong> principles</li>
+</ul>
+<p><strong>Key Concepts:</strong>
+- <strong>Positive autocorrelation</strong>: Similar values cluster together
+- <strong>Negative autocorrelation</strong>: Dissimilar values cluster together
+- <strong>Random distribution</strong>: No spatial organization</p>
+<h3 id="morans-i-analysis">Moran's I Analysis<a class="headerlink" href="#morans-i-analysis" title="Permanent link">&para;</a></h3>
+<p>Moran's I measures spatial autocorrelation using correlation between values and their spatial neighbors.</p>
+<pre class="highlight"><code class="language-python">import numpy as np
+from scipy.spatial.distance import pdist, squareform
+from scipy.stats import norm
+import pandas as pd
+
+def moran_i(adata, variable, spatial_key='spatial', weight_type='distance', radius=50, k_neighbors=10):
+    """Calculate Moran's I spatial autocorrelation coefficient."""
+
+    # Get spatial coordinates and variable values
+    coords = adata.obsm[spatial_key]
+
+    if isinstance(variable, str):
+        if variable in adata.obs.columns:
+            values = adata.obs[variable].values
+        elif variable in adata.var_names:
+            values = adata[:, variable].X.toarray().flatten()
+        else:
+            raise ValueError(f"Variable {variable} not found in adata")
+    else:
+        values = np.array(variable)
+
+    # Remove NaN values
+    mask = ~np.isnan(values)
+    coords = coords[mask]
+    values = values[mask]
+    n = len(values)
+
+    if n &lt; 2:
+        return np.nan, np.nan, {}
+
+    # Calculate spatial weights matrix
+    if weight_type == 'distance':
+        dist_matrix = squareform(pdist(coords))
+        weights = (dist_matrix &lt;= radius).astype(float)
+        np.fill_diagonal(weights, 0)
+    elif weight_type == 'knn':
+        from sklearn.neighbors import NearestNeighbors
+        nbrs = NearestNeighbors(n_neighbors=k_neighbors+1).fit(coords)
+        distances, indices = nbrs.kneighbors(coords)
+        weights = np.zeros((n, n))
+        for i, idx in enumerate(indices):
+            weights[i, idx[1:]] = 1
+    else:
+        raise ValueError(f"Unknown weight type: {weight_type}")
+
+    # Normalize weights
+    row_sums = weights.sum(axis=1)
+    row_sums[row_sums == 0] = 1
+    weights = weights / row_sums[:, np.newaxis]
+
+    # Calculate Moran's I
+    mean_val = np.mean(values)
+    dev = values - mean_val
+    dev_sq = dev ** 2
+
+    numerator = np.sum(weights * np.outer(dev, dev))
+    denominator = np.sum(dev_sq)
+
+    moran_i = (n / (2 * np.sum(weights))) * (numerator / denominator)
+
+    # Calculate significance
+    expected_i = -1 / (n - 1)
+    s1 = np.sum(weights ** 2)
+    s2 = np.sum((weights.sum(axis=0)) ** 2)
+
+    var_i = (n * ((n**2 - 3*n + 3)*s1 - n*s2 + 3*np.sum(weights)**2) - 
+             (n**2 * ((n**2 - n)*s1 - 2*n*s2 + 6*np.sum(weights)**2))) / \
+            ((n-1)*(n-2)*(n-3)*np.sum(weights)**2)
+
+    z_score = (moran_i - expected_i) / np.sqrt(var_i)
+    p_value = 2 * (1 - norm.cdf(abs(z_score)))
+
+    stats = {
+        'expected_i': expected_i,
+        'variance': var_i,
+        'z_score': z_score,
+        'weights_sum': np.sum(weights)
+    }
+
+    return moran_i, p_value, stats
+
+# Example usage
+gene_name = 'CD3'
+moran_i_val, p_val, stats = moran_i(
+    adata,
+    variable=gene_name,
+    spatial_key='spatial',
+    weight_type='distance',
+    radius=100
+)
+
+print(f"Moran's I for {gene_name}: {moran_i_val:.4f}")
+print(f"P-value: {p_val:.4e}")
+print(f"Z-score: {stats['z_score']:.4f}")</code></pre>
+<h3 id="gearys-c-analysis">Geary's C Analysis<a class="headerlink" href="#gearys-c-analysis" title="Permanent link">&para;</a></h3>
+<p>Geary's C is an alternative measure of spatial autocorrelation that focuses on differences between neighboring values.</p>
+<pre class="highlight"><code class="language-python">def geary_c(adata, variable, spatial_key='spatial', weight_type='distance', radius=50, k_neighbors=10):
+    """Calculate Geary's C spatial autocorrelation coefficient."""
+
+    # Get spatial coordinates and variable values
+    coords = adata.obsm[spatial_key]
+
+    if isinstance(variable, str):
+        if variable in adata.obs.columns:
+            values = adata.obs[variable].values
+        elif variable in adata.var_names:
+            values = adata[:, variable].X.toarray().flatten()
+        else:
+            raise ValueError(f"Variable {variable} not found in adata")
+    else:
+        values = np.array(variable)
+
+    # Remove NaN values
+    mask = ~np.isnan(values)
+    coords = coords[mask]
+    values = values[mask]
+    n = len(values)
+
+    if n &lt; 2:
+        return np.nan, np.nan, {}
+
+    # Calculate spatial weights matrix (same as Moran's I)
+    if weight_type == 'distance':
+        dist_matrix = squareform(pdist(coords))
+        weights = (dist_matrix &lt;= radius).astype(float)
+        np.fill_diagonal(weights, 0)
+    elif weight_type == 'knn':
+        from sklearn.neighbors import NearestNeighbors
+        nbrs = NearestNeighbors(n_neighbors=k_neighbors+1).fit(coords)
+        distances, indices = nbrs.kneighbors(coords)
+        weights = np.zeros((n, n))
+        for i, idx in enumerate(indices):
+            weights[i, idx[1:]] = 1
+    else:
+        raise ValueError(f"Unknown weight type: {weight_type}")
+
+    # Calculate Geary's C
+    mean_val = np.mean(values)
+    dev_sq = (values - mean_val) ** 2
+
+    numerator = np.sum(weights * np.outer(dev_sq, np.ones(n)))
+    denominator = 2 * np.sum(weights) * np.sum(dev_sq)
+
+    geary_c = ((n - 1) / denominator) * numerator
+
+    # Calculate significance
+    expected_c = 1.0
+    s1 = np.sum(weights ** 2)
+    s2 = np.sum((weights.sum(axis=0)) ** 2)
+
+    var_c = ((2 * s1 + s2) * (n - 1) - 4 * np.sum(weights)**2) / \
+            (2 * (n + 1) * np.sum(weights)**2)
+
+    z_score = (geary_c - expected_c) / np.sqrt(var_c)
+    p_value = 2 * (1 - norm.cdf(abs(z_score)))
+
+    stats = {
+        'expected_c': expected_c,
+        'variance': var_c,
+        'z_score': z_score,
+        'weights_sum': np.sum(weights)
+    }
+
+    return geary_c, p_value, stats
+
+# Example usage
+gene_name = 'CD8'
+geary_c_val, p_val, stats = geary_c(
+    adata,
+    variable=gene_name,
+    spatial_key='spatial',
+    weight_type='distance',
+    radius=100
+)
+
+print(f"Geary's C for {gene_name}: {geary_c_val:.4f}")
+print(f"P-value: {p_val:.4e}")
+print(f"Z-score: {stats['z_score']:.4f}")</code></pre>
+<h3 id="batch-analysis-of-multiple-genes">Batch Analysis of Multiple Genes<a class="headerlink" href="#batch-analysis-of-multiple-genes" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def analyze_spatial_autocorrelation(adata, genes=None, spatial_key='spatial', 
+                                  weight_type='distance', radius=100):
+    """Perform spatial autocorrelation analysis on multiple genes."""
+
+    if genes is None:
+        genes = adata.var_names.tolist()
+
+    results = []
+
+    for gene in genes:
+        try:
+            # Calculate Moran's I
+            moran_i_val, moran_p, moran_stats = moran_i(
+                adata, gene, spatial_key, weight_type, radius
+            )
+
+            # Calculate Geary's C
+            geary_c_val, geary_p, geary_stats = geary_c(
+                adata, gene, spatial_key, weight_type, radius
+            )
+
+            results.append({
+                'gene': gene,
+                'moran_i': moran_i_val,
+                'moran_p': moran_p,
+                'moran_z': moran_stats.get('z_score', np.nan),
+                'geary_c': geary_c_val,
+                'geary_p': geary_p,
+                'geary_z': geary_stats.get('z_score', np.nan)
+            })
+
+        except Exception as e:
+            print(f"Error analyzing {gene}: {e}")
+            results.append({
+                'gene': gene,
+                'moran_i': np.nan,
+                'moran_p': np.nan,
+                'moran_z': np.nan,
+                'geary_c': np.nan,
+                'geary_p': np.nan,
+                'geary_z': np.nan
+            })
+
+    return pd.DataFrame(results)
+
+# Analyze spatial autocorrelation for top variable genes
+top_genes = adata.var_names[:50]  # First 50 genes
+autocorr_results = analyze_spatial_autocorrelation(
+    adata,
+    genes=top_genes,
+    spatial_key='spatial',
+    weight_type='distance',
+    radius=100
+)
+
+# Display results
+print("Spatial Autocorrelation Results:")
+print(autocorr_results.head(10))
+
+# Find genes with significant spatial autocorrelation
+significant_genes = autocorr_results[
+    (autocorr_results['moran_p'] &lt; 0.05) | 
+    (autocorr_results['geary_p'] &lt; 0.05)
+]
+
+print(f"\nGenes with significant spatial autocorrelation: {len(significant_genes)}")
+print(significant_genes[['gene', 'moran_i', 'moran_p', 'geary_c', 'geary_p']].head())</code></pre>
+<h3 id="visualizing-spatial-autocorrelation-results">Visualizing Spatial Autocorrelation Results<a class="headerlink" href="#visualizing-spatial-autocorrelation-results" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Create comprehensive visualization
+fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+
+# 1. Moran's I distribution
+axes[0, 0].hist(autocorr_results['moran_i'].dropna(), bins=30, alpha=0.7, edgecolor='black')
+axes[0, 0].axvline(0, color='red', linestyle='--', alpha=0.7)
+axes[0, 0].set_title('Distribution of Moran\'s I')
+axes[0, 0].set_xlabel('Moran\'s I')
+axes[0, 0].set_ylabel('Frequency')
+
+# 2. Geary's C distribution
+axes[0, 1].hist(autocorr_results['geary_c'].dropna(), bins=30, alpha=0.7, edgecolor='black')
+axes[0, 1].axvline(1, color='red', linestyle='--', alpha=0.7)
+axes[0, 1].set_title('Distribution of Geary\'s C')
+axes[0, 1].set_xlabel('Geary\'s C')
+axes[0, 1].set_ylabel('Frequency')
+
+# 3. Moran's I vs Geary's C
+axes[0, 2].scatter(autocorr_results['moran_i'], autocorr_results['geary_c'], alpha=0.6)
+axes[0, 2].set_xlabel('Moran\'s I')
+axes[0, 2].set_ylabel('Geary\'s C')
+axes[0, 2].set_title('Moran\'s I vs Geary\'s C')
+
+# 4. P-value distributions
+axes[1, 0].hist(autocorr_results['moran_p'].dropna(), bins=30, alpha=0.7, edgecolor='black')
+axes[1, 0].axvline(0.05, color='red', linestyle='--', alpha=0.7)
+axes[1, 0].set_title('Distribution of Moran\'s I P-values')
+axes[1, 0].set_xlabel('P-value')
+axes[1, 0].set_ylabel('Frequency')
+
+# 5. Z-score distributions
+axes[1, 1].hist(autocorr_results['moran_z'].dropna(), bins=30, alpha=0.7, edgecolor='black')
+axes[1, 1].axvline(1.96, color='red', linestyle='--', alpha=0.7)
+axes[1, 1].axvline(-1.96, color='red', linestyle='--', alpha=0.7)
+axes[1, 1].set_title('Distribution of Moran\'s I Z-scores')
+axes[1, 1].set_xlabel('Z-score')
+axes[1, 1].set_ylabel('Frequency')
+
+# 6. Top genes with significant autocorrelation
+if len(significant_genes) &gt; 0:
+    top_10 = significant_genes.head(10)
+    axes[1, 2].barh(range(len(top_10)), top_10['moran_i'])
+    axes[1, 2].set_yticks(range(len(top_10)))
+    axes[1, 2].set_yticklabels(top_10['gene'])
+    axes[1, 2].set_xlabel('Moran\'s I')
+    axes[1, 2].set_title('Top 10 Genes with Significant Autocorrelation')
+    axes[1, 2].axvline(0, color='red', linestyle='--', alpha=0.7)
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="parameter-optimization-for-spatial-autocorrelation">Parameter Optimization for Spatial Autocorrelation<a class="headerlink" href="#parameter-optimization-for-spatial-autocorrelation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Test different radius values
+radii = [25, 50, 100, 150, 200]
+radius_results = {}
+
+for radius in radii:
+    print(f"Testing radius: {radius} microns")
+
+    # Analyze a subset of genes for speed
+    test_genes = adata.var_names[:20]
+    results = analyze_spatial_autocorrelation(
+        adata,
+        genes=test_genes,
+        spatial_key='spatial',
+        weight_type='distance',
+        radius=radius
+    )
+
+    radius_results[radius] = {
+        'mean_moran_i': results['moran_i'].mean(),
+        'mean_geary_c': results['geary_c'].mean(),
+        'significant_count': len(results[
+            (results['moran_p'] &lt; 0.05) | (results['geary_p'] &lt; 0.05)
+        ])
+    }
+
+# Compare results
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+radii_list = list(radius_results.keys())
+moran_means = [radius_results[r]['mean_moran_i'] for r in radii_list]
+geary_means = [radius_results[r]['mean_geary_c'] for r in radii_list]
+sig_counts = [radius_results[r]['significant_count'] for r in radii_list]
+
+axes[0].plot(radii_list, moran_means, 'o-')
+axes[0].set_xlabel('Radius (microns)')
+axes[0].set_ylabel('Mean Moran\'s I')
+axes[0].set_title('Mean Moran\'s I vs Radius')
+
+axes[1].plot(radii_list, geary_means, 'o-')
+axes[1].set_xlabel('Radius (microns)')
+axes[1].set_ylabel('Mean Geary\'s C')
+axes[1].set_title('Mean Geary\'s C vs Radius')
+
+axes[2].plot(radii_list, sig_counts, 'o-')
+axes[2].set_xlabel('Radius (microns)')
+axes[2].set_ylabel('Number of Significant Genes')
+axes[2].set_title('Significant Genes vs Radius')
+
+plt.tight_layout()
+plt.show()
+
+print("Parameter optimization results:")
+for radius in radii:
+    print(f"Radius {radius}μm: Moran's I={radius_results[radius]['mean_moran_i']:.4f}, "
+          f"Geary's C={radius_results[radius]['mean_geary_c']:.4f}, "
+          f"Significant={radius_results[radius]['significant_count']}")</code></pre>
+<h3 id="biological-interpretation-of-spatial-autocorrelation">Biological Interpretation of Spatial Autocorrelation<a class="headerlink" href="#biological-interpretation-of-spatial-autocorrelation" title="Permanent link">&para;</a></h3>
+<p><strong>Key Insights:</strong>
+1. <strong>Positive autocorrelation (Moran's I &gt; 0, Geary's C &lt; 1)</strong>: Indicates spatial gradients, tissue domains, or functional regions
+2. <strong>Negative autocorrelation (Moran's I &lt; 0, Geary's C &gt; 1)</strong>: Indicates spatial competition, exclusion zones, or alternating patterns
+3. <strong>Random distribution (Moran's I ≈ 0, Geary's C ≈ 1)</strong>: Suggests no spatial organization for the analyzed feature</p>
+<p><strong>Parameter Selection Guidelines:</strong>
+- <strong>Radius</strong>: Should match the scale of biological features of interest
+  - Small radius (25-50μm): Local cell-cell interactions
+  - Medium radius (100-150μm): Tissue microenvironments
+  - Large radius (200+μm): Tissue domains or gradients
+- <strong>Weight type</strong>: 
+  - Distance-based: More sensitive to spatial scale
+  - KNN-based: More robust to varying cell densities</p>
+<p><strong>Statistical Considerations:</strong>
+- P-values &lt; 0.05 indicate statistically significant spatial patterns
+- Z-scores &gt; 1.96 or &lt; -1.96 indicate significant autocorrelation
+- Both Moran's I and Geary's C should be used together for robust analysis</p>
+<h2 id="neighborhood-analysis">Neighborhood Analysis<a class="headerlink" href="#neighborhood-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="cell-neighborhood-relationships">Cell Neighborhood Relationships<a class="headerlink" href="#cell-neighborhood-relationships" title="Permanent link">&para;</a></h3>
+<p>Neighborhood analysis examines the spatial relationships between different cell types.</p>
+<pre class="highlight"><code class="language-python">from spex import neighborhood_analysis
+
+# Analyze neighborhoods
+neighbors = neighborhood_analysis(
+    adata,
+    radius=100,
+    cell_types=['T_cells', 'B_cells', 'Macrophages']
+)
+
+# View neighborhood statistics
+print(neighbors.head())</code></pre>
+<h3 id="neighborhood-visualization">Neighborhood Visualization<a class="headerlink" href="#neighborhood-visualization" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Create neighborhood network
+import networkx as nx
+
+# Build network from neighborhood data
+G = nx.Graph()
+
+for _, row in neighbors.iterrows():
+    G.add_edge(row['cell_type_1'], row['cell_type_2'], 
+               weight=row['interaction_strength'])
+
+# Plot network
+plt.figure(figsize=(10, 8))
+pos = nx.spring_layout(G)
+nx.draw(G, pos, with_labels=True, node_color='lightblue', 
+        node_size=2000, font_size=10, font_weight='bold')
+plt.title("Cell Type Neighborhood Network")
+plt.show()</code></pre>
+<h2 id="complete-spatial-analysis-pipeline">Complete Spatial Analysis Pipeline<a class="headerlink" href="#complete-spatial-analysis-pipeline" title="Permanent link">&para;</a></h2>
+<p>Here's a complete workflow combining all spatial analysis techniques:</p>
+<pre class="highlight"><code class="language-python">def complete_spatial_analysis(adata, cell_types, radius=100):
+    """
+    Complete spatial analysis pipeline.
+    """
+    results = {}
+
+    # 1. CLQ Analysis
+    print("Performing CLQ analysis...")
+    results['clq'] = clq_analysis(adata, cell_types, radius=radius)
+
+    # 2. Niche Analysis
+    print("Finding spatial niches...")
+    results['niches'] = niche_analysis(adata, radius=radius//2)
+
+    # 3. Spatial Autocorrelation
+    print("Calculating spatial autocorrelation...")
+    results['moran'] = {}
+    for gene in ['CD3D', 'CD19', 'CD68']:
+        if gene in adata.var_names:
+            results['moran'][gene] = moran_i(adata, gene)
+
+    # 4. Neighborhood Analysis
+    print("Analyzing neighborhoods...")
+    results['neighbors'] = neighborhood_analysis(adata, radius, cell_types)
+
+    return results
+
+# Run complete analysis
+cell_types = ['T_cells', 'B_cells', 'Macrophages', 'Endothelial']
+results = complete_spatial_analysis(adata, cell_types)
+
+print("Spatial analysis completed!")</code></pre>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="parameter-selection">Parameter Selection<a class="headerlink" href="#parameter-selection" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Radius</strong>: Choose based on tissue scale and cell size</li>
+<li>Small cells (lymphocytes): 50-100 μm</li>
+<li>Large cells (macrophages): 100-200 μm</li>
+<li>
+<p>Tissue-level analysis: 200-500 μm</p>
+</li>
+<li>
+<p><strong>Permutations</strong>: Use at least 1000 for statistical significance</p>
+</li>
+<li>
+<p><strong>Cell Types</strong>: Ensure accurate cell type annotations</p>
+</li>
+</ol>
+<h3 id="quality-control">Quality Control<a class="headerlink" href="#quality-control" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Check spatial coordinates
+print(f"Coordinate range: X={adata.obsm['spatial'][:, 0].min():.1f}-{adata.obsm['spatial'][:, 0].max():.1f}")
+print(f"Coordinate range: Y={adata.obsm['spatial'][:, 1].min():.1f}-{adata.obsm['spatial'][:, 1].max():.1f}")
+
+# Check cell type distribution
+cell_counts = adata.obs['cell_type'].value_counts()
+print("Cell type distribution:")
+print(cell_counts)</code></pre>
+<h3 id="interpretation">Interpretation<a class="headerlink" href="#interpretation" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>CLQ &gt; 1</strong>: Cell types co-occur more than expected by chance</li>
+<li><strong>CLQ &lt; 1</strong>: Cell types avoid each other</li>
+<li><strong>Moran's I &gt; 0</strong>: Positive spatial autocorrelation</li>
+<li><strong>Moran's I &lt; 0</strong>: Negative spatial autocorrelation</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>No spatial coordinates</strong>: Ensure <code>adata.obsm['spatial']</code> exists</li>
+<li><strong>Missing cell types</strong>: Check cell type annotations</li>
+<li><strong>Memory issues</strong>: Reduce radius or sample size</li>
+<li><strong>No significant results</strong>: Increase permutations or check data quality</li>
+</ol>
+<h3 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Use appropriate radius for your tissue scale</li>
+<li>Sample data if working with large datasets</li>
+<li>Use parallel processing for large analyses</li>
+<li>Cache results for repeated analyses</li>
+</ol>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After completing this tutorial, you can:</p>
+<ol>
+<li>Explore advanced spatial analysis techniques</li>
+<li>Integrate spatial analysis with gene expression analysis</li>
+<li>Create custom spatial analysis workflows</li>
+<li>Apply spatial analysis to different tissue types</li>
+</ol>
+<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../api-reference/spatial-analysis/">API Reference: Spatial Analysis</a></li>
+<li><a href="../../examples/complete-pipeline/">Examples: Complete Pipeline</a></li>
+<li><a href="../../reference/faq/">Reference: FAQ</a></li>
+</ul>
+<hr />
+<p><em>This tutorial is under development. More examples and advanced techniques will be added.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -2,26 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://genentech.github.io/spex-tools/</loc>
-         <lastmod>2025-08-20</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://genentech.github.io/spex-tools/CHANGELOG/</loc>
-         <lastmod>2025-08-20</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
-         <loc>https://genentech.github.io/spex-tools/api/</loc>
-         <lastmod>2025-08-20</lastmod>
+         <loc>https://genentech.github.io/spex-tools/PROGRESS_SUMMARY/</loc>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
-         <loc>https://genentech.github.io/spex-tools/clustering/</loc>
-         <lastmod>2025-08-20</lastmod>
+         <loc>https://genentech.github.io/spex-tools/faq/</loc>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
-         <loc>https://genentech.github.io/spex-tools/examples/</loc>
-         <lastmod>2025-08-20</lastmod>
+         <loc>https://genentech.github.io/spex-tools/api-reference/clustering/</loc>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
-         <loc>https://genentech.github.io/spex-tools/segmentation/</loc>
-         <lastmod>2025-08-20</lastmod>
+         <loc>https://genentech.github.io/spex-tools/api-reference/preprocessing/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/api-reference/segmentation/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/api-reference/spatial-analysis/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/examples/batch-processing/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/examples/complete-pipeline/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/examples/performance-optimization/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/examples/quality-control/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/examples/visualization/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/getting-started/data-formats/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/getting-started/installation/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/getting-started/quick-start/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/reference/faq/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/reference/troubleshooting/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/tutorials/clustering-guide/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/tutorials/preprocessing-guide/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/tutorials/segmentation-basics/</loc>
+         <lastmod>2025-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://genentech.github.io/spex-tools/tutorials/spatial-analysis/</loc>
+         <lastmod>2025-08-23</lastmod>
     </url>
 </urlset>

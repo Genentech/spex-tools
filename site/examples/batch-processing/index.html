@@ -1,0 +1,2421 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/examples/batch-processing/">
+      
+      
+        <link rel="prev" href="../complete-pipeline/">
+      
+      
+        <link rel="next" href="../visualization/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>📦 Batch Processing - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#batch-processing-example" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              📦 Batch Processing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation-basics/" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../complete-pipeline/" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../complete-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-organize-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Organize Data Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Organize Data Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-sample-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Sample Directory Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-define-processing-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Define Processing Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Define Processing Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-processing-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Processing Function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Processing Function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-define-processing-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Define Processing Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Define Processing Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consistent-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistent Parameters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-run-batch-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Run Batch Processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Run Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#execute-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute Processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processing-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-qc-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch QC Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qc-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      QC Visualization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-combine-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Combine Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Combine Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#merge-anndata-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merge AnnData Objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-batch-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 7: Batch Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Batch Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normalize-combined-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalize Combined Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimensionality-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dimensionality Reduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-effect-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Effect Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-export-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 8: Export Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Export Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save-all-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save All Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-organize-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Organize Data Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Organize Data Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-sample-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Sample Directory Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-define-processing-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Define Processing Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Define Processing Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-processing-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Processing Function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Processing Function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-define-processing-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Define Processing Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Define Processing Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consistent-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistent Parameters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-run-batch-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Run Batch Processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Run Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#execute-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute Processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processing-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-qc-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch QC Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qc-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      QC Visualization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-combine-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Combine Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Combine Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#merge-anndata-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merge AnnData Objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-batch-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 7: Batch Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Batch Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normalize-combined-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalize Combined Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimensionality-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dimensionality Reduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-effect-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Effect Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-export-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 8: Export Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Export Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save-all-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save All Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="batch-processing-example">📦 Batch Processing Example<a class="headerlink" href="#batch-processing-example" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This example demonstrates how to process multiple images in batch using SPEX. We'll create a pipeline that can handle multiple samples, apply consistent processing parameters, and combine results for downstream analysis.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-python">import spex as sp
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scanpy as sc
+from pathlib import Path
+import os
+from tqdm import tqdm
+
+# Set up plotting
+plt.style.use('default')
+sns.set_palette("husl")
+sc.settings.verbosity = 3</code></pre>
+<h2 id="step-1-organize-data-structure">Step 1: Organize Data Structure<a class="headerlink" href="#step-1-organize-data-structure" title="Permanent link">&para;</a></h2>
+<h3 id="create-sample-directory-structure">Create Sample Directory Structure<a class="headerlink" href="#create-sample-directory-structure" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Define data directory structure
+data_dir = Path("batch_data")
+sample_dirs = {
+    "sample_001": data_dir / "sample_001",
+    "sample_002": data_dir / "sample_002", 
+    "sample_003": data_dir / "sample_003",
+    "sample_004": data_dir / "sample_004"
+}
+
+# Create directories if they don't exist
+for sample_dir in sample_dirs.values():
+    sample_dir.mkdir(parents=True, exist_ok=True)
+
+print("Sample directories created:")
+for sample_name, sample_path in sample_dirs.items():
+    print(f"  {sample_name}: {sample_path}")</code></pre>
+<h3 id="sample-information">Sample Information<a class="headerlink" href="#sample-information" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Define sample metadata
+sample_info = pd.DataFrame({
+    'sample_id': ['sample_001', 'sample_002', 'sample_003', 'sample_004'],
+    'condition': ['control', 'control', 'treatment', 'treatment'],
+    'replicate': [1, 2, 1, 2],
+    'image_file': ['image_001.tiff', 'image_002.tiff', 'image_003.tiff', 'image_004.tiff'],
+    'expected_cells': [1000, 1200, 800, 900]
+})
+
+print("Sample information:")
+print(sample_info)</code></pre>
+<h2 id="step-2-define-processing-functions">Step 2: Define Processing Functions<a class="headerlink" href="#step-2-define-processing-functions" title="Permanent link">&para;</a></h2>
+<h3 id="image-processing-function">Image Processing Function<a class="headerlink" href="#image-processing-function" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def process_single_image(image_path, sample_id, processing_params):
+    """
+    Process a single image with consistent parameters.
+
+    Parameters:
+    -----------
+    image_path : str
+        Path to the image file
+    sample_id : str
+        Sample identifier
+    processing_params : dict
+        Processing parameters
+
+    Returns:
+    --------
+    dict
+        Processing results
+    """
+
+    print(f"Processing {sample_id}...")
+
+    # Load image
+    Image, channel = sp.load_image(image_path)
+
+    # Preprocess
+    Image_bg = sp.background_subtract(Image, list(range(len(channel))), 
+                                     radius=processing_params['bg_radius'])
+    Image_denoised = sp.nlm_denoise(Image_bg, list(range(len(channel))), 
+                                   h=processing_params['nlm_h'])
+
+    # Segment
+    labels = sp.cellpose_cellseg(Image_denoised, [0], 
+                                diameter=processing_params['cell_diameter'])
+
+    # Clean segmentation
+    labels_clean = sp.remove_small_objects(labels, 
+                                          min_size=processing_params['min_size'])
+    labels_clean = sp.remove_large_objects(labels_clean, 
+                                          max_size=processing_params['max_size'])
+
+    # Extract features
+    adata = sp.feature_extraction_adata(Image_denoised, labels_clean, channel)
+
+    # Add metadata
+    adata.obs['sample_id'] = sample_id
+    adata.obs['area'] = sp.get_cell_areas(labels_clean)
+    adata.obsm['spatial'] = sp.get_cell_coordinates(labels_clean)
+
+    # Add cell properties
+    properties = sp.get_cell_properties(Image_denoised, labels_clean, 
+                                       list(range(len(channel))))
+    adata.obs['shape_factor'] = properties['shape_factors']
+    adata.obs['eccentricity'] = properties['eccentricities']
+
+    return {
+        'adata': adata,
+        'labels': labels_clean,
+        'image_shape': Image.shape,
+        'n_cells': labels_clean.max(),
+        'channels': channel
+    }</code></pre>
+<h3 id="batch-processing-function">Batch Processing Function<a class="headerlink" href="#batch-processing-function" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def process_batch(sample_info, processing_params, output_dir):
+    """
+    Process multiple samples in batch.
+
+    Parameters:
+    -----------
+    sample_info : pd.DataFrame
+        Sample information dataframe
+    processing_params : dict
+        Processing parameters
+    output_dir : str
+        Output directory for results
+
+    Returns:
+    --------
+    dict
+        Batch processing results
+    """
+
+    results = {}
+    failed_samples = []
+
+    # Create output directory
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    # Process each sample
+    for _, sample in tqdm(sample_info.iterrows(), total=len(sample_info), 
+                         desc="Processing samples"):
+
+        sample_id = sample['sample_id']
+        image_file = sample['image_file']
+
+        try:
+            # Process image
+            result = process_single_image(image_file, sample_id, processing_params)
+
+            # Save individual results
+            sample_output_dir = output_path / sample_id
+            sample_output_dir.mkdir(exist_ok=True)
+
+            # Save AnnData
+            result['adata'].write(sample_output_dir / f"{sample_id}.h5ad")
+
+            # Save segmentation labels
+            import tifffile
+            tifffile.imwrite(sample_output_dir / f"{sample_id}_labels.tiff", 
+                           result['labels'])
+
+            # Save metadata
+            metadata = {
+                'sample_id': sample_id,
+                'condition': sample['condition'],
+                'replicate': sample['replicate'],
+                'n_cells': result['n_cells'],
+                'image_shape': result['image_shape'],
+                'channels': result['channels']
+            }
+
+            pd.DataFrame([metadata]).to_csv(sample_output_dir / f"{sample_id}_metadata.csv", 
+                                           index=False)
+
+            results[sample_id] = result
+            print(f"✓ {sample_id}: {result['n_cells']} cells processed")
+
+        except Exception as e:
+            print(f"✗ {sample_id}: Failed - {str(e)}")
+            failed_samples.append(sample_id)
+
+    return results, failed_samples</code></pre>
+<h2 id="step-3-define-processing-parameters">Step 3: Define Processing Parameters<a class="headerlink" href="#step-3-define-processing-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="consistent-parameters">Consistent Parameters<a class="headerlink" href="#consistent-parameters" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Define processing parameters for all samples
+processing_params = {
+    'bg_radius': 50,        # Background subtraction radius
+    'nlm_h': 10,           # NLM denoising strength
+    'cell_diameter': 30,   # Expected cell diameter
+    'min_size': 50,        # Minimum cell size
+    'max_size': 1000,      # Maximum cell size
+    'flow_threshold': 0.4, # Cellpose flow threshold
+    'cellprob_threshold': 0 # Cellpose probability threshold
+}
+
+print("Processing parameters:")
+for param, value in processing_params.items():
+    print(f"  {param}: {value}")</code></pre>
+<h2 id="step-4-run-batch-processing">Step 4: Run Batch Processing<a class="headerlink" href="#step-4-run-batch-processing" title="Permanent link">&para;</a></h2>
+<h3 id="execute-processing">Execute Processing<a class="headerlink" href="#execute-processing" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Run batch processing
+output_dir = "batch_results"
+results, failed_samples = process_batch(sample_info, processing_params, output_dir)
+
+print(f"\nBatch processing completed:")
+print(f"  Successful: {len(results)} samples")
+print(f"  Failed: {len(failed_samples)} samples")
+
+if failed_samples:
+    print(f"  Failed samples: {failed_samples}")</code></pre>
+<h3 id="processing-summary">Processing Summary<a class="headerlink" href="#processing-summary" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Create processing summary
+summary_data = []
+for sample_id, result in results.items():
+    sample_row = sample_info[sample_info['sample_id'] == sample_id].iloc[0]
+
+    summary_data.append({
+        'sample_id': sample_id,
+        'condition': sample_row['condition'],
+        'replicate': sample_row['replicate'],
+        'n_cells_detected': result['n_cells'],
+        'n_cells_expected': sample_row['expected_cells'],
+        'image_shape': str(result['image_shape']),
+        'n_channels': len(result['channels'])
+    })
+
+summary_df = pd.DataFrame(summary_data)
+print("\nProcessing Summary:")
+print(summary_df)
+
+# Save summary
+summary_df.to_csv(f"{output_dir}/processing_summary.csv", index=False)</code></pre>
+<h2 id="step-5-quality-control">Step 5: Quality Control<a class="headerlink" href="#step-5-quality-control" title="Permanent link">&para;</a></h2>
+<h3 id="batch-qc-metrics">Batch QC Metrics<a class="headerlink" href="#batch-qc-metrics" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def batch_quality_control(results, sample_info):
+    """
+    Perform quality control across all samples.
+    """
+
+    qc_metrics = {}
+
+    for sample_id, result in results.items():
+        adata = result['adata']
+
+        # Basic metrics
+        qc_metrics[sample_id] = {
+            'n_cells': adata.n_obs,
+            'n_features': adata.n_vars,
+            'mean_area': adata.obs['area'].mean(),
+            'std_area': adata.obs['area'].std(),
+            'min_area': adata.obs['area'].min(),
+            'max_area': adata.obs['area'].max(),
+            'mean_shape_factor': adata.obs['shape_factor'].mean(),
+            'missing_values': np.isnan(adata.X).sum(),
+            'zero_values': (adata.X == 0).sum()
+        }
+
+    return pd.DataFrame(qc_metrics).T
+
+# Run QC
+qc_df = batch_quality_control(results, sample_info)
+print("\nQuality Control Metrics:")
+print(qc_df)
+
+# Save QC results
+qc_df.to_csv(f"{output_dir}/quality_control.csv")</code></pre>
+<h3 id="qc-visualization">QC Visualization<a class="headerlink" href="#qc-visualization" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Create QC plots
+fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+
+# Cell count by sample
+sample_ids = list(results.keys())
+cell_counts = [results[sid]['n_cells'] for sid in sample_ids]
+axes[0, 0].bar(sample_ids, cell_counts, color='skyblue', alpha=0.7)
+axes[0, 0].set_title('Cell Count by Sample')
+axes[0, 0].tick_params(axis='x', rotation=45)
+
+# Cell area distribution
+all_areas = []
+area_labels = []
+for sample_id, result in results.items():
+    areas = result['adata'].obs['area']
+    all_areas.extend(areas)
+    area_labels.extend([sample_id] * len(areas))
+
+area_df = pd.DataFrame({'sample_id': area_labels, 'area': all_areas})
+sns.boxplot(data=area_df, x='sample_id', y='area', ax=axes[0, 1])
+axes[0, 1].set_title('Cell Area Distribution')
+axes[0, 1].tick_params(axis='x', rotation=45)
+
+# Shape factor distribution
+all_shapes = []
+shape_labels = []
+for sample_id, result in results.items():
+    shapes = result['adata'].obs['shape_factor']
+    all_shapes.extend(shapes)
+    shape_labels.extend([sample_id] * len(shapes))
+
+shape_df = pd.DataFrame({'sample_id': shape_labels, 'shape_factor': all_shapes})
+sns.boxplot(data=shape_df, x='sample_id', y='shape_factor', ax=axes[0, 2])
+axes[0, 2].set_title('Shape Factor Distribution')
+axes[0, 2].tick_params(axis='x', rotation=45)
+
+# Expression distribution
+all_expression = []
+for sample_id, result in results.items():
+    expression = result['adata'].X.flatten()
+    all_expression.extend(expression)
+
+axes[1, 0].hist(all_expression, bins=50, alpha=0.7, edgecolor='black')
+axes[1, 0].set_xlabel('Expression Level')
+axes[1, 0].set_ylabel('Frequency')
+axes[1, 0].set_title('Overall Expression Distribution')
+
+# Missing values
+missing_counts = [qc_df.loc[sid, 'missing_values'] for sid in sample_ids]
+axes[1, 1].bar(sample_ids, missing_counts, color='lightcoral', alpha=0.7)
+axes[1, 1].set_title('Missing Values by Sample')
+axes[1, 1].tick_params(axis='x', rotation=45)
+
+# Zero values
+zero_counts = [qc_df.loc[sid, 'zero_values'] for sid in sample_ids]
+axes[1, 2].bar(sample_ids, zero_counts, color='lightgreen', alpha=0.7)
+axes[1, 2].set_title('Zero Values by Sample')
+axes[1, 2].tick_params(axis='x', rotation=45)
+
+plt.tight_layout()
+plt.savefig(f"{output_dir}/quality_control_plots.png", dpi=300, bbox_inches='tight')
+plt.show()</code></pre>
+<h2 id="step-6-combine-results">Step 6: Combine Results<a class="headerlink" href="#step-6-combine-results" title="Permanent link">&para;</a></h2>
+<h3 id="merge-anndata-objects">Merge AnnData Objects<a class="headerlink" href="#merge-anndata-objects" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def combine_batch_results(results, sample_info):
+    """
+    Combine all processed samples into a single AnnData object.
+    """
+
+    adata_list = []
+
+    for sample_id, result in results.items():
+        adata = result['adata'].copy()
+
+        # Add sample metadata
+        sample_row = sample_info[sample_info['sample_id'] == sample_id].iloc[0]
+        adata.obs['condition'] = sample_row['condition']
+        adata.obs['replicate'] = sample_row['replicate']
+
+        # Add unique cell IDs
+        adata.obs_names = [f"{sample_id}_{i}" for i in range(adata.n_obs)]
+
+        adata_list.append(adata)
+
+    # Combine all samples
+    combined_adata = sc.concat(adata_list, join='outer', index_unique=None)
+
+    return combined_adata
+
+# Combine results
+combined_adata = combine_batch_results(results, sample_info)
+
+print(f"Combined dataset:")
+print(f"  Total cells: {combined_adata.n_obs}")
+print(f"  Total features: {combined_adata.n_vars}")
+print(f"  Samples: {combined_adata.obs['sample_id'].nunique()}")
+print(f"  Conditions: {combined_adata.obs['condition'].unique()}")
+
+# Save combined dataset
+combined_adata.write(f"{output_dir}/combined_dataset.h5ad")</code></pre>
+<h3 id="batch-statistics">Batch Statistics<a class="headerlink" href="#batch-statistics" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Calculate batch statistics
+batch_stats = combined_adata.obs.groupby(['sample_id', 'condition']).agg({
+    'area': ['count', 'mean', 'std'],
+    'shape_factor': ['mean', 'std']
+}).round(2)
+
+print("\nBatch Statistics:")
+print(batch_stats)
+
+# Save batch statistics
+batch_stats.to_csv(f"{output_dir}/batch_statistics.csv")</code></pre>
+<h2 id="step-7-batch-analysis">Step 7: Batch Analysis<a class="headerlink" href="#step-7-batch-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="normalize-combined-data">Normalize Combined Data<a class="headerlink" href="#normalize-combined-data" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Normalize combined data
+sc.pp.normalize_total(combined_adata, target_sum=1e4)
+sc.pp.log1p(combined_adata)
+
+# Scale data
+sc.pp.scale(combined_adata, max_value=10)
+
+# Find highly variable features
+sc.pp.highly_variable_features(combined_adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
+print(f"Highly variable features: {sum(combined_adata.var.highly_variable)}")</code></pre>
+<h3 id="dimensionality-reduction">Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># PCA
+sc.tl.pca(combined_adata, use_highly_variable=True)
+
+# UMAP
+sc.pp.neighbors(combined_adata, n_neighbors=10, n_pcs=20)
+sc.tl.umap(combined_adata)
+
+# Plot UMAP colored by sample
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+sc.pl.umap(combined_adata, color='sample_id', ax=axes[0], show=False)
+axes[0].set_title('UMAP by Sample')
+
+sc.pl.umap(combined_adata, color='condition', ax=axes[1], show=False)
+axes[1].set_title('UMAP by Condition')
+
+sc.pl.umap(combined_adata, color='area', ax=axes[2], show=False)
+axes[2].set_title('UMAP by Cell Area')
+
+plt.tight_layout()
+plt.savefig(f"{output_dir}/batch_umap.png", dpi=300, bbox_inches='tight')
+plt.show()</code></pre>
+<h3 id="batch-effect-analysis">Batch Effect Analysis<a class="headerlink" href="#batch-effect-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Check for batch effects
+from scipy import stats
+
+def test_batch_effects(adata, feature='area'):
+    """
+    Test for significant differences between batches.
+    """
+
+    conditions = adata.obs['condition'].unique()
+    if len(conditions) &lt; 2:
+        return None
+
+    # Perform t-test
+    control_data = adata[adata.obs['condition'] == 'control'].obs[feature]
+    treatment_data = adata[adata.obs['condition'] == 'treatment'].obs[feature]
+
+    t_stat, p_value = stats.ttest_ind(control_data, treatment_data)
+
+    return {
+        'feature': feature,
+        't_statistic': t_stat,
+        'p_value': p_value,
+        'control_mean': control_data.mean(),
+        'treatment_mean': treatment_data.mean(),
+        'control_std': control_data.std(),
+        'treatment_std': treatment_data.std()
+    }
+
+# Test for batch effects
+batch_effects = {}
+for feature in ['area', 'shape_factor']:
+    result = test_batch_effects(combined_adata, feature)
+    if result:
+        batch_effects[feature] = result
+
+batch_effects_df = pd.DataFrame(batch_effects).T
+print("\nBatch Effect Analysis:")
+print(batch_effects_df)
+
+# Save batch effects
+batch_effects_df.to_csv(f"{output_dir}/batch_effects.csv")</code></pre>
+<h2 id="step-8-export-results">Step 8: Export Results<a class="headerlink" href="#step-8-export-results" title="Permanent link">&para;</a></h2>
+<h3 id="save-all-results">Save All Results<a class="headerlink" href="#save-all-results" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Create results summary
+results_summary = {
+    'processing_date': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+    'n_samples_processed': len(results),
+    'n_samples_failed': len(failed_samples),
+    'total_cells': combined_adata.n_obs,
+    'total_features': combined_adata.n_vars,
+    'processing_parameters': processing_params,
+    'output_files': [
+        'combined_dataset.h5ad',
+        'processing_summary.csv',
+        'quality_control.csv',
+        'batch_statistics.csv',
+        'batch_effects.csv',
+        'quality_control_plots.png',
+        'batch_umap.png'
+    ]
+}
+
+# Save results summary
+import json
+with open(f"{output_dir}/results_summary.json", 'w') as f:
+    json.dump(results_summary, f, indent=2, default=str)
+
+print("\nBatch processing completed successfully!")
+print(f"Results saved to: {output_dir}")
+print(f"Files created:")
+for file in results_summary['output_files']:
+    print(f"  - {file}")</code></pre>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>This batch processing pipeline provides:</p>
+<ol>
+<li><strong>Consistent processing</strong> across multiple samples</li>
+<li><strong>Quality control</strong> metrics for each sample</li>
+<li><strong>Batch effect analysis</strong> to identify systematic differences</li>
+<li><strong>Combined dataset</strong> for downstream analysis</li>
+<li><strong>Comprehensive reporting</strong> of processing results</li>
+</ol>
+<p>The pipeline is scalable and can be adapted for different experimental designs and sample sizes.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>🎯 <a href="../../tutorials/clustering-guide/">Clustering Guide</a> - Analyze combined dataset</li>
+<li>🧬 <a href="../../tutorials/spatial-analysis/">Spatial Analysis</a> - Spatial analysis across samples</li>
+<li>🎨 <a href="../visualization/">Visualization</a> - Advanced batch visualization</li>
+<li>🔧 <a href="../api-reference/">API Reference</a> - Detailed function documentation</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

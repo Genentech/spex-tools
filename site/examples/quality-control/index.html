@@ -1,0 +1,2343 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/examples/quality-control/">
+      
+      
+        <link rel="prev" href="../visualization/">
+      
+      
+        <link rel="next" href="../performance-optimization/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>🔍 Quality Control - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quality-control-examples" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🔍 Quality Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation-basics/" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../complete-pipeline/" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../complete-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-image-quality-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Image Quality Assessment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Image Quality Assessment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signal-to-noise-ratio-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signal-to-Noise Ratio Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-correlation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channel Correlation Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-segmentation-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Segmentation Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Segmentation Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-feature-extraction-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Feature Extraction Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Feature Extraction Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature-quality-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Quality Assessment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-clustering-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Clustering Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Clustering Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustering-validation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clustering Validation Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-spatial-analysis-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Spatial Analysis Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Spatial Analysis Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spatial-distribution-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Distribution Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-comprehensive-quality-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Comprehensive Quality Report
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-image-quality-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Image Quality Assessment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Image Quality Assessment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signal-to-noise-ratio-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signal-to-Noise Ratio Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-correlation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channel Correlation Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-segmentation-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Segmentation Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Segmentation Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-feature-extraction-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Feature Extraction Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Feature Extraction Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature-quality-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Quality Assessment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-clustering-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Clustering Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Clustering Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustering-validation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clustering Validation Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-spatial-analysis-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Spatial Analysis Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Spatial Analysis Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spatial-distribution-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Distribution Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-comprehensive-quality-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Comprehensive Quality Report
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="quality-control-examples">🔍 Quality Control Examples<a class="headerlink" href="#quality-control-examples" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Quality control is crucial for reliable spatial transcriptomics analysis. This guide provides comprehensive examples for assessing data quality at each step of the pipeline, from image preprocessing to final results validation.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-python">import spex as sp
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scanpy as sc
+from scipy import stats
+from skimage import measure
+from sklearn.metrics import silhouette_score, calinski_harabasz_score
+
+# Set up plotting
+plt.style.use('default')
+sns.set_palette("husl")
+sc.settings.verbosity = 3
+sc.settings.set_figure_params(dpi=80, facecolor='white')</code></pre>
+<h2 id="1-image-quality-assessment">1. Image Quality Assessment<a class="headerlink" href="#1-image-quality-assessment" title="Permanent link">&para;</a></h2>
+<h3 id="signal-to-noise-ratio-analysis">Signal-to-Noise Ratio Analysis<a class="headerlink" href="#signal-to-noise-ratio-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def calculate_snr(image, channel_idx=0):
+    """
+    Calculate Signal-to-Noise Ratio for image channel
+
+    Parameters:
+    -----------
+    image : np.ndarray
+        Multi-channel image
+    channel_idx : int
+        Channel index to analyze
+
+    Returns:
+    --------
+    float : SNR value
+    """
+    channel = image[:, :, channel_idx]
+
+    # Estimate noise from background
+    background = channel[channel &lt; np.percentile(channel, 10)]
+    noise_std = np.std(background)
+
+    # Estimate signal from foreground
+    foreground = channel[channel &gt; np.percentile(channel, 90)]
+    signal_mean = np.mean(foreground)
+
+    snr = signal_mean / noise_std if noise_std &gt; 0 else 0
+    return snr
+
+# Example usage
+Image, channel = sp.load_image('sample_data.tiff')
+
+print("Signal-to-Noise Ratios:")
+for i, ch in enumerate(channel):
+    snr = calculate_snr(Image, i)
+    print(f"Channel {ch}: SNR = {snr:.2f}")
+
+    # Quality assessment
+    if snr &gt; 10:
+        quality = "Excellent"
+    elif snr &gt; 5:
+        quality = "Good"
+    elif snr &gt; 2:
+        quality = "Acceptable"
+    else:
+        quality = "Poor - needs preprocessing"
+
+    print(f"  Quality: {quality}")</code></pre>
+<h3 id="channel-correlation-analysis">Channel Correlation Analysis<a class="headerlink" href="#channel-correlation-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def analyze_channel_correlation(image, channel_names):
+    """
+    Analyze correlation between image channels
+
+    Parameters:
+    -----------
+    image : np.ndarray
+        Multi-channel image
+    channel_names : list
+        List of channel names
+
+    Returns:
+    --------
+    pd.DataFrame : Correlation matrix
+    """
+    n_channels = image.shape[2]
+    correlations = np.zeros((n_channels, n_channels))
+
+    for i in range(n_channels):
+        for j in range(n_channels):
+            if i == j:
+                correlations[i, j] = 1.0
+            else:
+                # Flatten channels for correlation
+                ch1 = image[:, :, i].flatten()
+                ch2 = image[:, :, j].flatten()
+                correlations[i, j] = np.corrcoef(ch1, ch2)[0, 1]
+
+    return pd.DataFrame(correlations, 
+                       index=channel_names, 
+                       columns=channel_names)
+
+# Example usage
+corr_matrix = analyze_channel_correlation(Image, channel)
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr_matrix, annot=True, cmap='RdBu_r', center=0,
+            square=True, fmt='.2f')
+plt.title('Channel Correlation Matrix')
+plt.tight_layout()
+plt.show()
+
+# Identify highly correlated channels
+high_corr_pairs = []
+for i in range(len(channel)):
+    for j in range(i+1, len(channel)):
+        if abs(corr_matrix.iloc[i, j]) &gt; 0.8:
+            high_corr_pairs.append((channel[i], channel[j], corr_matrix.iloc[i, j]))
+
+if high_corr_pairs:
+    print("Highly correlated channel pairs (&gt;0.8):")
+    for ch1, ch2, corr in high_corr_pairs:
+        print(f"  {ch1} - {ch2}: {corr:.3f}")
+        print(f"    Consider removing one channel to reduce redundancy")</code></pre>
+<h2 id="2-segmentation-quality-control">2. Segmentation Quality Control<a class="headerlink" href="#2-segmentation-quality-control" title="Permanent link">&para;</a></h2>
+<h3 id="segmentation-metrics">Segmentation Metrics<a class="headerlink" href="#segmentation-metrics" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def assess_segmentation_quality(image, labels, channel_idx=0):
+    """
+    Assess quality of cell segmentation
+
+    Parameters:
+    -----------
+    image : np.ndarray
+        Original image
+    labels : np.ndarray
+        Segmentation labels
+    channel_idx : int
+        Channel to analyze
+
+    Returns:
+    --------
+    dict : Quality metrics
+    """
+    channel = image[:, :, channel_idx]
+
+    # Basic statistics
+    n_cells = labels.max()
+    cell_sizes = []
+    cell_intensities = []
+
+    for i in range(1, n_cells + 1):
+        mask = labels == i
+        cell_sizes.append(np.sum(mask))
+        cell_intensities.append(np.mean(channel[mask]))
+
+    cell_sizes = np.array(cell_sizes)
+    cell_intensities = np.array(cell_intensities)
+
+    # Quality metrics
+    metrics = {
+        'n_cells': n_cells,
+        'mean_cell_size': np.mean(cell_sizes),
+        'std_cell_size': np.std(cell_sizes),
+        'size_cv': np.std(cell_sizes) / np.mean(cell_sizes),  # Coefficient of variation
+        'min_cell_size': np.min(cell_sizes),
+        'max_cell_size': np.max(cell_sizes),
+        'mean_intensity': np.mean(cell_intensities),
+        'intensity_cv': np.std(cell_intensities) / np.mean(cell_intensities)
+    }
+
+    return metrics, cell_sizes, cell_intensities
+
+# Example usage
+labels = sp.cellpose_cellseg(Image, [0], diameter=30)
+metrics, sizes, intensities = assess_segmentation_quality(Image, labels)
+
+print("Segmentation Quality Metrics:")
+for key, value in metrics.items():
+    print(f"  {key}: {value:.2f}")
+
+# Visualize cell size distribution
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Cell size distribution
+axes[0].hist(sizes, bins=30, alpha=0.7, edgecolor='black')
+axes[0].axvline(metrics['mean_cell_size'], color='red', linestyle='--', 
+                label=f"Mean: {metrics['mean_cell_size']:.1f}")
+axes[0].set_xlabel('Cell Size (pixels)')
+axes[0].set_ylabel('Frequency')
+axes[0].set_title('Cell Size Distribution')
+axes[0].legend()
+
+# Cell intensity distribution
+axes[1].hist(intensities, bins=30, alpha=0.7, edgecolor='black')
+axes[1].axvline(metrics['mean_intensity'], color='red', linestyle='--',
+                label=f"Mean: {metrics['mean_intensity']:.1f}")
+axes[1].set_xlabel('Mean Cell Intensity')
+axes[1].set_ylabel('Frequency')
+axes[1].set_title('Cell Intensity Distribution')
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+# Quality assessment
+print("\nSegmentation Quality Assessment:")
+if metrics['size_cv'] &lt; 0.5:
+    print("  ✓ Cell size consistency: Good")
+else:
+    print("  ⚠ Cell size consistency: High variation - consider parameter tuning")
+
+if metrics['intensity_cv'] &lt; 0.3:
+    print("  ✓ Cell intensity consistency: Good")
+else:
+    print("  ⚠ Cell intensity consistency: High variation - check image quality")</code></pre>
+<h3 id="segmentation-validation">Segmentation Validation<a class="headerlink" href="#segmentation-validation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def validate_segmentation_boundaries(image, labels, channel_idx=0):
+    """
+    Validate segmentation boundaries using gradient information
+
+    Parameters:
+    -----------
+    image : np.ndarray
+        Original image
+    labels : np.ndarray
+        Segmentation labels
+    channel_idx : int
+        Channel to analyze
+
+    Returns:
+    --------
+    float : Boundary quality score
+    """
+    from scipy import ndimage
+
+    channel = image[:, :, channel_idx]
+
+    # Calculate image gradients
+    grad_x = ndimage.sobel(channel, axis=0)
+    grad_y = ndimage.sobel(channel, axis=1)
+    gradient_magnitude = np.sqrt(grad_x**2 + grad_y**2)
+
+    # Find cell boundaries
+    boundaries = labels == 0
+    boundary_gradients = gradient_magnitude[boundaries]
+
+    # Calculate boundary quality score
+    if len(boundary_gradients) &gt; 0:
+        quality_score = np.mean(boundary_gradients) / np.max(gradient_magnitude)
+    else:
+        quality_score = 0
+
+    return quality_score
+
+# Example usage
+boundary_quality = validate_segmentation_boundaries(Image, labels)
+print(f"Boundary Quality Score: {boundary_quality:.3f}")
+
+if boundary_quality &gt; 0.3:
+    print("  ✓ Segmentation boundaries align well with image gradients")
+else:
+    print("  ⚠ Segmentation boundaries may not follow cell boundaries well")</code></pre>
+<h2 id="3-feature-extraction-quality-control">3. Feature Extraction Quality Control<a class="headerlink" href="#3-feature-extraction-quality-control" title="Permanent link">&para;</a></h2>
+<h3 id="feature-quality-assessment">Feature Quality Assessment<a class="headerlink" href="#feature-quality-assessment" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def assess_feature_quality(features_df):
+    """
+    Assess quality of extracted features
+
+    Parameters:
+    -----------
+    features_df : pd.DataFrame
+        DataFrame with extracted features
+
+    Returns:
+    --------
+    dict : Feature quality metrics
+    """
+    # Remove non-numeric columns
+    numeric_features = features_df.select_dtypes(include=[np.number])
+
+    # Calculate feature statistics
+    feature_stats = {
+        'n_features': len(numeric_features.columns),
+        'n_cells': len(numeric_features),
+        'missing_values': numeric_features.isnull().sum().sum(),
+        'zero_variance_features': (numeric_features.var() == 0).sum(),
+        'high_correlation_pairs': 0
+    }
+
+    # Check for highly correlated features
+    corr_matrix = numeric_features.corr()
+    high_corr_count = 0
+    for i in range(len(corr_matrix.columns)):
+        for j in range(i+1, len(corr_matrix.columns)):
+            if abs(corr_matrix.iloc[i, j]) &gt; 0.95:
+                high_corr_count += 1
+
+    feature_stats['high_correlation_pairs'] = high_corr_count
+
+    return feature_stats, numeric_features
+
+# Example usage
+# Extract features
+features = sp.feature_extraction(Image, labels, list(range(len(channel))))
+
+# Assess feature quality
+stats, numeric_features = assess_feature_quality(features)
+
+print("Feature Quality Metrics:")
+for key, value in stats.items():
+    print(f"  {key}: {value}")
+
+# Feature distribution analysis
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# Feature variance
+variances = numeric_features.var().sort_values(ascending=False)
+axes[0, 0].plot(range(len(variances)), variances)
+axes[0, 0].set_xlabel('Feature Index')
+axes[0, 0].set_ylabel('Variance')
+axes[0, 0].set_title('Feature Variance Distribution')
+axes[0, 0].set_yscale('log')
+
+# Missing values
+missing_counts = numeric_features.isnull().sum()
+axes[0, 1].bar(range(len(missing_counts)), missing_counts)
+axes[0, 1].set_xlabel('Feature Index')
+axes[0, 1].set_ylabel('Missing Values')
+axes[0, 1].set_title('Missing Values per Feature')
+
+# Feature correlation heatmap (top features)
+top_features = variances.head(10).index
+corr_subset = numeric_features[top_features].corr()
+sns.heatmap(corr_subset, ax=axes[1, 0], cmap='RdBu_r', center=0,
+            square=True, annot=False)
+axes[1, 0].set_title('Top 10 Features Correlation')
+
+# Feature distribution example
+if len(numeric_features.columns) &gt; 0:
+    example_feature = numeric_features.columns[0]
+    axes[1, 1].hist(numeric_features[example_feature].dropna(), bins=30, alpha=0.7)
+    axes[1, 1].set_xlabel(example_feature)
+    axes[1, 1].set_ylabel('Frequency')
+    axes[1, 1].set_title(f'Distribution: {example_feature}')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="4-clustering-quality-control">4. Clustering Quality Control<a class="headerlink" href="#4-clustering-quality-control" title="Permanent link">&para;</a></h2>
+<h3 id="clustering-validation-metrics">Clustering Validation Metrics<a class="headerlink" href="#clustering-validation-metrics" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def validate_clustering(features_df, cluster_labels):
+    """
+    Validate clustering results using multiple metrics
+
+    Parameters:
+    -----------
+    features_df : pd.DataFrame
+        Feature matrix
+    cluster_labels : np.ndarray
+        Cluster assignments
+
+    Returns:
+    --------
+    dict : Validation metrics
+    """
+    # Remove non-numeric columns and handle missing values
+    numeric_features = features_df.select_dtypes(include=[np.number])
+    numeric_features = numeric_features.fillna(numeric_features.mean())
+
+    # Calculate validation metrics
+    metrics = {}
+
+    # Silhouette score
+    try:
+        metrics['silhouette'] = silhouette_score(numeric_features, cluster_labels)
+    except:
+        metrics['silhouette'] = np.nan
+
+    # Calinski-Harabasz score
+    try:
+        metrics['calinski_harabasz'] = calinski_harabasz_score(numeric_features, cluster_labels)
+    except:
+        metrics['calinski_harabasz'] = np.nan
+
+    # Davies-Bouldin score
+    try:
+        from sklearn.metrics import davies_bouldin_score
+        metrics['davies_bouldin'] = davies_bouldin_score(numeric_features, cluster_labels)
+    except:
+        metrics['davies_bouldin'] = np.nan
+
+    # Cluster size distribution
+    unique_clusters, cluster_counts = np.unique(cluster_labels, return_counts=True)
+    metrics['n_clusters'] = len(unique_clusters)
+    metrics['min_cluster_size'] = np.min(cluster_counts)
+    metrics['max_cluster_size'] = np.max(cluster_counts)
+    metrics['cluster_size_cv'] = np.std(cluster_counts) / np.mean(cluster_counts)
+
+    return metrics
+
+# Example usage
+# Perform clustering
+adata = sp.feature_extraction_adata(Image, labels, list(range(len(channel))))
+clusters = sp.cluster(adata, method='leiden', resolution=0.5)
+
+# Validate clustering
+validation_metrics = validate_clustering(features, clusters)
+
+print("Clustering Validation Metrics:")
+for key, value in validation_metrics.items():
+    print(f"  {key}: {value:.3f}")
+
+# Visualize clustering quality
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Cluster size distribution
+unique_clusters, cluster_counts = np.unique(clusters, return_counts=True)
+axes[0].bar(range(len(cluster_counts)), cluster_counts)
+axes[0].set_xlabel('Cluster ID')
+axes[0].set_ylabel('Number of Cells')
+axes[0].set_title('Cluster Size Distribution')
+
+# Silhouette analysis
+if not np.isnan(validation_metrics['silhouette']):
+    from sklearn.metrics import silhouette_samples
+    silhouette_vals = silhouette_samples(features.select_dtypes(include=[np.number]), clusters)
+
+    axes[1].hist(silhouette_vals, bins=30, alpha=0.7)
+    axes[1].axvline(validation_metrics['silhouette'], color='red', linestyle='--',
+                    label=f"Mean: {validation_metrics['silhouette']:.3f}")
+    axes[1].set_xlabel('Silhouette Score')
+    axes[1].set_ylabel('Frequency')
+    axes[1].set_title('Silhouette Score Distribution')
+    axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+# Quality assessment
+print("\nClustering Quality Assessment:")
+if validation_metrics['silhouette'] &gt; 0.3:
+    print("  ✓ Clustering quality: Good (silhouette &gt; 0.3)")
+elif validation_metrics['silhouette'] &gt; 0.1:
+    print("  ⚠ Clustering quality: Acceptable (silhouette &gt; 0.1)")
+else:
+    print("  ❌ Clustering quality: Poor - consider different parameters")
+
+if validation_metrics['cluster_size_cv'] &lt; 1.0:
+    print("  ✓ Cluster size balance: Good")
+else:
+    print("  ⚠ Cluster size balance: Uneven - consider adjusting resolution")</code></pre>
+<h2 id="5-spatial-analysis-quality-control">5. Spatial Analysis Quality Control<a class="headerlink" href="#5-spatial-analysis-quality-control" title="Permanent link">&para;</a></h2>
+<h3 id="spatial-distribution-analysis">Spatial Distribution Analysis<a class="headerlink" href="#spatial-distribution-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def assess_spatial_distribution(labels, cluster_labels):
+    """
+    Assess spatial distribution of clusters
+
+    Parameters:
+    -----------
+    labels : np.ndarray
+        Cell segmentation labels
+    cluster_labels : np.ndarray
+        Cluster assignments
+
+    Returns:
+    --------
+    dict : Spatial distribution metrics
+    """
+    # Calculate cell centroids
+    cell_props = measure.regionprops_table(labels, properties=['centroid', 'area'])
+    centroids = np.column_stack([cell_props['centroid-0'], cell_props['centroid-1']])
+
+    # Calculate spatial metrics for each cluster
+    spatial_metrics = {}
+
+    for cluster_id in np.unique(cluster_labels):
+        cluster_mask = cluster_labels == cluster_id
+        cluster_centroids = centroids[cluster_mask]
+
+        if len(cluster_centroids) &gt; 1:
+            # Calculate spatial spread
+            centroid_mean = np.mean(cluster_centroids, axis=0)
+            distances = np.linalg.norm(cluster_centroids - centroid_mean, axis=1)
+
+            spatial_metrics[cluster_id] = {
+                'n_cells': len(cluster_centroids),
+                'spatial_spread': np.std(distances),
+                'density': len(cluster_centroids) / (labels.shape[0] * labels.shape[1])
+            }
+
+    return spatial_metrics
+
+# Example usage
+spatial_metrics = assess_spatial_distribution(labels, clusters)
+
+print("Spatial Distribution Metrics:")
+for cluster_id, metrics in spatial_metrics.items():
+    print(f"\nCluster {cluster_id}:")
+    for key, value in metrics.items():
+        print(f"  {key}: {value:.3f}")
+
+# Visualize spatial distribution
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Spatial distribution of clusters
+unique_clusters = np.unique(clusters)
+colors = plt.cm.Set3(np.linspace(0, 1, len(unique_clusters)))
+
+for i, cluster_id in enumerate(unique_clusters):
+    cluster_mask = clusters == cluster_id
+    cluster_cells = labels.copy()
+    cluster_cells[~cluster_mask] = 0
+
+    # Find cluster boundaries
+    cluster_boundaries = cluster_cells &gt; 0
+
+    axes[0].contour(cluster_boundaries, levels=[0.5], colors=[colors[i]], 
+                    linewidths=2, label=f'Cluster {cluster_id}')
+
+axes[0].set_title('Spatial Distribution of Clusters')
+axes[0].legend()
+axes[0].axis('off')
+
+# Cluster density comparison
+cluster_ids = list(spatial_metrics.keys())
+densities = [spatial_metrics[cid]['density'] for cid in cluster_ids]
+spreads = [spatial_metrics[cid]['spatial_spread'] for cid in cluster_ids]
+
+scatter = axes[1].scatter(densities, spreads, c=cluster_ids, cmap='Set3', s=100)
+axes[1].set_xlabel('Cluster Density')
+axes[1].set_ylabel('Spatial Spread')
+axes[1].set_title('Cluster Spatial Characteristics')
+plt.colorbar(scatter, ax=axes[1], label='Cluster ID')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="6-comprehensive-quality-report">6. Comprehensive Quality Report<a class="headerlink" href="#6-comprehensive-quality-report" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-python">def generate_quality_report(image, labels, features, clusters, channel_names):
+    """
+    Generate comprehensive quality control report
+
+    Parameters:
+    -----------
+    image : np.ndarray
+        Original image
+    labels : np.ndarray
+        Segmentation labels
+    features : pd.DataFrame
+        Extracted features
+    clusters : np.ndarray
+        Cluster assignments
+    channel_names : list
+        Channel names
+
+    Returns:
+    --------
+    dict : Comprehensive quality report
+    """
+    report = {}
+
+    # Image quality
+    report['image_quality'] = {}
+    for i, ch in enumerate(channel_names):
+        snr = calculate_snr(image, i)
+        report['image_quality'][ch] = {
+            'snr': snr,
+            'quality': 'Excellent' if snr &gt; 10 else 'Good' if snr &gt; 5 else 'Acceptable' if snr &gt; 2 else 'Poor'
+        }
+
+    # Segmentation quality
+    seg_metrics, _, _ = assess_segmentation_quality(image, labels)
+    report['segmentation_quality'] = seg_metrics
+
+    # Feature quality
+    feature_stats, _ = assess_feature_quality(features)
+    report['feature_quality'] = feature_stats
+
+    # Clustering quality
+    cluster_metrics = validate_clustering(features, clusters)
+    report['clustering_quality'] = cluster_metrics
+
+    # Spatial quality
+    spatial_metrics = assess_spatial_distribution(labels, clusters)
+    report['spatial_quality'] = spatial_metrics
+
+    return report
+
+# Example usage
+quality_report = generate_quality_report(Image, labels, features, clusters, channel)
+
+print("=" * 60)
+print("COMPREHENSIVE QUALITY CONTROL REPORT")
+print("=" * 60)
+
+# Image Quality
+print("\n📷 IMAGE QUALITY:")
+for ch, metrics in quality_report['image_quality'].items():
+    print(f"  Channel {ch}: SNR = {metrics['snr']:.2f} ({metrics['quality']})")
+
+# Segmentation Quality
+print("\n🔍 SEGMENTATION QUALITY:")
+seg_metrics = quality_report['segmentation_quality']
+print(f"  Cells detected: {seg_metrics['n_cells']}")
+print(f"  Size consistency: {'Good' if seg_metrics['size_cv'] &lt; 0.5 else 'Needs attention'}")
+
+# Feature Quality
+print("\n📊 FEATURE QUALITY:")
+feat_metrics = quality_report['feature_quality']
+print(f"  Features extracted: {feat_metrics['n_features']}")
+print(f"  Missing values: {feat_metrics['missing_values']}")
+print(f"  Zero-variance features: {feat_metrics['zero_variance_features']}")
+
+# Clustering Quality
+print("\n🎯 CLUSTERING QUALITY:")
+clust_metrics = quality_report['clustering_quality']
+print(f"  Clusters: {clust_metrics['n_clusters']}")
+print(f"  Silhouette score: {clust_metrics['silhouette']:.3f}")
+print(f"  Size balance: {'Good' if clust_metrics['cluster_size_cv'] &lt; 1.0 else 'Uneven'}")
+
+# Overall Assessment
+print("\n📋 OVERALL ASSESSMENT:")
+overall_score = 0
+total_checks = 0
+
+# Check image quality
+for ch, metrics in quality_report['image_quality'].items():
+    if metrics['quality'] in ['Excellent', 'Good']:
+        overall_score += 1
+    total_checks += 1
+
+# Check segmentation
+if seg_metrics['size_cv'] &lt; 0.5:
+    overall_score += 1
+total_checks += 1
+
+# Check clustering
+if clust_metrics['silhouette'] &gt; 0.1:
+    overall_score += 1
+total_checks += 1
+
+overall_percentage = (overall_score / total_checks) * 100
+print(f"  Quality Score: {overall_percentage:.1f}%")
+
+if overall_percentage &gt;= 80:
+    print("  Status: ✅ EXCELLENT - Ready for analysis")
+elif overall_percentage &gt;= 60:
+    print("  Status: ⚠️ ACCEPTABLE - Minor issues detected")
+else:
+    print("  Status: ❌ NEEDS ATTENTION - Significant quality issues")
+
+print("=" * 60)</code></pre>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>This quality control guide provides comprehensive tools for assessing data quality at each step of the spatial transcriptomics pipeline:</p>
+<ol>
+<li><strong>Image Quality</strong>: SNR analysis and channel correlation</li>
+<li><strong>Segmentation Quality</strong>: Cell size/intensity distribution and boundary validation</li>
+<li><strong>Feature Quality</strong>: Variance analysis and correlation assessment</li>
+<li><strong>Clustering Quality</strong>: Multiple validation metrics and cluster balance</li>
+<li><strong>Spatial Quality</strong>: Distribution analysis and spatial characteristics</li>
+<li><strong>Comprehensive Reporting</strong>: Overall quality assessment with actionable recommendations</li>
+</ol>
+<p>Use these tools to ensure reliable and reproducible results in your spatial transcriptomics analysis.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

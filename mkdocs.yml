@@ -49,12 +49,33 @@ plugins:
 
 nav:
   - Home: index.md
-  - 📋 Development Plan: PLAN.md
-  - Image Segmentation: segmentation.md
-  - Clustering and Spatial Transcriptomics: clustering.md
-  - Practical Examples: examples.md
-  - API Reference: api.md
-  - Changelog: CHANGELOG.md
+  - 🚀 Getting Started:
+    - 📦 Installation: getting-started/installation.md
+    - 🚀 Quick Start: getting-started/quick-start.md
+    - 📊 Data Formats: getting-started/data-formats.md
+  - 📖 Tutorials:
+    - 🖼️ Segmentation Basics: tutorials/segmentation-basics.md
+    - 🎯 Clustering Guide: tutorials/clustering-guide.md
+    - 🧬 Spatial Analysis: tutorials/spatial-analysis.md
+    - 🔧 Preprocessing Guide: tutorials/preprocessing-guide.md
+  - 🔧 API Reference:
+    - 🖼️ Segmentation: api-reference/segmentation.md
+    - 🎯 Clustering: api-reference/clustering.md
+    - 🧬 Spatial Analysis: api-reference/spatial-analysis.md
+    - 🔧 Preprocessing: api-reference/preprocessing.md
+  - 📊 Examples:
+    - 🔄 Complete Pipeline: examples/complete-pipeline.md
+    - 📦 Batch Processing: examples/batch-processing.md
+    - 🎨 Visualization: examples/visualization.md
+    - 🔍 Quality Control: examples/quality-control.md
+    - ⚡ Performance Optimization: examples/performance-optimization.md
+  - 📚 Reference:
+    - ❓ FAQ: reference/faq.md
+    - 🐛 Troubleshooting: reference/troubleshooting.md
+    - 📋 General FAQ: faq.md
+  - 📋 Development:
+    - 📋 Progress Summary: PROGRESS_SUMMARY.md
+    - 📝 Changelog: CHANGELOG.md
 
 markdown_extensions:
   - abbr

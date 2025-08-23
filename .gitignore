@@ -95,3 +95,7 @@ spex/__pycache__/*.pyc
 .pypirc
 .cursorrules
 docs/PLAN.md
+docs/MCP_TOOLS.md
+docs/MCP_STATUS_REPORT.md
+mcp-memory-bank/
+memory-bank-MCP

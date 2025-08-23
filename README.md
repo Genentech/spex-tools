@@ -1,79 +1,161 @@
 # SPEX - Spatial Omics Analysis Library
 
-This library implements methods developed for the [SPEX](https://www.biorxiv.org/content/10.1101/2022.08.22.504841v2) software platform, enabling users to apply state-of-the-art tissue segmentation techniques on their own image data.
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)]()
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://genentech.github.io/spex-tools/)
 
-## 📚 Documentation
+SPEX is a comprehensive spatial transcriptomics analysis library that implements state-of-the-art methods for tissue segmentation, clustering, and spatial analysis. The library enables researchers to apply advanced image processing and spatial analysis techniques to their own microscopy data.
 
-- **📖 API Reference**: [https://genentech.github.io/spex-tools/api/](https://genentech.github.io/spex-tools/api/)
-- **🔧 Installation Guide**: See installation section below
-- **📋 Examples**: See examples section below
+## 🚀 Key Features
+
+### 🖼️ Image Segmentation
+- **Cellpose** - Deep learning-based cell segmentation
+- **StarDist** - Star-convex object-based segmentation  
+- **Watershed** - Classical watershed segmentation
+- **Preprocessing** - Background subtraction, noise removal, filtering
+- **Post-processing** - Cell rescue, object filtering, feature extraction
+
+### 🧬 Spatial Transcriptomics Analysis
+- **Clustering** - PhenoGraph, Leiden, Louvain algorithms
+- **Niche Analysis** - Cell niche identification and interactions
+- **Differential Expression** - Spatial-aware differential analysis
+- **Pathway Analysis** - Cluster annotation and signaling pathways
+- **CLQ Analysis** - Co-localization quotient for spatial relationships
+
+### 🔧 Utilities
+- **Data Loading** - OME-TIFF, OME-ZARR, AnnData formats
+- **Preprocessing** - Normalization, batch correction, dimensionality reduction
+- **Visualization** - Comprehensive plotting and analysis tools
 
 ## 📦 Installation
 
-### From PyPI (recommended)
+### Quick Start
 
 ```bash
+# Install from PyPI
 pip install spex-tools
 ```
 
-### From source
+### Advanced Installation
 
-Upgrade pip and install dependencies:
+For optimal performance, we recommend installing system dependencies:
+
+#### Option 1: Using Conda (Recommended)
 
 ```bash
-pip install --upgrade pip setuptools wheel packaging
-pip install pytest
+# Load Miniforge3/Anaconda (if available on your system)
+module load Miniforge3  # or module load Anaconda3
+
+# Create and activate conda environment
+conda create -n py311 python=3.11 -c conda-forge -y
+conda activate py311
+
+# Install system dependencies (optional, but recommended)
+conda install -c conda-forge libjpeg-turbo zlib libpng fftw compilers make cmake imagecodecs -y
+
+# Install SPEX
+pip install spex-tools
 ```
 
-### 📚 Install with documentation
-
-To install with documentation dependencies:
+#### Option 2: Using System Package Manager
 
 ```bash
-pip install spex-tools[docs]
-```
-
-### 🛠️ System Requirements
-
-Before using OpenCV-related features, install the required system libraries:
-
-```bash
+# Ubuntu/Debian
 sudo apt install -y libgl1-mesa-glx libjpeg-dev zlib1g-dev libpng-dev libgl1 libfftw3-dev build-essential python3-dev
 
+# macOS (using Homebrew)
+brew install libjpeg zlib libpng fftw
+
+# Install SPEX
+pip install spex-tools
 ```
 
-Install the package locally:
+### From Source
 
 ```bash
+# Clone repository
+git clone https://github.com/genentech/spex-tools.git
+cd spex-tools
+
+# Set up environment
+conda create -n py311 python=3.11 -c conda-forge -y
+conda activate py311
+
+# Install
 pip install .
 ```
 
-## 🚀 Quick Start
+## 🔧 Quick Start
 
 ```python
 import spex as sp
 
-# Load image
-Image, channel = sp.load_image('your_image.tiff')
+# Load an image
+array, channels = sp.load_image("path/to/image.ome.tiff")
 
-# Perform watershed segmentation
-labels = sp.watershed_classic(Image, [0])
+# Perform cell segmentation
+labels = sp.cellpose_cellseg(array, seg_channels=[0], diameter=30, scaling=1)
 
 # Extract features
-features = sp.feature_extraction_adata(Image, labels, channel)
+features = sp.feature_extraction(array, labels)
+
+print(f"Detected {labels.max()} cells")
 ```
 
-## 🔧 Key Features
+## 📚 Documentation
 
-- **🖼️ Image Processing**: Load and process multi-channel images
-- **🔍 Segmentation**: Watershed, Cellpose, and StarDist segmentation
-- **📊 Feature Extraction**: Extract per-cell expression data
-- **🎯 Clustering**: PhenoGraph clustering for cell type identification
-- **🧬 Spatial Analysis**: CLQ analysis and niche detection
-- **📈 Differential Expression**: Multiple statistical methods for DE analysis
-- **🔄 Preprocessing**: Comprehensive data preprocessing pipeline
+- **[Installation Guide](https://genentech.github.io/spex-tools/getting-started/installation/)** - Detailed setup instructions
+- **[Tutorials](https://genentech.github.io/spex-tools/tutorials/)** - Step-by-step guides
+- **[API Reference](https://genentech.github.io/spex-tools/api-reference/)** - Complete function documentation
+- **[Examples](https://genentech.github.io/spex-tools/examples/)** - Practical workflows and use cases
 
-## 📂 Examples
+## 📂 Example Workflows
+
+### Complete Segmentation Pipeline
+
+```python
+import spex as sp
+
+# 1. Load and preprocess image
+array, channels = sp.load_image("image.ome.tiff")
+array = sp.background_subtract(array)
+array = sp.median_denoise(array)
+
+# 2. Segment cells
+labels = sp.cellpose_cellseg(array, seg_channels=[0], diameter=30)
+
+# 3. Post-process
+labels = sp.remove_small_objects(labels, min_size=50)
+labels = sp.remove_large_objects(labels, max_size=1000)
+
+# 4. Extract features
+features = sp.feature_extraction(array, labels)
+```
+
+### Spatial Analysis Workflow
+
+```python
+import spex as sp
+import scanpy as sc
+
+# 1. Load AnnData
+adata = sc.read_h5ad("spatial_data.h5ad")
+
+# 2. Preprocess
+adata = sp.preprocess(adata)
+
+# 3. Cluster
+adata = sp.cluster(adata, method='leiden', resolution=0.5)
+
+# 4. Spatial analysis
+clq_results = sp.CLQ_vec_numba(adata, cluster_key='leiden')
+niche_results = sp.niche(adata, cluster_key='leiden')
+
+# 5. Differential expression
+de_results = sp.differential_expression(adata, groupby='leiden')
+```
+
+### Interactive Examples
 
 Use the methods directly in your own analysis pipelines. Example notebooks are available:
 
@@ -84,21 +166,60 @@ Use the methods directly in your own analysis pipelines. Example notebooks are a
   [View on Server](http://65.108.226.226:2266/lab/workspaces/auto-j/tree/work/notebook/Segmentation.ipynb)
   password "spexspex"
 
-### Notebooks include:
-
+Notebooks include:
 - Model downloading (in case Cellpose server access fails)
 - Visualization examples
 - End-to-end segmentation pipelines
-- Clustering and spatial transcriptomics analysis
 
-## ⚙️ Compatibility
+## 🎯 Getting Started
 
-- ✅ Tested with **Python 3.11**
-- ⚠️ Compatibility with other Python versions is not guaranteed
-- ⚙️ Includes integrated **Cellpose** support, with fallback model handling (in notebooks)
+1. **Install SPEX** - Follow the installation instructions above
+2. **Load your data** - Use `load_image()` for microscopy images or `scanpy.read_h5ad()` for AnnData
+3. **Segment cells** - Choose from Cellpose, StarDist, or Watershed methods
+4. **Extract features** - Get per-cell measurements and characteristics
+5. **Analyze spatially** - Perform clustering and spatial analysis
 
-## 🤝 Support
+## ⚙️ System Requirements
 
-- **📖 Documentation**: [https://genentech.github.io/spex-tools/api/](https://genentech.github.io/spex-tools/api/)
-- **🐛 Issues**: Report bugs and feature requests on GitHub
-- **💬 Questions**: Use GitHub Discussions for questions and help
+- **Python**: 3.11 (recommended), other versions may work
+- **Memory**: 8GB+ RAM recommended for large images
+- **GPU**: Optional, for faster Cellpose processing
+- **Dependencies**: OpenCV, NumPy, SciPy, Scanpy, AnnData
+
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **OpenCV Import Error**
+   - Ensure system dependencies are installed
+   - Try: `conda install -c conda-forge opencv`
+
+2. **Cellpose Model Download Issues**
+   - Models download automatically on first use
+   - Check internet connection
+   - See documentation for manual download
+
+3. **Memory Issues**
+   - Large images may require significant RAM
+   - Consider using smaller image tiles
+
+For more help, see our [Troubleshooting Guide](https://genentech.github.io/spex-tools/reference/troubleshooting/).
+
+
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔗 Links
+
+- 📚 [Full Documentation](https://genentech.github.io/spex-tools/)
+- 🎓 [Tutorials](https://genentech.github.io/spex-tools/tutorials/)
+
+---
+
+**SPEX** - Empowering spatial transcriptomics research with advanced analysis tools.

@@ -1,0 +1,2323 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/examples/complete-pipeline/">
+      
+      
+        <link rel="prev" href="../../api-reference/preprocessing/">
+      
+      
+        <link rel="next" href="../batch-processing/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>🔄 Complete Pipeline - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#complete-pipeline-example" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🔄 Complete Pipeline
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation-basics/" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-data-loading-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Data Loading and Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Data Loading and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocess-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocess Image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-cell-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Cell Segmentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Cell Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform Segmentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualize-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualize Segmentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-feature-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Feature Extraction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Feature Extraction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extract-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extract Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-data-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Data Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Data Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normalize-and-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalize and Scale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimensionality-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dimensionality Reduction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-clustering-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Clustering Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Clustering Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform Clustering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-spatial-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Spatial Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Spatial Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spatial-distribution-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Distribution Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-differential-expression-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 7: Differential Expression Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Differential Expression Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compare Clusters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-save-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 8: Save Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Save Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-data-loading-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Data Loading and Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Data Loading and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocess-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocess Image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-cell-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Cell Segmentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Cell Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform Segmentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualize-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualize Segmentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-feature-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Feature Extraction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Feature Extraction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extract-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extract Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-data-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Data Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Data Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normalize-and-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalize and Scale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimensionality-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dimensionality Reduction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-clustering-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Clustering Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Clustering Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform Clustering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-spatial-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Spatial Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Spatial Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spatial-distribution-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Distribution Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-autocorrelation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Autocorrelation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-differential-expression-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 7: Differential Expression Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Differential Expression Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compare Clusters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-save-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 8: Save Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Save Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="complete-pipeline-example">🔄 Complete Pipeline Example<a class="headerlink" href="#complete-pipeline-example" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This example demonstrates a complete spatial transcriptomics analysis pipeline from image loading to spatial analysis using SPEX. We'll process a multi-channel fluorescence image, segment cells, extract features, perform clustering, and analyze spatial relationships.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-python">import spex as sp
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scanpy as sc
+from scipy import stats
+
+# Set up plotting
+plt.style.use('default')
+sns.set_palette("husl")
+sc.settings.verbosity = 3
+sc.settings.set_figure_params(dpi=80, facecolor='white')</code></pre>
+<h2 id="step-1-data-loading-and-preprocessing">Step 1: Data Loading and Preprocessing<a class="headerlink" href="#step-1-data-loading-and-preprocessing" title="Permanent link">&para;</a></h2>
+<h3 id="load-image">Load Image<a class="headerlink" href="#load-image" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Load multi-channel image
+Image, channel = sp.load_image('sample_data.tiff')
+
+print(f"Image shape: {Image.shape}")
+print(f"Channels: {channel}")
+
+# Display all channels
+fig, axes = plt.subplots(1, len(channel), figsize=(4*len(channel), 4))
+if len(channel) == 1:
+    axes = [axes]
+
+for i, ch in enumerate(channel):
+    axes[i].imshow(Image[:, :, i], cmap='gray')
+    axes[i].set_title(f'Channel: {ch}')
+    axes[i].axis('off')
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="preprocess-image">Preprocess Image<a class="headerlink" href="#preprocess-image" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Background subtraction for all channels
+Image_bg = sp.background_subtract(Image, list(range(len(channel))))
+
+# Denoise using non-local means
+Image_denoised = sp.nlm_denoise(Image_bg, list(range(len(channel))))
+
+# Compare preprocessing results
+fig, axes = plt.subplots(2, len(channel), figsize=(4*len(channel), 8))
+
+for i, ch in enumerate(channel):
+    # Original
+    axes[0, i].imshow(Image[:, :, i], cmap='gray')
+    axes[0, i].set_title(f'Original - {ch}')
+    axes[0, i].axis('off')
+
+    # Processed
+    axes[1, i].imshow(Image_denoised[:, :, i], cmap='gray')
+    axes[1, i].set_title(f'Processed - {ch}')
+    axes[1, i].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="step-2-cell-segmentation">Step 2: Cell Segmentation<a class="headerlink" href="#step-2-cell-segmentation" title="Permanent link">&para;</a></h2>
+<h3 id="perform-segmentation">Perform Segmentation<a class="headerlink" href="#perform-segmentation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Use Cellpose for robust cell segmentation
+labels = sp.cellpose_cellseg(Image_denoised, [0], diameter=30)
+
+print(f"Initial segmentation: {labels.max()} cells detected")
+
+# Clean segmentation results
+labels_clean = sp.remove_small_objects(labels, min_size=50)
+labels_clean = sp.remove_large_objects(labels_clean, max_size=1000)
+
+print(f"After cleaning: {labels_clean.max()} cells")
+
+# Rescue missing cells
+labels_final = sp.rescue_cells(Image_denoised, labels_clean, [0])
+
+print(f"Final segmentation: {labels_final.max()} cells")</code></pre>
+<h3 id="visualize-segmentation">Visualize Segmentation<a class="headerlink" href="#visualize-segmentation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Create comprehensive visualization
+fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+
+# Original image
+axes[0, 0].imshow(Image[:, :, 0], cmap='gray')
+axes[0, 0].set_title('Original Image')
+axes[0, 0].axis('off')
+
+# Initial segmentation
+axes[0, 1].imshow(Image[:, :, 0], cmap='gray')
+axes[0, 1].imshow(labels, cmap='tab20', alpha=0.5)
+axes[0, 1].set_title(f'Initial Segmentation ({labels.max()} cells)')
+axes[0, 1].axis('off')
+
+# Cleaned segmentation
+axes[0, 2].imshow(Image[:, :, 0], cmap='gray')
+axes[0, 2].imshow(labels_clean, cmap='tab20', alpha=0.5)
+axes[0, 2].set_title(f'Cleaned ({labels_clean.max()} cells)')
+axes[0, 2].axis('off')
+
+# Final segmentation
+axes[1, 0].imshow(Image[:, :, 0], cmap='gray')
+axes[1, 0].imshow(labels_final, cmap='tab20', alpha=0.5)
+axes[1, 0].set_title(f'Final ({labels_final.max()} cells)')
+axes[1, 0].axis('off')
+
+# Cell size distribution
+areas = np.bincount(labels_final.ravel())[1:]
+axes[1, 1].hist(areas, bins=30, alpha=0.7, edgecolor='black')
+axes[1, 1].set_xlabel('Cell Area (pixels)')
+axes[1, 1].set_ylabel('Frequency')
+axes[1, 1].set_title('Cell Size Distribution')
+
+# Cell coordinates
+coordinates = sp.get_cell_coordinates(labels_final)
+axes[1, 2].scatter(coordinates[:, 0], coordinates[:, 1], alpha=0.6, s=20)
+axes[1, 2].set_xlabel('X Position')
+axes[1, 2].set_ylabel('Y Position')
+axes[1, 2].set_title('Cell Positions')
+axes[1, 2].set_aspect('equal')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="step-3-feature-extraction">Step 3: Feature Extraction<a class="headerlink" href="#step-3-feature-extraction" title="Permanent link">&para;</a></h2>
+<h3 id="extract-features">Extract Features<a class="headerlink" href="#extract-features" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Extract features into AnnData format
+adata = sp.feature_extraction_adata(Image_denoised, labels_final, channel)
+
+print(f"AnnData shape: {adata.X.shape}")
+print(f"Features: {list(adata.var_names)}")
+print(f"Cells: {adata.n_obs}")
+
+# Add spatial information
+adata.obsm['spatial'] = coordinates
+
+# Add cell areas
+areas = sp.get_cell_areas(labels_final)
+adata.obs['area'] = areas
+
+# Add cell properties
+properties = sp.get_cell_properties(Image_denoised, labels_final, list(range(len(channel))))
+adata.obs['shape_factor'] = properties['shape_factors']
+adata.obs['eccentricity'] = properties['eccentricities']</code></pre>
+<h3 id="quality-control">Quality Control<a class="headerlink" href="#quality-control" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Basic QC metrics
+print("Quality Control Metrics:")
+print("-" * 40)
+print(f"Total cells: {adata.n_obs}")
+print(f"Total features: {adata.n_vars}")
+print(f"Mean cell area: {adata.obs['area'].mean():.1f} pixels")
+print(f"Area range: {adata.obs['area'].min():.1f} - {adata.obs['area'].max():.1f} pixels")
+
+# Check for missing values
+missing_values = np.isnan(adata.X).sum()
+print(f"Missing values: {missing_values}")
+
+# Check expression levels
+mean_expression = adata.X.mean(axis=0)
+print(f"Mean expression per feature: {mean_expression.min():.3f} - {mean_expression.max():.3f}")
+
+# Plot QC metrics
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# Cell area distribution
+axes[0, 0].hist(adata.obs['area'], bins=30, alpha=0.7, edgecolor='black')
+axes[0, 0].set_xlabel('Cell Area (pixels)')
+axes[0, 0].set_ylabel('Frequency')
+axes[0, 0].set_title('Cell Size Distribution')
+
+# Expression distribution
+axes[0, 1].hist(adata.X.flatten(), bins=50, alpha=0.7, edgecolor='black')
+axes[0, 1].set_xlabel('Expression Level')
+axes[0, 1].set_ylabel('Frequency')
+axes[0, 1].set_title('Expression Distribution')
+
+# Shape factor distribution
+axes[1, 0].hist(adata.obs['shape_factor'], bins=30, alpha=0.7, edgecolor='black')
+axes[1, 0].set_xlabel('Shape Factor')
+axes[1, 0].set_ylabel('Frequency')
+axes[1, 0].set_title('Cell Shape Distribution')
+
+# Spatial distribution
+axes[1, 1].scatter(adata.obsm['spatial'][:, 0], adata.obsm['spatial'][:, 1], 
+                   c=adata.obs['area'], s=20, alpha=0.6, cmap='viridis')
+axes[1, 1].set_xlabel('X Position')
+axes[1, 1].set_ylabel('Y Position')
+axes[1, 1].set_title('Cell Positions (colored by area)')
+axes[1, 1].set_aspect('equal')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="step-4-data-preprocessing">Step 4: Data Preprocessing<a class="headerlink" href="#step-4-data-preprocessing" title="Permanent link">&para;</a></h2>
+<h3 id="normalize-and-scale">Normalize and Scale<a class="headerlink" href="#normalize-and-scale" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Normalize data
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+
+# Scale data
+sc.pp.scale(adata, max_value=10)
+
+# Find highly variable features
+sc.pp.highly_variable_features(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
+print(f"Highly variable features: {sum(adata.var.highly_variable)}")
+
+# Plot highly variable features
+sc.pl.highly_variable_features(adata)
+plt.show()</code></pre>
+<h3 id="dimensionality-reduction">Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># PCA
+sc.tl.pca(adata, use_highly_variable=True)
+sc.pl.pca(adata, color=channel[0] if len(channel) &gt; 0 else 'area')
+plt.show()
+
+# Compute neighborhood graph
+sc.pp.neighbors(adata, n_neighbors=10, n_pcs=20)
+
+# UMAP
+sc.tl.umap(adata)
+sc.pl.umap(adata, color=channel[0] if len(channel) &gt; 0 else 'area')
+plt.show()</code></pre>
+<h2 id="step-5-clustering-analysis">Step 5: Clustering Analysis<a class="headerlink" href="#step-5-clustering-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="perform-clustering">Perform Clustering<a class="headerlink" href="#perform-clustering" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Leiden clustering
+sc.tl.leiden(adata, resolution=0.5)
+print(f"Number of clusters: {len(adata.obs['leiden'].unique())}")
+
+# Louvain clustering (alternative)
+sc.tl.louvain(adata, resolution=0.5)
+print(f"Number of clusters (Louvain): {len(adata.obs['louvain'].unique())}")
+
+# Visualize clusters
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# UMAP with Leiden clusters
+sc.pl.umap(adata, color='leiden', ax=axes[0, 0], show=False)
+axes[0, 0].set_title('Leiden Clusters (UMAP)')
+
+# UMAP with Louvain clusters
+sc.pl.umap(adata, color='louvain', ax=axes[0, 1], show=False)
+axes[0, 1].set_title('Louvain Clusters (UMAP)')
+
+# Spatial plot with Leiden clusters
+sc.pl.spatial(adata, color='leiden', ax=axes[1, 0], show=False)
+axes[1, 0].set_title('Leiden Clusters (Spatial)')
+
+# Spatial plot with Louvain clusters
+sc.pl.spatial(adata, color='louvain', ax=axes[1, 1], show=False)
+axes[1, 1].set_title('Louvain Clusters (Spatial)')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="cluster-analysis">Cluster Analysis<a class="headerlink" href="#cluster-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Find marker features for each cluster
+sc.tl.rank_genes_groups(adata, 'leiden', method='wilcoxon')
+
+# Plot top markers
+sc.pl.rank_genes_groups(adata, n_genes=5, sharey=False)
+plt.show()
+
+# Get marker features
+markers = sc.get.rank_genes_groups_df(adata, group='0')
+print("Top markers for cluster 0:")
+print(markers.head(10))
+
+# Plot expression of top markers
+top_markers = markers.head(5)['names'].tolist()
+sc.pl.umap(adata, color=top_markers, ncols=3)
+plt.show()</code></pre>
+<h2 id="step-6-spatial-analysis">Step 6: Spatial Analysis<a class="headerlink" href="#step-6-spatial-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="spatial-distribution-analysis">Spatial Distribution Analysis<a class="headerlink" href="#spatial-distribution-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Analyze spatial distribution of clusters
+cluster_positions = {}
+for cluster in adata.obs['leiden'].unique():
+    mask = adata.obs['leiden'] == cluster
+    cluster_positions[cluster] = adata.obsm['spatial'][mask]
+
+# Plot spatial distribution
+fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+colors = plt.cm.Set3(np.linspace(0, 1, len(cluster_positions)))
+
+for i, (cluster, positions) in enumerate(cluster_positions.items()):
+    row = i // 3
+    col = i % 3
+
+    axes[row, col].scatter(positions[:, 0], positions[:, 1], 
+                          c=[colors[i]], s=20, alpha=0.7)
+    axes[row, col].set_title(f'Cluster {cluster} ({len(positions)} cells)')
+    axes[row, col].set_aspect('equal')
+    axes[row, col].set_xlabel('X Position')
+    axes[row, col].set_ylabel('Y Position')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="spatial-autocorrelation">Spatial Autocorrelation<a class="headerlink" href="#spatial-autocorrelation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Calculate spatial autocorrelation for each feature
+from scipy.spatial.distance import pdist, squareform
+
+def spatial_autocorrelation(positions, values):
+    """Calculate Moran's I for spatial autocorrelation"""
+    if len(positions) &lt; 2:
+        return 0
+
+    # Calculate distances
+    dist_matrix = squareform(pdist(positions))
+
+    # Calculate weights (inverse distance)
+    weights = 1 / (dist_matrix + 1e-10)  # Add small value to avoid division by zero
+    np.fill_diagonal(weights, 0)
+
+    # Calculate Moran's I
+    n = len(values)
+    mean_val = np.mean(values)
+    variance = np.var(values)
+
+    if variance == 0:
+        return 0
+
+    numerator = 0
+    denominator = 0
+
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                numerator += weights[i, j] * (values[i] - mean_val) * (values[j] - mean_val)
+                denominator += weights[i, j]
+
+    if denominator == 0:
+        return 0
+
+    moran_i = (n / (2 * denominator)) * (numerator / variance)
+    return moran_i
+
+# Calculate spatial autocorrelation for each feature
+spatial_autocorr = {}
+for feature in adata.var_names[:10]:  # Use first 10 features for speed
+    values = adata[:, feature].X.flatten()
+    moran_i = spatial_autocorrelation(adata.obsm['spatial'], values)
+    spatial_autocorr[feature] = moran_i
+
+# Plot spatial autocorrelation
+fig, ax = plt.subplots(figsize=(10, 6))
+features = list(spatial_autocorr.keys())
+values = list(spatial_autocorr.values())
+
+bars = ax.bar(features, values, color='skyblue', alpha=0.7)
+ax.set_xlabel('Features')
+ax.set_ylabel("Moran's I")
+ax.set_title('Spatial Autocorrelation by Feature')
+ax.tick_params(axis='x', rotation=45)
+
+# Add horizontal line at 0
+ax.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+
+plt.tight_layout()
+plt.show()
+
+print("Spatial autocorrelation results:")
+for feature, value in spatial_autocorr.items():
+    print(f"{feature}: {value:.3f}")</code></pre>
+<h2 id="step-7-differential-expression-analysis">Step 7: Differential Expression Analysis<a class="headerlink" href="#step-7-differential-expression-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="compare-clusters">Compare Clusters<a class="headerlink" href="#compare-clusters" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Compare all clusters
+sc.tl.rank_genes_groups(adata, 'leiden', method='wilcoxon')
+
+# Get results for all comparisons
+all_markers = sc.get.rank_genes_groups_df(adata, group=None)
+
+# Filter significant markers
+significant_markers = all_markers[all_markers['pvals_adj'] &lt; 0.05]
+print(f"Significant markers: {len(significant_markers)}")
+
+# Plot heatmap of top markers
+top_markers_per_cluster = []
+for cluster in adata.obs['leiden'].unique():
+    cluster_markers = all_markers[all_markers['group'] == cluster]
+    top_markers_per_cluster.extend(cluster_markers.head(3)['names'].tolist())
+
+# Remove duplicates
+top_markers_per_cluster = list(set(top_markers_per_cluster))
+
+# Plot heatmap
+sc.pl.heatmap(adata, top_markers_per_cluster, groupby='leiden', 
+              use_raw=True, show_gene_labels=True)
+plt.show()</code></pre>
+<h2 id="step-8-save-results">Step 8: Save Results<a class="headerlink" href="#step-8-save-results" title="Permanent link">&para;</a></h2>
+<h3 id="export-results">Export Results<a class="headerlink" href="#export-results" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Save AnnData object
+adata.write('complete_pipeline_results.h5ad')
+
+# Save segmentation labels
+import tifffile
+tifffile.imwrite('segmentation_labels.tiff', labels_final)
+
+# Save cluster assignments
+cluster_df = adata.obs[['leiden', 'louvain', 'area', 'shape_factor']].copy()
+cluster_df['x'] = adata.obsm['spatial'][:, 0]
+cluster_df['y'] = adata.obsm['spatial'][:, 1]
+cluster_df.to_csv('cell_clusters.csv')
+
+# Save marker genes
+all_markers.to_csv('marker_genes.csv')
+
+print("Results saved:")
+print("- complete_pipeline_results.h5ad: AnnData object")
+print("- segmentation_labels.tiff: Segmentation labels")
+print("- cell_clusters.csv: Cell metadata and cluster assignments")
+print("- marker_genes.csv: Differential expression results")</code></pre>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>This complete pipeline demonstrates:</p>
+<ol>
+<li><strong>Image preprocessing</strong> with background subtraction and denoising</li>
+<li><strong>Cell segmentation</strong> using AI-based methods with post-processing</li>
+<li><strong>Feature extraction</strong> into structured AnnData format</li>
+<li><strong>Quality control</strong> and data preprocessing</li>
+<li><strong>Clustering analysis</strong> using multiple algorithms</li>
+<li><strong>Spatial analysis</strong> including distribution and autocorrelation</li>
+<li><strong>Differential expression</strong> analysis between clusters</li>
+<li><strong>Result export</strong> in multiple formats</li>
+</ol>
+<p>The pipeline is modular and can be adapted for different experimental designs and analysis goals.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>🎯 <a href="../../tutorials/clustering-guide/">Clustering Guide</a> - Advanced clustering techniques</li>
+<li>🧬 <a href="../../tutorials/spatial-analysis/">Spatial Analysis</a> - Advanced spatial methods</li>
+<li>📦 <a href="../batch-processing/">Batch Processing</a> - Process multiple samples</li>
+<li>🎨 <a href="../visualization/">Visualization</a> - Advanced plotting techniques</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

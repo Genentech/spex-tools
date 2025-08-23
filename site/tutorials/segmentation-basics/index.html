@@ -1,0 +1,2108 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://genentech.github.io/spex-tools/tutorials/segmentation-basics/">
+      
+      
+        <link rel="prev" href="../../getting-started/data-formats/">
+      
+      
+        <link rel="next" href="../clustering-guide/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>🖼️ Segmentation Basics - spex-tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css?v=2.0">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#segmentation-basics-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spex-tools" class="md-header__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spex-tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🖼️ Segmentation Basics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  📖 Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/segmentation/" class="md-tabs__link">
+          
+  
+  
+  🔧 API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/complete-pipeline/" class="md-tabs__link">
+          
+  
+  
+  📊 Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/faq/" class="md-tabs__link">
+          
+  
+  
+  📚 Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROGRESS_SUMMARY/" class="md-tabs__link">
+          
+  
+  
+  📋 Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spex-tools" class="md-nav__button md-logo" aria-label="spex-tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spex-tools
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🚀 Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📊 Data Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    📖 Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation Basics
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-loading-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Loading and Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Loading and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-watershed-segmentation-classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Watershed Segmentation (Classic)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cellpose-segmentation-ai-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Cellpose Segmentation (AI-based)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-stardist-segmentation-star-convex" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. StarDist Segmentation (Star-convex)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-segmentation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleaning Segmentation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-rescue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Rescue
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-of-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison of Methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Assessment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quality Assessment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cell-size-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Size Distribution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-quality-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Quality Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Tuning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clustering-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    🔧 API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            🔧 API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🖼️ Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎯 Clustering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/spatial-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🧬 Spatial Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔧 Preprocessing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📊 Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            📊 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/complete-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔄 Complete Pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/batch-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📦 Batch Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🎨 Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🔍 Quality Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ⚡ Performance Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📚 Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    🐛 Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 General FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    📋 Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            📋 Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROGRESS_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📋 Progress Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    📝 Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-loading-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image Loading and Preprocessing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Loading and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-watershed-segmentation-classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Watershed Segmentation (Classic)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cellpose-segmentation-ai-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Cellpose Segmentation (AI-based)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-stardist-segmentation-star-convex" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. StarDist Segmentation (Star-convex)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-segmentation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleaning Segmentation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-rescue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Rescue
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-of-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison of Methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Assessment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quality Assessment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cell-size-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Size Distribution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-quality-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Quality Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Tuning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="segmentation-basics-tutorial">🖼️ Segmentation Basics Tutorial<a class="headerlink" href="#segmentation-basics-tutorial" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This tutorial covers the fundamental segmentation methods available in SPEX. You'll learn how to segment cells and objects from microscopy images using different approaches.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-python">import spex as sp
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set up plotting
+plt.style.use('default')
+sns.set_palette("husl")</code></pre>
+<h2 id="image-loading-and-preprocessing">Image Loading and Preprocessing<a class="headerlink" href="#image-loading-and-preprocessing" title="Permanent link">&para;</a></h2>
+<h3 id="loading-images">Loading Images<a class="headerlink" href="#loading-images" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Load a multi-channel image
+Image, channel = sp.load_image('sample_image.tiff')
+
+print(f"Image shape: {Image.shape}")
+print(f"Channels: {channel}")
+
+# Display image
+fig, axes = plt.subplots(1, len(channel), figsize=(4*len(channel), 4))
+if len(channel) == 1:
+    axes = [axes]
+
+for i, ch in enumerate(channel):
+    axes[i].imshow(Image[:, :, i], cmap='gray')
+    axes[i].set_title(f'Channel: {ch}')
+    axes[i].axis('off')
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Background subtraction
+Image_bg = sp.background_subtract(Image, [0])
+
+# Denoising options
+Image_median = sp.median_denoise(Image_bg, [0])
+Image_nlm = sp.nlm_denoise(Image_bg, [0])
+
+# Compare preprocessing results
+fig, axes = plt.subplots(1, 4, figsize=(16, 4))
+
+axes[0].imshow(Image[:, :, 0], cmap='gray')
+axes[0].set_title('Original')
+axes[0].axis('off')
+
+axes[1].imshow(Image_bg[:, :, 0], cmap='gray')
+axes[1].set_title('Background Subtracted')
+axes[1].axis('off')
+
+axes[2].imshow(Image_median[:, :, 0], cmap='gray')
+axes[2].set_title('Median Denoised')
+axes[2].axis('off')
+
+axes[3].imshow(Image_nlm[:, :, 0], cmap='gray')
+axes[3].set_title('NLM Denoised')
+axes[3].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="segmentation-methods">Segmentation Methods<a class="headerlink" href="#segmentation-methods" title="Permanent link">&para;</a></h2>
+<h3 id="1-watershed-segmentation-classic">1. Watershed Segmentation (Classic)<a class="headerlink" href="#1-watershed-segmentation-classic" title="Permanent link">&para;</a></h3>
+<p>Watershed is a traditional image processing method that treats pixel values as elevation and finds watershed lines.</p>
+<pre class="highlight"><code class="language-python"># Basic watershed segmentation
+labels_watershed = sp.watershed_classic(Image, [0])
+
+print(f"Number of cells detected: {labels_watershed.max()}")
+
+# Visualize results
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+axes[0].imshow(Image[:, :, 0], cmap='gray')
+axes[0].set_title('Original Image')
+axes[0].axis('off')
+
+axes[1].imshow(labels_watershed, cmap='tab20')
+axes[1].set_title(f'Watershed Labels ({labels_watershed.max()} cells)')
+axes[1].axis('off')
+
+axes[2].imshow(Image[:, :, 0], cmap='gray')
+axes[2].imshow(labels_watershed, cmap='tab20', alpha=0.5)
+axes[2].set_title('Overlay')
+axes[2].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<p><strong>Advantages:</strong>
+- Fast and computationally efficient
+- Works well with clear cell boundaries
+- No external dependencies</p>
+<p><strong>Disadvantages:</strong>
+- Sensitive to noise
+- May over-segment or under-segment
+- Requires good preprocessing</p>
+<h3 id="2-cellpose-segmentation-ai-based">2. Cellpose Segmentation (AI-based)<a class="headerlink" href="#2-cellpose-segmentation-ai-based" title="Permanent link">&para;</a></h3>
+<p>Cellpose uses deep learning to segment cells with high accuracy.</p>
+<pre class="highlight"><code class="language-python"># Cellpose segmentation
+labels_cellpose = sp.cellpose_cellseg(Image, [0], diameter=30)
+
+print(f"Number of cells detected: {labels_cellpose.max()}")
+
+# Visualize results
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+axes[0].imshow(Image[:, :, 0], cmap='gray')
+axes[0].set_title('Original Image')
+axes[0].axis('off')
+
+axes[1].imshow(labels_cellpose, cmap='tab20')
+axes[1].set_title(f'Cellpose Labels ({labels_cellpose.max()} cells)')
+axes[1].axis('off')
+
+axes[2].imshow(Image[:, :, 0], cmap='gray')
+axes[2].imshow(labels_cellpose, cmap='tab20', alpha=0.5)
+axes[2].set_title('Overlay')
+axes[2].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<p><strong>Parameters:</strong>
+- <code>diameter</code>: Expected cell diameter in pixels
+- <code>channels</code>: List of channel indices to use
+- <code>flow_threshold</code>: Flow field threshold (default: 0.4)
+- <code>cellprob_threshold</code>: Cell probability threshold (default: 0)</p>
+<p><strong>Advantages:</strong>
+- High accuracy for cell segmentation
+- Robust to noise and variations
+- Works with various cell types</p>
+<p><strong>Disadvantages:</strong>
+- Requires GPU for optimal performance
+- Model download required on first use
+- Slower than traditional methods</p>
+<h3 id="3-stardist-segmentation-star-convex">3. StarDist Segmentation (Star-convex)<a class="headerlink" href="#3-stardist-segmentation-star-convex" title="Permanent link">&para;</a></h3>
+<p>StarDist detects star-convex objects using deep learning.</p>
+<pre class="highlight"><code class="language-python"># StarDist segmentation
+labels_stardist = sp.stardist_cellseg(Image, [0])
+
+print(f"Number of cells detected: {labels_stardist.max()}")
+
+# Visualize results
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+axes[0].imshow(Image[:, :, 0], cmap='gray')
+axes[0].set_title('Original Image')
+axes[0].axis('off')
+
+axes[1].imshow(labels_stardist, cmap='tab20')
+axes[1].set_title(f'StarDist Labels ({labels_stardist.max()} cells)')
+axes[1].axis('off')
+
+axes[2].imshow(Image[:, :, 0], cmap='gray')
+axes[2].imshow(labels_stardist, cmap='tab20', alpha=0.5)
+axes[2].set_title('Overlay')
+axes[2].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<p><strong>Advantages:</strong>
+- Excellent for star-convex objects
+- Good boundary accuracy
+- Works well with nuclear staining</p>
+<p><strong>Disadvantages:</strong>
+- Requires star-convex assumption
+- May not work for irregular shapes
+- Model download required</p>
+<h2 id="post-processing">Post-processing<a class="headerlink" href="#post-processing" title="Permanent link">&para;</a></h2>
+<h3 id="cleaning-segmentation-results">Cleaning Segmentation Results<a class="headerlink" href="#cleaning-segmentation-results" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Remove small objects (likely noise)
+labels_clean = sp.remove_small_objects(labels_cellpose, min_size=50)
+
+# Remove large objects (likely artifacts)
+labels_clean = sp.remove_large_objects(labels_clean, max_size=1000)
+
+print(f"Cells after cleaning: {labels_clean.max()}")
+
+# Visualize cleaning results
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+axes[0].imshow(labels_cellpose, cmap='tab20')
+axes[0].set_title(f'Before Cleaning ({labels_cellpose.max()} cells)')
+axes[0].axis('off')
+
+axes[1].imshow(labels_clean, cmap='tab20')
+axes[1].set_title(f'After Cleaning ({labels_clean.max()} cells)')
+axes[1].axis('off')
+
+axes[2].imshow(Image[:, :, 0], cmap='gray')
+axes[2].imshow(labels_clean, cmap='tab20', alpha=0.5)
+axes[2].set_title('Final Result')
+axes[2].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="cell-rescue">Cell Rescue<a class="headerlink" href="#cell-rescue" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Rescue missing cells
+labels_rescued = sp.rescue_cells(Image, labels_clean, [0])
+
+print(f"Cells after rescue: {labels_rescued.max()}")
+
+# Visualize rescue results
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+axes[0].imshow(labels_clean, cmap='tab20')
+axes[0].set_title(f'Before Rescue ({labels_clean.max()} cells)')
+axes[0].axis('off')
+
+axes[1].imshow(labels_rescued, cmap='tab20')
+axes[1].set_title(f'After Rescue ({labels_rescued.max()} cells)')
+axes[1].axis('off')
+
+axes[2].imshow(Image[:, :, 0], cmap='gray')
+axes[2].imshow(labels_rescued, cmap='tab20', alpha=0.5)
+axes[2].set_title('Final Result')
+axes[2].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="comparison-of-methods">Comparison of Methods<a class="headerlink" href="#comparison-of-methods" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-python"># Compare all methods
+methods = {
+    'Watershed': labels_watershed,
+    'Cellpose': labels_cellpose,
+    'StarDist': labels_stardist,
+    'Cleaned': labels_clean,
+    'Rescued': labels_rescued
+}
+
+# Create comparison plot
+fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+
+for i, (name, labels) in enumerate(methods.items()):
+    row = i // 3
+    col = i % 3
+
+    axes[row, col].imshow(Image[:, :, 0], cmap='gray')
+    axes[row, col].imshow(labels, cmap='tab20', alpha=0.5)
+    axes[row, col].set_title(f'{name} ({labels.max()} cells)')
+    axes[row, col].axis('off')
+
+# Remove empty subplot
+axes[1, 2].remove()
+
+plt.tight_layout()
+plt.show()
+
+# Print statistics
+print("Method Comparison:")
+print("-" * 40)
+for name, labels in methods.items():
+    n_cells = labels.max()
+    areas = np.bincount(labels.ravel())[1:]
+    mean_area = areas.mean() if len(areas) &gt; 0 else 0
+    print(f"{name:10}: {n_cells:4d} cells, mean area: {mean_area:6.1f} pixels")</code></pre>
+<h2 id="quality-assessment">Quality Assessment<a class="headerlink" href="#quality-assessment" title="Permanent link">&para;</a></h2>
+<h3 id="cell-size-distribution">Cell Size Distribution<a class="headerlink" href="#cell-size-distribution" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Analyze cell size distribution
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Histogram of cell areas
+areas = np.bincount(labels_rescued.ravel())[1:]
+axes[0].hist(areas, bins=30, alpha=0.7, edgecolor='black')
+axes[0].set_xlabel('Cell Area (pixels)')
+axes[0].set_ylabel('Frequency')
+axes[0].set_title('Cell Size Distribution')
+
+# Box plot comparison
+area_data = []
+method_names = []
+for name, labels in methods.items():
+    areas = np.bincount(labels.ravel())[1:]
+    if len(areas) &gt; 0:
+        area_data.extend(areas)
+        method_names.extend([name] * len(areas))
+
+import pandas as pd
+df = pd.DataFrame({'Method': method_names, 'Area': area_data})
+sns.boxplot(data=df, x='Method', y='Area', ax=axes[1])
+axes[1].set_title('Cell Size by Method')
+axes[1].tick_params(axis='x', rotation=45)
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h3 id="segmentation-quality-metrics">Segmentation Quality Metrics<a class="headerlink" href="#segmentation-quality-metrics" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Calculate quality metrics
+def calculate_metrics(labels):
+    areas = np.bincount(labels.ravel())[1:]
+    if len(areas) == 0:
+        return {'n_cells': 0, 'mean_area': 0, 'std_area': 0, 'coverage': 0}
+
+    coverage = (labels &gt; 0).sum() / labels.size * 100
+    return {
+        'n_cells': len(areas),
+        'mean_area': areas.mean(),
+        'std_area': areas.std(),
+        'coverage': coverage
+    }
+
+# Compare metrics
+print("Quality Metrics:")
+print("-" * 60)
+print(f"{'Method':&lt;12} {'Cells':&lt;6} {'Mean Area':&lt;10} {'Std Area':&lt;10} {'Coverage':&lt;10}")
+print("-" * 60)
+
+for name, labels in methods.items():
+    metrics = calculate_metrics(labels)
+    print(f"{name:&lt;12} {metrics['n_cells']:&lt;6} {metrics['mean_area']:&lt;10.1f} "
+          f"{metrics['std_area']:&lt;10.1f} {metrics['coverage']:&lt;10.1f}%")</code></pre>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="method-selection">Method Selection<a class="headerlink" href="#method-selection" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Watershed</strong>: Use for simple, well-separated cells with clear boundaries</li>
+<li><strong>Cellpose</strong>: Use for complex cell shapes and noisy images</li>
+<li><strong>StarDist</strong>: Use for nuclear staining and star-convex objects</li>
+</ol>
+<h3 id="parameter-tuning">Parameter Tuning<a class="headerlink" href="#parameter-tuning" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Watershed parameters
+labels_ws1 = sp.watershed_classic(Image, [0])  # Default
+labels_ws2 = sp.watershed_classic(Image, [0], min_distance=10)  # Adjust sensitivity
+
+# Cellpose parameters
+labels_cp1 = sp.cellpose_cellseg(Image, [0], diameter=20)  # Small cells
+labels_cp2 = sp.cellpose_cellseg(Image, [0], diameter=40)  # Large cells
+
+# Compare parameter effects
+fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+
+results = [
+    ('Watershed Default', labels_ws1),
+    ('Watershed Adjusted', labels_ws2),
+    ('Cellpose Small', labels_cp1),
+    ('Cellpose Large', labels_cp2),
+    ('StarDist', labels_stardist),
+    ('Final Result', labels_rescued)
+]
+
+for i, (name, labels) in enumerate(results):
+    row = i // 3
+    col = i % 3
+
+    axes[row, col].imshow(Image[:, :, 0], cmap='gray')
+    axes[row, col].imshow(labels, cmap='tab20', alpha=0.5)
+    axes[row, col].set_title(f'{name}\n({labels.max()} cells)')
+    axes[row, col].axis('off')
+
+plt.tight_layout()
+plt.show()</code></pre>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>🎯 <a href="../clustering-guide/">Clustering Guide</a> - Analyze cell types</li>
+<li>🧬 <a href="../spatial-analysis/">Spatial Analysis</a> - Study spatial relationships</li>
+<li>📊 <a href="../examples/">Complete Examples</a> - End-to-end workflows</li>
+<li>🔧 <a href="../api-reference/">API Reference</a> - Detailed function documentation</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
