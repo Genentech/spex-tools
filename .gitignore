@@ -93,3 +93,5 @@ spex/__pycache__/*.pyc
 tests/__pycache__/*.pyc
 spex/__pycache__/*.pyc
 .pypirc
+.cursorrules
+docs/PLAN.md

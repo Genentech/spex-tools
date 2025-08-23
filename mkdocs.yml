@@ -4,20 +4,10 @@ site_url: https://genentech.github.io/spex-tools/
 theme:
   name: material
   palette:
-    - media: "(prefers-color-scheme)"
-      scheme: default
+    # Light theme only - no dark theme
+    - scheme: default
       primary: indigo
       accent: indigo
-      toggle:
-        icon: material/brightness-auto
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: Switch to light mode
   features:
     - navigation.tabs
     - navigation.sections
@@ -59,6 +49,7 @@ plugins:
 
 nav:
   - Home: index.md
+  - 📋 Development Plan: PLAN.md
   - Image Segmentation: segmentation.md
   - Clustering and Spatial Transcriptomics: clustering.md
   - Practical Examples: examples.md
@@ -110,4 +101,4 @@ markdown_extensions:
   - pymdownx.tilde
 
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/extra.css?v=2.0
