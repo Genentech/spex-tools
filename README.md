@@ -63,9 +63,6 @@ pip install spex-tools
 # Ubuntu/Debian
 sudo apt install -y libgl1-mesa-glx libjpeg-dev zlib1g-dev libpng-dev libgl1 libfftw3-dev build-essential python3-dev
 
-# macOS (using Homebrew)
-brew install libjpeg zlib libpng fftw
-
 # Install SPEX
 pip install spex-tools
 ```
@@ -105,7 +102,7 @@ print(f"Detected {labels.max()} cells")
 ## 📚 Documentation
 
 - **[Installation Guide](https://genentech.github.io/spex-tools/getting-started/installation/)** - Detailed setup instructions
-- **[Tutorials](https://genentech.github.io/spex-tools/tutorials/)** - Step-by-step guides
+- **[Tutorials](https://genentech.github.io/spex-tools/tutorials/segmentation-basics/)** - Step-by-step guides
 - **[API Reference](https://genentech.github.io/spex-tools/api-reference/)** - Complete function documentation
 - **[Examples](https://genentech.github.io/spex-tools/examples/)** - Practical workflows and use cases
 
@@ -185,6 +182,12 @@ Notebooks include:
 - **Memory**: 8GB+ RAM recommended for large images
 - **GPU**: Optional, for faster Cellpose processing
 - **Dependencies**: OpenCV, NumPy, SciPy, Scanpy, AnnData
+- **Platform Compatibility**: 
+  - ✅ **Linux (x86_64)**: Fully supported
+  - ✅ **Windows (x86_64)**: Fully supported
+  - ❌ **macOS**: Not supported due to compatibility issues with core dependencies
+  - ❌ **ARM64/Apple Silicon**: Not supported
+  - ❌ **Other architectures**: Not tested or supported
 
 ## 🔍 Troubleshooting
 
