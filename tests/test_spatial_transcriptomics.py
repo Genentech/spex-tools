@@ -71,7 +71,7 @@ def test_cluster_creates_expected_labels(method):
 
 
 def test_mad_threshold():
-    x = np.array([1, 2, 3, 4, 100])  # выброс
+    x = np.array([1, 2, 3, 4, 100])  # outlier
     result = MAD_threshold(x, ndevs=1)
     assert result < np.median(x)
 
@@ -99,7 +99,7 @@ def test_preprocess_basic():
     assert "log1p" in processed.uns
     assert "prepro" in processed.uns
     assert "counts" in processed.layers
-    assert processed.X.shape[1] <= 10  # могли быть отфильтрованы гены
+    assert processed.X.shape[1] <= 10  # genes might have been filtered
 
 
 @pytest.mark.parametrize("method", ["pca", "diff_map", "scvi"])
@@ -172,14 +172,14 @@ def test_differential_expression_scvi_real():
     adata.var_names = [f"gene_{i}" for i in range(10)]
     adata.obs["leiden"] = ["A"] * 15 + ["B"] * 15
 
-    # Подготовка adata для scvi
+    # Prepare adata for scvi
     scvi.model.SCVI.setup_anndata(adata, batch_key=None, labels_key="leiden")
 
-    # Обучение модели
+    # Train model
     model = scvi.model.SCVI(adata)
     model.train(max_epochs=10)
 
-    # Обязательное поле для вызова метода
+    # Required field for method call
     adata.obsm["X_scvi"] = model.get_latent_representation()
 
     adata_out = differential_expression(
@@ -266,7 +266,7 @@ def test_convert_progeny_to_pegasus_marker_dict():
                 assert marker_set["type"] in {"+", "-"}
                 assert isinstance(marker_set["weight"], float)
 
-                # Проверка округления и нормализации
+                # Check rounding and normalization
                 if marker_set["type"] == "+":
                     assert marker_set["weight"] >= 1.0
                 else:
@@ -279,11 +279,11 @@ def test_annotate_clusters_pegasus():
     adata.var_names = [f"gene_{i}" for i in range(100)]
     adata.obs["leiden"] = ["0"] * 10 + ["1"] * 10
 
-    # Загрузим реальные маркеры
+    # Load real markers
     with pkg_resources.path(resources, "progeny.parquet") as p:
         marker_dict = convert_progeny_to_pegasus_marker_dict(p)
 
-    # Подготовим UnimodalData
+    # Prepare UnimodalData
     pdat = UnimodalData(adata)
     pg.de_analysis(pdat, cluster="leiden")
     adata.varm["de_res"] = pdat.varm["de_res"]
