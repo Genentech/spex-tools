@@ -4,9 +4,18 @@ import pandas as pd
 import scipy as sp
 
 # Dependencies
-import scvi
-import pegasus as pg
-from pegasusio import UnimodalData
+try:
+    import scvi  # optional heavy dependency
+except Exception:  # pragma: no cover - optional import guard
+    scvi = None
+
+try:
+    import pegasus as pg
+    from pegasusio import UnimodalData
+except Exception:  # pragma: no cover - optional dependency guard
+    pg = None
+    UnimodalData = None
+
 from anndata import AnnData
 import warnings
 
@@ -92,6 +101,11 @@ def reduce_dimensionality(adata, prefilter=False, method='pca', mdist=0.5, n_nei
 
     print('Doing dimensionality reduction...')
     if method=='scvi':
+        if scvi is None:  # pragma: no cover - guard for optional dependency
+            raise ImportError(
+                "scvi-tools is required for method='scvi'. Install scvi or choose another method."
+            )
+
         counts = adata.raw.to_adata()
         counts.layers["counts"] = counts.X
 
@@ -110,6 +124,11 @@ def reduce_dimensionality(adata, prefilter=False, method='pca', mdist=0.5, n_nei
         if latent_dim >= min(adata.shape):
             latent_dim = min(adata.shape) - 1
         sc.pp.pca(adata, n_comps=latent_dim, use_highly_variable=False)
+
+    if pg is None or UnimodalData is None:  # pragma: no cover - guard for optional dependency
+        raise ImportError(
+            "pegasus/pegasusio are required for dimensionality reduction. Install pegasus or choose another workflow."
+        )
 
     pdat = UnimodalData(adata)
 

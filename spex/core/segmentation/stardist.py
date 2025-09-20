@@ -4,9 +4,9 @@ import cv2
 from csbdeep.utils import normalize
 import re
 
-def stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max):
+def stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max, num_tiles=None, overlap=64, auto_tile_memory_mb=500):
     """
-    Segment image by stardist deeplearning method
+    Segment image by stardist deeplearning method with optional tiling
 
     Parameters
     ----------
@@ -16,11 +16,28 @@ def stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max):
     threshold: probability cutoff
     _min: bottom percentile normalization
     _max: top percentile normalization
+    num_tiles: Optional number of tiles for tiled processing (default: 4)
+    overlap: Overlap between tiles in pixels
 
     Returns
     -------
     labels : per cell segmentation as numpy array
     """
+    from ..tiling.core import _apply_tiling_to_segmentation
+
+    # If tiling is requested, use tiled segmentation
+    if num_tiles is not None:
+        return _apply_tiling_to_segmentation(
+            _stardist_core, image, seg_channels, scaling, threshold, _min, _max,
+            num_tiles=num_tiles, overlap=overlap, auto_tile_memory_mb=auto_tile_memory_mb
+        )
+
+    # Regular segmentation
+    return _stardist_core(image, seg_channels, scaling, threshold, _min, _max)
+
+
+def _stardist_core(image, seg_channels, scaling, threshold, _min, _max):
+    """Core stardist segmentation logic."""
     temp2 = np.zeros((image.shape[1], image.shape[2]))
     for i in seg_channels:
         try:

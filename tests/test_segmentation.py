@@ -152,6 +152,59 @@ def test_cellpose_centers_and_diameter_sensitivity():
     assert d40_count >= 3, "Too few cells detected with diameter=40"
 
 
+def test_cellpose_tiled_delegates_to_dask(monkeypatch):
+    sentinel = np.ones((32, 32), dtype=np.uint32)
+
+    def fake_dask(img, seg_channels, diameter, scaling, tile_size=None, overlap=None):
+        assert tile_size == (64, 64)
+        assert overlap == 16
+        return sentinel
+
+    monkeypatch.setattr(
+        "spex.core.segmentation.dask_watershed.cellpose_cellseg_dask",
+        fake_dask,
+    )
+
+    array = np.zeros((1, 32, 32), dtype=np.float32)
+    result = cellpose_cellseg(
+        array,
+        [0],
+        diameter=20,
+        scaling=1,
+        tile_size=(64, 64),
+        overlap=16,
+    )
+
+    assert result is sentinel
+
+
+def test_cellpose_num_tiles_warns_and_uses_tiling(monkeypatch):
+    sentinel = np.full((16, 16), 7, dtype=np.uint32)
+    calls = {}
+
+    def fake_dask(img, seg_channels, diameter, scaling, tile_size=None, overlap=None):
+        calls["called"] = True
+        return sentinel
+
+    monkeypatch.setattr(
+        "spex.core.segmentation.dask_watershed.cellpose_cellseg_dask",
+        fake_dask,
+    )
+
+    array = np.zeros((1, 16, 16), dtype=np.float32)
+    with pytest.deprecated_call():
+        result = cellpose_cellseg(
+            array,
+            [0],
+            diameter=15,
+            scaling=1,
+            num_tiles=4,
+        )
+
+    assert calls.get("called") is True
+    assert result is sentinel
+
+
 def test_rescue_cells_adds_missing_objects():
     from skimage.draw import disk
     from skimage.measure import label, regionprops

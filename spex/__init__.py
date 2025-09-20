@@ -72,11 +72,22 @@ from .core.spatial_transcriptomics.analyze_pathways import (
 )
 from .core.spatial_transcriptomics.load_anndata import load_anndata
 from .core.utils import download_cellpose_models, delete_cellpose_models, to_uint8
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 
-__version__ = version("spex")
+try:
+    __version__ = version("spex")
+except PackageNotFoundError:  # pragma: no cover
+    __version__ = "0.0.0"
 
-from .core.segmentation.cellpose_cellseg import cellpose_cellseg
+from .core.segmentation.cellpose_cellseg import (
+    cellpose_cellseg,
+    cellpose_cellseg_tiled,
+)
+from .core.segmentation.dask_watershed import (
+    watershed_classic_dask,
+    cellpose_cellseg_dask,
+    stardist_cellseg_dask,
+)
 
 __all__ = [
     "load_image",
@@ -86,6 +97,11 @@ __all__ = [
     "watershed_classic",
     "background_subtract",
     "cellpose_cellseg",
+    "cellpose_cellseg_tiled",
+    # Dask-based functions for large images
+    "watershed_classic_dask",
+    "cellpose_cellseg_dask",
+    "stardist_cellseg_dask",
     "rescue_cells",
     "simulate_cell",
     "remove_large_objects",

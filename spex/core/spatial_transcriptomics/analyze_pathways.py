@@ -1,8 +1,17 @@
-import decoupler as dc
+try:
+    import decoupler as dc
+except Exception:  # pragma: no cover - optional dependency guard
+    dc = None
+
 import numpy as np
 import pandas as pd
-import pegasus as pg
-from pegasusio import UnimodalData
+
+try:
+    import pegasus as pg
+    from pegasusio import UnimodalData
+except Exception:  # pragma: no cover - optional dependency guard
+    pg = None
+    UnimodalData = None
 import os
 import re
 import importlib.resources as pkg_resources
@@ -77,6 +86,9 @@ def convert_progeny_to_pegasus_marker_dict(path: str) -> dict:
 
 
 def annotate_clusters_pg(adata, marker_db=None, cluster_key="leiden"):
+    if pg is None or UnimodalData is None:  # pragma: no cover
+        raise ImportError("pegasus and pegasusio are required for annotate_clusters_pg.")
+
     if cluster_key not in adata.obs.columns:
         raise KeyError(f"Cluster key '{cluster_key}' not found in adata.obs.")
 
@@ -121,6 +133,9 @@ def annotate_clusters_pg(adata, marker_db=None, cluster_key="leiden"):
 
 
 def annotate_clusters_dc(adata, marker_db=None, method="mlm", tmin=3):
+    if dc is None:  # pragma: no cover
+        raise ImportError("decoupler is required for annotate_clusters_dc.")
+
     """
     Compute pathway activities using decoupler and store them in `adata.obsm`.
     Accepts: None (bundled PROGENy), pandas.DataFrame, or Pegasus-style dict.

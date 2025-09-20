@@ -143,18 +143,25 @@ Image_nlm = sp.nlm_denoise(Image, [0], h=20, template_window_size=5)
 Perform cell segmentation using Cellpose.
 
 ```python
-spex.cellpose_cellseg(Image, seg_channels=[0], diameter=None, model_type='cyto', 
-                     flow_threshold=0.4, cellprob_threshold=0, min_size=15)
+spex.cellpose_cellseg(
+    Image,
+    seg_channels=[0],
+    diameter=30,
+    scaling=1,
+    auto_tile_memory_mb=500,
+    tile_size=None,
+)
 ```
 
 **Parameters:**
-- `Image` (numpy.ndarray): Input image array
-- `seg_channels` (list): List of channel indices to use for segmentation
-- `diameter` (float, optional): Expected cell diameter in pixels
-- `model_type` (str): Cellpose model type ('cyto', 'nuclei', 'cyto2')
-- `flow_threshold` (float): Flow field threshold
-- `cellprob_threshold` (float): Cell probability threshold
-- `min_size` (int): Minimum cell size in pixels
+- `Image` (numpy.ndarray): Input image array in (C, H, W) order.
+- `seg_channels` (Sequence[int]): Channel indices to use for segmentation.
+- `diameter` (int): Expected object diameter passed to Cellpose.
+- `scaling` (int): Integer scaling factor applied before inference.
+- `num_tiles` (int, optional): Deprecated tile-count hint.
+- `overlap` (int, optional): Overlap in pixels when tiling is enabled.
+- `auto_tile_memory_mb` (float, optional): Enable tiling automatically once the estimated memory footprint exceeds this threshold (default 500 MB).
+- `tile_size` (tuple, optional): Explicit tile size (height, width) for tiled execution.
 
 **Returns:**
 - `numpy.ndarray`: Segmentation labels
@@ -164,12 +171,98 @@ spex.cellpose_cellseg(Image, seg_channels=[0], diameter=None, model_type='cyto',
 # Basic cell segmentation
 labels = sp.cellpose_cellseg(Image, seg_channels=[0])
 
-# Nuclei segmentation
-labels = sp.cellpose_cellseg(Image, seg_channels=[0], model_type='nuclei', diameter=20)
+# Force auto-tiling when memory is limited
+labels = sp.cellpose_cellseg(
+    Image,
+    seg_channels=[0],
+    diameter=30,
+    scaling=1,
+    auto_tile_memory_mb=200,
+)
 
-# Adjust parameters for better results
-labels = sp.cellpose_cellseg(Image, seg_channels=[0], flow_threshold=0.3, min_size=20)
+# Explicit tile size
+labels = sp.cellpose_cellseg(
+    Image,
+    seg_channels=[0],
+    diameter=30,
+    scaling=1,
+    tile_size=(512, 512),
+    overlap=64,
+)
 ```
+
+### `cellpose_cellseg_tiled()`
+
+Perform cell segmentation using Cellpose with tiled processing for memory efficiency.
+
+This function divides large images into overlapping tiles, processes each tile with Cellpose, and reassembles the results. This approach allows processing of very large images that would otherwise cause memory issues.
+
+```python
+spex.cellpose_cellseg_tiled(
+    img,
+    seg_channels,
+    diameter,
+    scaling,
+    tile_size=(512, 512),
+    overlap=64,
+)
+```
+
+**Parameters:**
+- `img` (numpy.ndarray): Multichannel image as numpy array of shape (C, H, W)
+- `seg_channels` (Sequence[int]): Channel indices to use for segmentation
+- `diameter` (int): Typical size of nucleus in pixels
+- `scaling` (int): Integer scaling factor for processing
+- `tile_size` (tuple, optional): Size of each tile (height, width). If ``None`` the tile size is auto-calculated.
+- `overlap` (int, optional): Overlap between tiles in pixels. If ``None`` a 12.5% overlap is used.
+
+**Returns:**
+- `numpy.ndarray`: Per-cell segmentation as numpy array of shape (H, W)
+
+**Example:**
+```python
+import spex as sp
+import numpy as np
+
+# Create large image
+img = np.random.rand(1, 2048, 2048).astype(np.float32)
+
+# Segment with tiled processing
+labels = sp.cellpose_cellseg_tiled(
+    img, 
+    seg_channels=[0], 
+    diameter=30, 
+    scaling=1,
+    tile_size=(512, 512),
+    overlap=64
+)
+
+print(f"Segmentation shape: {labels.shape}")
+print(f"Number of cells: {labels.max()}")
+
+# For very large images, use smaller tiles
+labels = sp.cellpose_cellseg_tiled(
+    img, 
+    seg_channels=[0], 
+    diameter=30, 
+    scaling=1,
+    tile_size=(256, 256),
+    overlap=32
+)
+
+# Preprocess noisy images (e.g., denoising) before running tiled segmentation
+```
+
+**Memory Efficiency:**
+- Processes images in tiles to reduce memory usage
+- Automatically falls back to regular segmentation for small images
+- Handles edge cases and tile boundaries correctly
+
+**Performance Tips:**
+- Use larger tiles (512x512) for better segmentation quality
+- Use smaller tiles (256x256) for very large images or limited memory
+- Increase overlap for better boundary handling
+- Preprocess noisy images (denoising/background subtraction) before running tiled segmentation
 
 ---
 

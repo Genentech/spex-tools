@@ -1,5 +1,9 @@
-import pegasus as pg
-from pegasusio import UnimodalData
+try:
+    import pegasus as pg
+    from pegasusio import UnimodalData
+except Exception:  # pragma: no cover - optional dependency guard
+    pg = None
+    UnimodalData = None
 import scanpy as sc
 import numpy as np
 import pandas as pd
@@ -176,9 +180,9 @@ def differential_expression(adata, cluster_key='leiden', method='wilcoxon', mdl=
     """
     if method == 'pegasus':
         # Use Pegasus for differential expression
-        import pegasus as pg
-        from pegasusio import UnimodalData
-        
+        if pg is None or UnimodalData is None:  # pragma: no cover
+            raise ImportError("pegasus and pegasusio are required for method='pegasus'.")
+
         pdat = UnimodalData(adata)
         pg.de_analysis(pdat, cluster=cluster_key, n_jobs=1)
         adata.varm['de_res'] = pdat.varm['de_res']

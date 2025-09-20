@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spex-tools"
-version = "0.3.1058"
+version = "0.3.1059"
 description = "Comprehensive spatial transcriptomics analysis library with advanced segmentation, clustering, and spatial analysis tools"
 readme = "README.md"
 authors = [{name = "Aleksandr Prilipko"}]
