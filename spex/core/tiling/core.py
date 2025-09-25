@@ -272,6 +272,31 @@ def _estimate_memory_usage(img, dtype_bytes=4):
     return (img.nbytes * 3) / (1024 * 1024)  # 3x for input + output + intermediate
 
 
+def _tile_size_from_num_tiles(shape, num_tiles, overlap):
+    """
+    Calculate tile size from number of tiles.
+    
+    Args:
+        shape: Image shape (height, width)
+        num_tiles: Number of tiles
+        overlap: Overlap between tiles
+        
+    Returns:
+        Tuple of (tile_height, tile_width)
+    """
+    height, width = shape
+    
+    # Calculate tile size based on number of tiles
+    # Use square tiles for simplicity
+    tile_size = int(np.sqrt((height * width) / num_tiles))
+    tile_size = (tile_size, tile_size)
+    
+    # Ensure tile size is not larger than image
+    tile_size = (min(tile_size[0], height), min(tile_size[1], width))
+    
+    return tile_size
+
+
 def _calculate_auto_tiles(img, memory_threshold_mb=500, overlap=64):
     """
     Calculate optimal number of tiles based on memory threshold.

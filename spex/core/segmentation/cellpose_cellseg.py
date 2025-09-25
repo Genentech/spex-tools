@@ -22,9 +22,11 @@ def cellpose_cellseg(
     scaling: int,
     num_tiles: Optional[int] = None,
     overlap: Optional[int] = None,
-    auto_tile_memory_mb: Optional[float] = 500,
+    auto_tile_memory_mb: Optional[float] = 100,
     tile_size: Optional[Tuple[int, int]] = None,
     auto_tiling: bool = True,
+    force_tiling: bool = False,
+    parallel: Optional[bool] = None,
 ) -> np.ndarray:
     """Segment an image using Cellpose with automatic tiling for large images.
 
@@ -41,6 +43,10 @@ def cellpose_cellseg(
         auto_tile_memory_mb: Trigger tiling when estimated memory exceeds this threshold.
         tile_size: Explicit tile size ``(height, width)`` for tiled processing.
         auto_tiling: Enable automatic tiling for large images (default: True).
+        force_tiling: Force tiling even for small images (default: False).
+        parallel: Optional flag to control Dask parallelism. ``None`` enables automatic
+            selection based on tile count, ``True`` forces parallel batches, ``False`` keeps
+            sequential execution.
 
     Returns:
         Segmentation mask as ``uint32`` array of shape ``(H, W)``.
@@ -65,20 +71,46 @@ def cellpose_cellseg(
             stacklevel=2
         )
 
+    # Force tiling if requested
+    if force_tiling:
+        from ..tiling.dask_segmentation import dask_apply_tiling_to_segmentation
+        return dask_apply_tiling_to_segmentation(
+            _cellpose_core,
+            img,
+            seg_channels,
+            diameter,
+            scaling,
+            tile_size=tile_size,
+            overlap=overlap,
+            parallel=parallel,
+        )
+
     # Automatic tiling decision (new feature)
     if auto_tiling and should_use_tiling_for_image(img, auto_tile_memory_mb):
-        from .dask_watershed import cellpose_cellseg_dask
-        return cellpose_cellseg_dask(
-            img, seg_channels, diameter, scaling,
-            tile_size=tile_size, overlap=overlap
+        from ..tiling.dask_segmentation import dask_apply_tiling_to_segmentation
+        return dask_apply_tiling_to_segmentation(
+            _cellpose_core,
+            img,
+            seg_channels,
+            diameter,
+            scaling,
+            tile_size=tile_size,
+            overlap=overlap,
+            parallel=parallel,
         )
 
     # Explicit tiling requested
     if tile_size is not None:
-        from .dask_watershed import cellpose_cellseg_dask
-        return cellpose_cellseg_dask(
-            img, seg_channels, diameter, scaling,
-            tile_size=tile_size, overlap=overlap
+        from ..tiling.dask_segmentation import dask_apply_tiling_to_segmentation
+        return dask_apply_tiling_to_segmentation(
+            _cellpose_core,
+            img,
+            seg_channels,
+            diameter,
+            scaling,
+            tile_size=tile_size,
+            overlap=overlap,
+            parallel=parallel,
         )
 
     # Legacy logic for backward compatibility
@@ -100,15 +132,17 @@ def cellpose_cellseg(
             should_tile = True
 
     if should_tile:
-        from .dask_watershed import cellpose_cellseg_dask
+        from ..tiling.dask_segmentation import dask_apply_tiling_to_segmentation
         resolved_overlap = _resolve_overlap(tile_size_override, overlap_override)
-        return cellpose_cellseg_dask(
+        return dask_apply_tiling_to_segmentation(
+            _cellpose_core,
             img,
             list(seg_channels),
             diameter,
             scaling,
             tile_size=tile_size_override,
             overlap=resolved_overlap,
+            parallel=parallel,
         )
 
     return _cellpose_core(img, seg_channels, diameter, scaling)
@@ -168,6 +202,7 @@ def cellpose_cellseg_tiled(
     scaling: int,
     tile_size: Optional[Tuple[int, int]] = None,
     overlap: Optional[int] = None,
+    parallel: Optional[bool] = None,
 ) -> np.ndarray:
     """Convenience wrapper that always performs tiled Cellpose segmentation."""
 
@@ -179,6 +214,7 @@ def cellpose_cellseg_tiled(
         scaling,
         tile_size=tile_size,
         overlap=resolved_overlap,
+        parallel=parallel,
     )
 
 

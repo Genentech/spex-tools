@@ -13,6 +13,9 @@ from typing import Tuple, Optional, Callable, Any, Dict
 from .core import compute_tiles, crop_core_safe, get_core_coordinates_safe, place_core
 
 
+AUTO_PARALLEL_TILE_THRESHOLD = 16
+
+
 def dask_apply_tiling_to_segmentation(
     seg_func: Callable,
     img: np.ndarray,
@@ -20,7 +23,7 @@ def dask_apply_tiling_to_segmentation(
     tile_size: Optional[Tuple[int, int]] = None,
     overlap: int = None,
     chunk_size: Optional[Tuple[int, int]] = None,
-    parallel: bool = True,
+    parallel: Optional[bool] = None,
     **kwargs
 ) -> np.ndarray:
     """
@@ -88,8 +91,16 @@ def dask_apply_tiling_to_segmentation(
     print(f"📊 Processing {len(tiles)} tiles...")
 
     # Check if we should use parallel processing
+    auto_parallel = False
+    if parallel is None:
+        parallel = len(tiles) >= AUTO_PARALLEL_TILE_THRESHOLD
+        auto_parallel = parallel
+
     if parallel and len(tiles) > 1:
-        print(f"🚀 Using parallel processing with dask.delayed")
+        if auto_parallel:
+            print(f"🚀 Auto-enabled parallel processing for {len(tiles)} tiles")
+        else:
+            print(f"🚀 Using parallel processing with dask.delayed")
         return _process_tiles_parallel(seg_func, img, tiles, args, kwargs,
                                        tile_size, overlap, image_shape)
     else:

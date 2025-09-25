@@ -190,20 +190,47 @@ def feature_extraction(img, labels, all_channels):
     return perCellData
 
 
-def feature_extraction_adata(img, labels, all_channels):
+def feature_extraction_adata(img, labels, all_channels, max_objects=None):
     """Extract per cell expression for all channels
+
+    Parameters
+    ----------
+    img : numpy.ndarray
+        Multichannel image as numpy array
+    labels : numpy.ndarray
+        Label array with cell segmentation
+    all_channels : list
+        List of channel names
+    max_objects : int, optional
+        Maximum number of objects to process. If None, processes all objects.
+        If specified, selects the largest objects by area.
 
     Returns
     -------
     perCellanndata: anndata single-cell object with all data
-    :param labels:
-    :param img: Multichannel image as numpy array
-    :param all_channels:
-
     """
 
     label_array = labels
     import re
+    from skimage.measure import regionprops
+
+    # Apply object filtering if max_objects is specified
+    if max_objects is not None:
+        num_objects = int(label_array.max())
+        if num_objects > max_objects:
+            print(f"Filtering from {num_objects} to {max_objects} largest objects")
+            props = regionprops(label_array)
+            areas = [(prop.label, prop.area) for prop in props]
+            areas.sort(key=lambda x: x[1], reverse=True)
+            
+            # Keep only the largest objects
+            top_labels = [label for label, area in areas[:max_objects]]
+            filtered_labels = np.zeros_like(label_array)
+            for i, label in enumerate(top_labels, 1):
+                filtered_labels[label_array == label] = i
+            
+            label_array = filtered_labels
+            print(f"Filtered to {int(label_array.max())} objects")
 
     props = regionprops_table(
         label_array,

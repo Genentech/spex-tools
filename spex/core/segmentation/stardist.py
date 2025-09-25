@@ -4,9 +4,9 @@ import cv2
 from csbdeep.utils import normalize
 import re
 
-def stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max, num_tiles=None, overlap=64, auto_tile_memory_mb=500):
+def stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max, num_tiles=None, overlap=64, auto_tile_memory_mb=100):
     """
-    Segment image by stardist deeplearning method with optional tiling
+    Segment image by stardist deeplearning method with automatic Dask tiling
 
     Parameters
     ----------
@@ -16,23 +16,37 @@ def stardist_cellseg(image, seg_channels, scaling, threshold, _min, _max, num_ti
     threshold: probability cutoff
     _min: bottom percentile normalization
     _max: top percentile normalization
-    num_tiles: Optional number of tiles for tiled processing (default: 4)
+    num_tiles: Optional number of tiles for tiled processing
     overlap: Overlap between tiles in pixels
+    auto_tile_memory_mb: Memory threshold for automatic tiling (default: 100MB)
 
     Returns
     -------
     labels : per cell segmentation as numpy array
     """
-    from ..tiling.core import _apply_tiling_to_segmentation
+    from ..tiling.core import _estimate_memory_usage
+    from ..tiling.dask_segmentation import dask_apply_tiling_to_segmentation
 
-    # If tiling is requested, use tiled segmentation
+    # Legacy num_tiles support
     if num_tiles is not None:
-        return _apply_tiling_to_segmentation(
+        from ..tiling.core import _tile_size_from_num_tiles
+        tile_size = _tile_size_from_num_tiles(image.shape[1:], num_tiles, overlap)
+        return dask_apply_tiling_to_segmentation(
             _stardist_core, image, seg_channels, scaling, threshold, _min, _max,
-            num_tiles=num_tiles, overlap=overlap, auto_tile_memory_mb=auto_tile_memory_mb
+            tile_size=tile_size, overlap=overlap
         )
 
-    # Regular segmentation
+    # Automatic tiling detection - works under the hood
+    estimated = _estimate_memory_usage(image)
+    if estimated > auto_tile_memory_mb:
+        # Use default tile size for automatic tiling
+        tile_size = (2000, 2000)
+        return dask_apply_tiling_to_segmentation(
+            _stardist_core, image, seg_channels, scaling, threshold, _min, _max,
+            tile_size=tile_size, overlap=overlap
+        )
+
+    # Regular segmentation for small images
     return _stardist_core(image, seg_channels, scaling, threshold, _min, _max)
 
 

@@ -7,30 +7,44 @@ from skimage.measure import label
 import numpy as np
 
 
-def watershed_classic(img, seg_channels, num_tiles=None, overlap=64, auto_tile_memory_mb=500):
-    """Detect nuclei in image using classic watershed with optional tiling
+def watershed_classic(img, seg_channels, num_tiles=None, overlap=64, auto_tile_memory_mb=100):
+    """Detect nuclei in image using classic watershed with automatic Dask tiling
 
     Parameters
     ----------
     img : Multichannel image as numpy array
     seg_channels: list of indices to use for nuclear segmentation
-    num_tiles: Optional number of tiles for tiled processing (default: 4)
+    num_tiles: Optional number of tiles for tiled processing
     overlap: Overlap between tiles in pixels
+    auto_tile_memory_mb: Memory threshold for automatic tiling (default: 100MB)
 
     Returns
     -------
     dilated_labels : per cell segmentation as numpy array
     """
-    from ..tiling.core import _apply_tiling_to_segmentation
+    from ..tiling.core import _estimate_memory_usage
+    from ..tiling.dask_segmentation import dask_apply_tiling_to_segmentation
 
-    # If tiling is requested, use tiled segmentation
+    # Legacy num_tiles support
     if num_tiles is not None:
-        return _apply_tiling_to_segmentation(
+        from ..tiling.core import _tile_size_from_num_tiles
+        tile_size = _tile_size_from_num_tiles(img.shape[1:], num_tiles, overlap)
+        return dask_apply_tiling_to_segmentation(
             _watershed_core, img, seg_channels,
-            num_tiles=num_tiles, overlap=overlap, auto_tile_memory_mb=auto_tile_memory_mb
+            tile_size=tile_size, overlap=overlap
         )
 
-    # Regular segmentation
+    # Automatic tiling detection - works under the hood
+    estimated = _estimate_memory_usage(img)
+    if estimated > auto_tile_memory_mb:
+        # Use default tile size for automatic tiling
+        tile_size = (2000, 2000)
+        return dask_apply_tiling_to_segmentation(
+            _watershed_core, img, seg_channels,
+            tile_size=tile_size, overlap=overlap
+        )
+
+    # Regular segmentation for small images
     return _watershed_core(img, seg_channels)
 
 

@@ -111,9 +111,13 @@ performance_summary.md
 CLAUDE.md
 DEVELOPMENT_PRINCIPLES.md
 NEXT_STEPS_ROADMAP.md
-Patient_test_1.ome.tiff
+*Patient_test_1*
 PROGRESS_TILED_SEGMENTATION.md
 REFACTORING_COMPLETE.md
 *.nbc
 *.nbi
 TESTS_CLEAN_COMPLETE.md
+.claude
+.cellpose
+.keras
+segmentation_results/
