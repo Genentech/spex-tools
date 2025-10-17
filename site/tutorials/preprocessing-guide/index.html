@@ -1980,7 +1980,7 @@
 
 
 <h1 id="data-preprocessing-guide">Data Preprocessing Guide<a class="headerlink" href="#data-preprocessing-guide" title="Permanent link">&para;</a></h1>
-<p>This tutorial provides a comprehensive guide to preprocessing spatial transcriptomics data using SPEX. Preprocessing is a crucial step that prepares your data for downstream analysis including clustering, spatial analysis, and differential expression.</p>
+<p>This tutorial provides a comprehensive guide to preprocessing spatial omics data (proteomics and transcriptomics) using SPEX. Preprocessing is a crucial step that prepares your data for downstream analysis including clustering, spatial analysis, and differential expression.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The preprocessing pipeline in SPEX consists of several key steps:</p>
 <ol>
@@ -2261,7 +2261,7 @@ if adata.n_obs &gt; 50000:
 adata.X = adata.X.astype('float32')  # Reduce memory usage
 adata = sp.preprocess(adata, do_QC=True)</code></pre>
 <h3 id="spatial-data-preprocessing">Spatial Data Preprocessing<a class="headerlink" href="#spatial-data-preprocessing" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-python"># For spatial transcriptomics data
+<pre class="highlight"><code class="language-python"># For spatial omics data (proteomics or transcriptomics)
 if 'spatial' in adata.obsm:
     print("Spatial data detected!")
 

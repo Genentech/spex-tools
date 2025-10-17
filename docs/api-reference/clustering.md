@@ -15,7 +15,7 @@ This document provides comprehensive API documentation for all clustering functi
 
 ## Overview
 
-The SPEX clustering module provides comprehensive tools for analyzing spatial transcriptomics data, including:
+The SPEX clustering module provides comprehensive tools for analyzing spatial omics data (proteomics and transcriptomics), including:
 
 - **Traditional Clustering**: Leiden, Louvain algorithms
 - **Spatial-Aware Clustering**: Phenograph with spatial weights

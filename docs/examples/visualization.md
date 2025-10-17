@@ -1,10 +1,10 @@
 # Visualization Examples
 
-This section provides comprehensive examples of visualization techniques for spatial transcriptomics data using SPEX.
+This section provides comprehensive examples of visualization techniques for spatial omics data (proteomics and transcriptomics) using SPEX.
 
 ## Overview
 
-Visualization is crucial for understanding spatial transcriptomics data. SPEX provides various plotting functions for:
+Visualization is crucial for understanding spatial omics data. SPEX provides various plotting functions for:
 
 - **Segmentation Results**: Cell boundaries and labels
 - **Gene Expression**: Spatial gene expression patterns

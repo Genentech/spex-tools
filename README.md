@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://genentech.github.io/spex-tools/)
 
-SPEX is a comprehensive spatial transcriptomics analysis library that implements state-of-the-art methods for tissue segmentation, clustering, and spatial analysis. The library enables researchers to apply advanced image processing and spatial analysis techniques to their own microscopy data.
+SPEX is a comprehensive spatial omics analysis library supporting both spatial proteomics and spatial transcriptomics. It implements state-of-the-art methods for tissue segmentation, clustering, and spatial analysis. The library enables researchers to apply advanced image processing and spatial analysis techniques to their own microscopy data.
 
 ## 🚀 Key Features
 
@@ -14,6 +14,14 @@ SPEX is a comprehensive spatial transcriptomics analysis library that implements
 - **Watershed** - Classical watershed segmentation
 - **Preprocessing** - Background subtraction, noise removal, filtering
 - **Post-processing** - Cell rescue, object filtering, feature extraction
+
+### 🔬 Spatial Proteomics Analysis
+- **Image Preprocessing** - Background subtraction and noise removal methods
+- **Segmentation** - Cellpose, StarDist, and Watershed for protein marker images
+- **Post-processing** - Cell rescue, filtering, and feature extraction
+- **Clustering** - PhenoGraph and other clustering algorithms for protein profiles
+- **CLQ Analysis** - Co-localization quotient for spatial protein relationships
+- **Niche Analysis** - Protein-based cell niche identification and interactions
 
 ### 🧬 Spatial Transcriptomics Analysis
 - **Clustering** - PhenoGraph, Leiden, Louvain algorithms
@@ -225,4 +233,4 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ---
 
-**SPEX** - Empowering spatial transcriptomics research with advanced analysis tools.
+**SPEX** - Empowering spatial omics research with advanced analysis tools for proteomics and transcriptomics.

@@ -2,7 +2,7 @@
 
 ## Common Issues and Solutions
 
-This guide provides solutions to the most common problems encountered when using SPEX for spatial transcriptomics analysis.
+This guide provides solutions to the most common problems encountered when using SPEX for spatial omics analysis (proteomics and transcriptomics).
 
 ## Installation Issues
 

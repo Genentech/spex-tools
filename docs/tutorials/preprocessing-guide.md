@@ -1,6 +1,6 @@
 # Data Preprocessing Guide
 
-This tutorial provides a comprehensive guide to preprocessing spatial transcriptomics data using SPEX. Preprocessing is a crucial step that prepares your data for downstream analysis including clustering, spatial analysis, and differential expression.
+This tutorial provides a comprehensive guide to preprocessing spatial omics data (proteomics and transcriptomics) using SPEX. Preprocessing is a crucial step that prepares your data for downstream analysis including clustering, spatial analysis, and differential expression.
 
 ## Overview
 
@@ -364,7 +364,7 @@ adata = sp.preprocess(adata, do_QC=True)
 ### Spatial Data Preprocessing
 
 ```python
-# For spatial transcriptomics data
+# For spatial omics data (proteomics or transcriptomics)
 if 'spatial' in adata.obsm:
     print("Spatial data detected!")
     

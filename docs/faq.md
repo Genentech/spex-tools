@@ -6,7 +6,7 @@ This FAQ addresses common questions about SPEX library usage, troubleshooting, a
 
 ### What is SPEX?
 
-SPEX is a comprehensive Python library for spatial transcriptomics analysis. It provides tools for:
+SPEX is a comprehensive Python library for spatial omics analysis (proteomics and transcriptomics). It provides tools for:
 - **Image segmentation** and cell detection
 - **Feature extraction** from spatial data
 - **Clustering analysis** with spatial awareness
@@ -36,7 +36,7 @@ pip install -e .
 
 ## Data Loading and Preprocessing
 
-### How do I load my spatial transcriptomics data?
+### How do I load my spatial omics data?
 
 ```python
 import spex

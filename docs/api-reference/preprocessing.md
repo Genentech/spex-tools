@@ -1,6 +1,6 @@
 # Preprocessing API Reference
 
-This module provides comprehensive data preprocessing functions for spatial transcriptomics data analysis in SPEX.
+This module provides comprehensive data preprocessing functions for spatial omics data analysis (proteomics and transcriptomics) in SPEX.
 
 ## Functions
 

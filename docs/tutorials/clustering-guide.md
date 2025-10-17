@@ -2,7 +2,7 @@
 
 ## Overview
 
-This tutorial covers clustering analysis for cell type identification in spatial transcriptomics data. You'll learn how to perform clustering, identify cell types, and analyze spatial relationships between different cell populations.
+This tutorial covers clustering analysis for cell type identification in spatial omics data (proteomics and transcriptomics). You'll learn how to perform clustering, identify cell types, and analyze spatial relationships between different cell populations.
 
 ## Prerequisites
 
@@ -635,7 +635,7 @@ This clustering tutorial covered:
 6. **Cluster validation** using silhouette scores
 7. **Cell type annotation** based on markers
 
-The tutorial provides a comprehensive framework for identifying and characterizing cell types in spatial transcriptomics data.
+The tutorial provides a comprehensive framework for identifying and characterizing cell types in spatial omics data (proteomics and transcriptomics).
 
 ## Next Steps
 

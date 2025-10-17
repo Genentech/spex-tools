@@ -4,7 +4,7 @@
 
 ## 🎯 Overview
 
-SPEX now includes automatic tiling for processing large spatial transcriptomics files (>500MB) without memory issues or hanging. This guide shows how to use the new capabilities.
+SPEX now includes automatic tiling for processing large spatial omics files (>500MB, proteomics or transcriptomics) without memory issues or hanging. This guide shows how to use the new capabilities.
 
 ## 🚀 Quick Start
 

@@ -1,6 +1,6 @@
 # SPEX - Spatial Omics Analysis Library
 
-SPEX is a comprehensive spatial transcriptomics analysis library that implements state-of-the-art methods for tissue segmentation, clustering, and spatial analysis. The library enables researchers to apply advanced image processing and spatial analysis techniques to their own microscopy data, providing a complete pipeline from image loading to biological insights.
+SPEX is a comprehensive spatial omics analysis library supporting both spatial proteomics and spatial transcriptomics. It implements state-of-the-art methods for tissue segmentation, clustering, and spatial analysis. The library enables researchers to apply advanced image processing and spatial analysis techniques to their own microscopy data, providing a complete pipeline from image loading to biological insights.
 
 
 
@@ -12,6 +12,14 @@ SPEX is a comprehensive spatial transcriptomics analysis library that implements
 - **Watershed** - Classical watershed segmentation
 - **Filtering** - Median filtering and non-local means
 - **Preprocessing** - Background subtraction and noise removal
+
+### Spatial Proteomics Analysis
+- **Image Preprocessing** - Background subtraction and noise removal methods
+- **Segmentation** - Cellpose, StarDist, and Watershed for protein marker images
+- **Post-processing** - Cell rescue, filtering, and feature extraction
+- **Clustering** - PhenoGraph and other clustering algorithms for protein profiles
+- **CLQ Analysis** - Co-localization quotient for spatial protein relationships
+- **Niche Analysis** - Protein-based cell niche identification and interactions
 
 ### Spatial Transcriptomics Analysis
 - **Clustering** - PhenoGraph and other clustering algorithms

@@ -1,6 +1,6 @@
 # Spatial Analysis Tutorial
 
-This tutorial covers spatial analysis techniques for spatial transcriptomics data using SPEX.
+This tutorial covers spatial analysis techniques for spatial omics data (proteomics and transcriptomics) using SPEX.
 
 ## Overview
 

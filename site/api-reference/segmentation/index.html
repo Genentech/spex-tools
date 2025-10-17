@@ -853,6 +853,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellpose_cellseg_tiled" class="md-nav__link">
+    <span class="md-ellipsis">
+      cellpose_cellseg_tiled()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#stardist_cellseg" class="md-nav__link">
     <span class="md-ellipsis">
       stardist_cellseg()
@@ -1626,6 +1635,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellpose_cellseg_tiled" class="md-nav__link">
+    <span class="md-ellipsis">
+      cellpose_cellseg_tiled()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#stardist_cellseg" class="md-nav__link">
     <span class="md-ellipsis">
       stardist_cellseg()
@@ -1915,27 +1933,107 @@ Image_nlm = sp.nlm_denoise(Image, [0], h=20, template_window_size=5)</code></pre
 <h2 id="cell-segmentation">Cell Segmentation<a class="headerlink" href="#cell-segmentation" title="Permanent link">&para;</a></h2>
 <h3 id="cellpose_cellseg"><code>cellpose_cellseg()</code><a class="headerlink" href="#cellpose_cellseg" title="Permanent link">&para;</a></h3>
 <p>Perform cell segmentation using Cellpose.</p>
-<pre class="highlight"><code class="language-python">spex.cellpose_cellseg(Image, seg_channels=[0], diameter=None, model_type='cyto', 
-                     flow_threshold=0.4, cellprob_threshold=0, min_size=15)</code></pre>
+<pre class="highlight"><code class="language-python">spex.cellpose_cellseg(
+    Image,
+    seg_channels=[0],
+    diameter=30,
+    scaling=1,
+    auto_tile_memory_mb=500,
+    tile_size=None,
+)</code></pre>
 <p><strong>Parameters:</strong>
-- <code>Image</code> (numpy.ndarray): Input image array
-- <code>seg_channels</code> (list): List of channel indices to use for segmentation
-- <code>diameter</code> (float, optional): Expected cell diameter in pixels
-- <code>model_type</code> (str): Cellpose model type ('cyto', 'nuclei', 'cyto2')
-- <code>flow_threshold</code> (float): Flow field threshold
-- <code>cellprob_threshold</code> (float): Cell probability threshold
-- <code>min_size</code> (int): Minimum cell size in pixels</p>
+- <code>Image</code> (numpy.ndarray): Input image array in (C, H, W) order.
+- <code>seg_channels</code> (Sequence[int]): Channel indices to use for segmentation.
+- <code>diameter</code> (int): Expected object diameter passed to Cellpose.
+- <code>scaling</code> (int): Integer scaling factor applied before inference.
+- <code>num_tiles</code> (int, optional): Deprecated tile-count hint.
+- <code>overlap</code> (int, optional): Overlap in pixels when tiling is enabled.
+- <code>auto_tile_memory_mb</code> (float, optional): Enable tiling automatically once the estimated memory footprint exceeds this threshold (default 500 MB).
+- <code>tile_size</code> (tuple, optional): Explicit tile size (height, width) for tiled execution.</p>
 <p><strong>Returns:</strong>
 - <code>numpy.ndarray</code>: Segmentation labels</p>
 <p><strong>Example:</strong>
 <pre class="highlight"><code class="language-python"># Basic cell segmentation
 labels = sp.cellpose_cellseg(Image, seg_channels=[0])
 
-# Nuclei segmentation
-labels = sp.cellpose_cellseg(Image, seg_channels=[0], model_type='nuclei', diameter=20)
+# Force auto-tiling when memory is limited
+labels = sp.cellpose_cellseg(
+    Image,
+    seg_channels=[0],
+    diameter=30,
+    scaling=1,
+    auto_tile_memory_mb=200,
+)
 
-# Adjust parameters for better results
-labels = sp.cellpose_cellseg(Image, seg_channels=[0], flow_threshold=0.3, min_size=20)</code></pre></p>
+# Explicit tile size
+labels = sp.cellpose_cellseg(
+    Image,
+    seg_channels=[0],
+    diameter=30,
+    scaling=1,
+    tile_size=(512, 512),
+    overlap=64,
+)</code></pre></p>
+<h3 id="cellpose_cellseg_tiled"><code>cellpose_cellseg_tiled()</code><a class="headerlink" href="#cellpose_cellseg_tiled" title="Permanent link">&para;</a></h3>
+<p>Perform cell segmentation using Cellpose with tiled processing for memory efficiency.</p>
+<p>This function divides large images into overlapping tiles, processes each tile with Cellpose, and reassembles the results. This approach allows processing of very large images that would otherwise cause memory issues.</p>
+<pre class="highlight"><code class="language-python">spex.cellpose_cellseg_tiled(
+    img,
+    seg_channels,
+    diameter,
+    scaling,
+    tile_size=(512, 512),
+    overlap=64,
+)</code></pre>
+<p><strong>Parameters:</strong>
+- <code>img</code> (numpy.ndarray): Multichannel image as numpy array of shape (C, H, W)
+- <code>seg_channels</code> (Sequence[int]): Channel indices to use for segmentation
+- <code>diameter</code> (int): Typical size of nucleus in pixels
+- <code>scaling</code> (int): Integer scaling factor for processing
+- <code>tile_size</code> (tuple, optional): Size of each tile (height, width). If <code>None</code> the tile size is auto-calculated.
+- <code>overlap</code> (int, optional): Overlap between tiles in pixels. If <code>None</code> a 12.5% overlap is used.</p>
+<p><strong>Returns:</strong>
+- <code>numpy.ndarray</code>: Per-cell segmentation as numpy array of shape (H, W)</p>
+<p><strong>Example:</strong>
+<pre class="highlight"><code class="language-python">import spex as sp
+import numpy as np
+
+# Create large image
+img = np.random.rand(1, 2048, 2048).astype(np.float32)
+
+# Segment with tiled processing
+labels = sp.cellpose_cellseg_tiled(
+    img, 
+    seg_channels=[0], 
+    diameter=30, 
+    scaling=1,
+    tile_size=(512, 512),
+    overlap=64
+)
+
+print(f"Segmentation shape: {labels.shape}")
+print(f"Number of cells: {labels.max()}")
+
+# For very large images, use smaller tiles
+labels = sp.cellpose_cellseg_tiled(
+    img, 
+    seg_channels=[0], 
+    diameter=30, 
+    scaling=1,
+    tile_size=(256, 256),
+    overlap=32
+)
+
+# Preprocess noisy images (e.g., denoising) before running tiled segmentation</code></pre></p>
+<p><strong>Memory Efficiency:</strong>
+- Processes images in tiles to reduce memory usage
+- Automatically falls back to regular segmentation for small images
+- Handles edge cases and tile boundaries correctly</p>
+<p><strong>Performance Tips:</strong>
+- Use larger tiles (512x512) for better segmentation quality
+- Use smaller tiles (256x256) for very large images or limited memory
+- Increase overlap for better boundary handling
+- Preprocess noisy images (denoising/background subtraction) before running tiled segmentation</p>
 <hr />
 <h3 id="stardist_cellseg"><code>stardist_cellseg()</code><a class="headerlink" href="#stardist_cellseg" title="Permanent link">&para;</a></h3>
 <p>Perform cell segmentation using StarDist.</p>

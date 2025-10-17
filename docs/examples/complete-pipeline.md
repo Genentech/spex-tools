@@ -2,7 +2,7 @@
 
 ## Overview
 
-This example demonstrates a complete spatial transcriptomics analysis pipeline from image loading to spatial analysis using SPEX. We'll process a multi-channel fluorescence image, segment cells, extract features, perform clustering, and analyze spatial relationships.
+This example demonstrates a complete spatial omics analysis pipeline from image loading to spatial analysis using SPEX. The pipeline works for both spatial proteomics and transcriptomics data. We'll process a multi-channel fluorescence image, segment cells, extract features, perform clustering, and analyze spatial relationships.
 
 ## Prerequisites
 

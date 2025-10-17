@@ -4,14 +4,14 @@
 
 ### What is SPEX?
 
-SPEX is a comprehensive Python library for spatial transcriptomics analysis. It provides tools for image processing, cell segmentation, feature extraction, clustering, and spatial analysis of multi-channel fluorescence microscopy data.
+SPEX is a comprehensive Python library for spatial omics analysis (proteomics and transcriptomics). It provides tools for image processing, cell segmentation, feature extraction, clustering, and spatial analysis of multi-channel fluorescence microscopy data.
 
 ### What types of data does SPEX support?
 
 SPEX supports:
 - Multi-channel TIFF images
 - Fluorescence microscopy data
-- Spatial transcriptomics datasets
+- Spatial omics datasets (proteomics and transcriptomics)
 - Single-cell imaging data
 - Any multi-dimensional image data with spatial information
 

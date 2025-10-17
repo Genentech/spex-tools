@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide provides comprehensive examples for optimizing performance in spatial transcriptomics analysis using SPEX. Learn how to handle large datasets efficiently, parallelize computations, and optimize memory usage.
+This guide provides comprehensive examples for optimizing performance in spatial omics analysis (proteomics and transcriptomics) using SPEX. Learn how to handle large datasets efficiently, parallelize computations, and optimize memory usage.
 
 ## Prerequisites
 
@@ -720,7 +720,7 @@ create_performance_dashboard(performance_comparison)
 
 ## Summary
 
-This performance optimization guide provides comprehensive tools for handling large spatial transcriptomics datasets efficiently:
+This performance optimization guide provides comprehensive tools for handling large spatial omics datasets (proteomics and transcriptomics) efficiently:
 
 1. **Memory Management**: Monitoring and optimizing memory usage
 2. **Parallel Processing**: Utilizing multiple CPU cores for faster computation
@@ -729,4 +729,4 @@ This performance optimization guide provides comprehensive tools for handling la
 5. **Batch Processing**: Processing large datasets in manageable chunks
 6. **Data Type Optimization**: Reducing memory footprint through efficient data types
 
-Use these techniques to scale your spatial transcriptomics analysis to handle large datasets while maintaining reasonable performance and memory usage.
+Use these techniques to scale your spatial omics analysis to handle large datasets while maintaining reasonable performance and memory usage.

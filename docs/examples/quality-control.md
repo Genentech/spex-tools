@@ -2,7 +2,7 @@
 
 ## Overview
 
-Quality control is crucial for reliable spatial transcriptomics analysis. This guide provides comprehensive examples for assessing data quality at each step of the pipeline, from image preprocessing to final results validation.
+Quality control is crucial for reliable spatial omics analysis (proteomics and transcriptomics). This guide provides comprehensive examples for assessing data quality at each step of the pipeline, from image preprocessing to final results validation.
 
 ## Prerequisites
 
@@ -693,7 +693,7 @@ print("=" * 60)
 
 ## Summary
 
-This quality control guide provides comprehensive tools for assessing data quality at each step of the spatial transcriptomics pipeline:
+This quality control guide provides comprehensive tools for assessing data quality at each step of the spatial omics pipeline (proteomics and transcriptomics):
 
 1. **Image Quality**: SNR analysis and channel correlation
 2. **Segmentation Quality**: Cell size/intensity distribution and boundary validation
@@ -702,4 +702,4 @@ This quality control guide provides comprehensive tools for assessing data quali
 5. **Spatial Quality**: Distribution analysis and spatial characteristics
 6. **Comprehensive Reporting**: Overall quality assessment with actionable recommendations
 
-Use these tools to ensure reliable and reproducible results in your spatial transcriptomics analysis.
+Use these tools to ensure reliable and reproducible results in your spatial omics analysis.

@@ -14,7 +14,7 @@ This document provides comprehensive API documentation for all spatial analysis 
 
 ## Overview
 
-The SPEX spatial analysis module provides comprehensive tools for analyzing spatial relationships in transcriptomics data, including:
+The SPEX spatial analysis module provides comprehensive tools for analyzing spatial relationships in omics data (proteomics and transcriptomics), including:
 
 - **CLQ Analysis**: Co-Localization Quotient for cell type interactions
 - **Niche Analysis**: Spatial microenvironment characterization
